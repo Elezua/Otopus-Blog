@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giant Pacific Octopus - Preventative Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a5f;
+            --ocean-blue: #2e5c8a;
+            --teal: #4a9db0;
+            --light-teal: #7fb8c7;
+            --sand: #f4f1ea;
+            --coral: #e8a598;
+            --dark: #1a1a2e;
+            --white: #ffffff;
+            --warning: #e74c3c;
+            --success: #48bb78;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--sand);
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--teal);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(46, 92, 138, 0.85)),
+                        url('https://media.gwnews.com/images/articles/5_Octopus-Care.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero .species-name {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--light-teal);
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-image {
+            max-width: 700px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Scope Section */
+        .scope-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: -3rem auto 3rem;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .scope-box h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .scope-box p {
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Section Styling */
+        section {
+            margin: 3rem 0;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        section h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        section h3 {
+            color: var(--ocean-blue);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .section-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .section-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .section-image.full-width {
+            grid-column: 1 / -1;
+            margin: 2rem 0;
+        }
+
+        .section-image.full-width img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid var(--teal);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-box.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        }
+
+        .info-box.success {
+            border-left-color: var(--success);
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        }
+
+        .info-box h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Priority Cards */
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .priority-card {
+            background: linear-gradient(135deg, var(--teal), var(--light-teal));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .priority-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .priority-card:hover::before {
+            opacity: 1;
+        }
+
+        .priority-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .priority-card h3 {
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .priority-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .priority-card.critical {
+            background: linear-gradient(135deg, var(--coral), #f0b4a8);
+        }
+
+        /* Lists */
+        ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.75rem 1rem;
+            padding-left: 2.5rem;
+            position: relative;
+            background: var(--sand);
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .checklist li:hover {
+            background: var(--light-teal);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 1rem;
+            color: var(--teal);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .checklist li:hover::before {
+            color: var(--white);
+        }
+
+        /* References */
+        .references {
+            background: var(--sand);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .references h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .references ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .references li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .references li:last-child {
+            border-bottom: none;
+        }
+
+        .references li::before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+        }
+
+        .references li strong {
+            color: var(--primary-blue);
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .summary-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-box h2::after {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--light-teal);
+            text-decoration: none;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--teal);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 999;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: var(--ocean-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--ocean-blue);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .species-name {
+                font-size: 1.2rem;
+            }
+
+            .section-with-image {
+                grid-template-columns: 1fr;
+            }
+
+            .priority-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .scope-box,
+            .summary-box {
+                margin: -2rem 1rem 2rem;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Icon styling */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">🐙 GPO Husbandry</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="diet.html">Diet & Nutrition</a></li>
+                <li><a href="health.html" class="active">Preventative Health</a></li>
+                <li><a href="enclosure.html">Enclosure Design</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Preventative Health Management</h1>
+        <p class="species-name">Enteroctopus dofleini</p>
+        <p class="hero-subtitle">Evidence-based health monitoring and disease prevention strategies for Giant Pacific Octopus in public aquaria</p>
+        <div class="hero-image">
+            <img src="https://th.bing.com/th/id/R.a85234c877ec6375cfe892ea6c765165?rik=WWXl7AQZOKaFOQ&riu=http%3a%2f%2fwww.yamaria.co.jp%2fcms%2fimg%2fmariacom_site%2f20151028_lala1.JPG&ehk=gx5xvUfEEWrbStdKkHr004qJ9P%2fmajX11pScTk6zJrI%3d&risl=&pid=ImgRaw&r=0" alt="Giant Pacific Octopus - Healthy specimen">
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Scope and Evidence Base -->
+        <div class="scope-box">
+            <h2>📋 Scope and Evidence Base</h2>
+            <p>This preventative health guidance is written for <em>Enteroctopus dofleini</em> held in public aquaria. All claims are grounded in peer‑reviewed, Google Scholar–verifiable literature on cephalopod biology, ageing, aquatic animal disease, and aquarium veterinary practice. Where species‑specific evidence for <em>E. dofleini</em> is limited, this is made explicit rather than inferred.</p>
+        </div>
+
+        <!-- Section 1: Quarantine -->
+        <section id="quarantine">
+            <h2><span class="icon">1</span> Quarantine and Introduction to Collection</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>Quarantine is consistently identified as a core component of aquatic animal disease prevention, reducing the risk of pathogen introduction and spread between systems [4]. Although cephalopod‑specific quarantine protocols are not comprehensively standardised in the literature, aquatic animal health frameworks emphasise quarantine as a precautionary measure for all aquatic taxa prior to system integration [4].</p>
+                    
+                    <div class="info-box success">
+                        <h4>🎯 Key Benefits for Octopuses</h4>
+                        <p>For octopuses, quarantine additionally facilitates early assessment of feeding behaviour, integument condition, and injury status before exposure to established animals or shared water systems. This is particularly relevant for large cephalopods that are infrequently handled once established in display systems.</p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.cDpezzjDHQGy-cbrw2z_0gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Quarantine tank setup for aquatic animals">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Skin Integrity -->
+        <section id="skin-integrity">
+            <h2><span class="icon">2</span> Monitoring of External Condition and Skin Integrity</h2>
+            
+            <div class="section-with-image">
+                <div class="section-image full-width">
+                    <img src="https://thumbs.dreamstime.com/b/detailed-macro-shot-octopus-showing-its-complex-skin-textures-suction-cups-intricate-patterns-ai-detailed-macro-shot-332083813.jpg" alt="Close-up of octopus skin showing texture and coloration">
+                </div>
+            </div>
+
+            <p>Cephalopod skin is highly vascularised and physiologically active, contributing to respiration, immune defence, and rapid chromatic signalling. Damage to the integument therefore represents a substantive health and welfare risk.</p>
+
+            <div class="info-box warning">
+                <h4>⚠️ Risk Factors</h4>
+                <p>Observations from aquarium medicine and aquatic animal pathology indicate that external lesions in captive cephalopods may arise from physical abrasion, enclosure‑related injury, or secondary microbial colonisation following tissue damage. While most detailed empirical studies of bacterial and fungal skin disease focus on fishes, reviews of aquatic animal disease consistently identify compromised integument as a primary gateway for secondary infection across aquatic organisms [1].</p>
+            </div>
+
+            <div class="info-box success">
+                <h4>✓ Preventative Measure</h4>
+                <p>Routine visual inspection of the mantle and arms is therefore a preventative health measure, enabling early detection of injury before secondary disease processes become established [1].</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Water Quality -->
+        <section id="water-quality">
+            <h2><span class="icon">3</span> Water Quality as a Preventative Health Factor</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>Cephalopods rely on both branchial and cutaneous gas exchange and are physiologically sensitive to environmental conditions. Reviews of aquatic animal health identify poor or unstable water quality as a major predisposing factor for disease across aquatic taxa, acting indirectly through chronic stress and impaired physiological function [4].</p>
+                    
+                    <div class="info-box">
+                        <h4>💧 Core Principle</h4>
+                        <p>Although species‑specific tolerance thresholds for <em>E. dofleini</em> are not comprehensively quantified in the peer‑reviewed veterinary literature, aquarium health reviews and aquatic disease frameworks converge on the principle that maintaining stable, high‑quality seawater conditions is central to disease prevention rather than treatment [4].</p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTkjVA3VpmHEw1DJ8HA73ub4eEy4yN2DqrNQ&s" alt="Water quality testing and monitoring equipment">
+                </div>
+            </div>
+
+            <ul class="checklist">
+                <li>Monitor temperature stability</li>
+                <li>Test salinity regularly</li>
+                <li>Check dissolved oxygen levels</li>
+                <li>Maintain appropriate pH</li>
+                <li>Monitor ammonia, nitrite, and nitrate</li>
+            </ul>
+        </section>
+
+        <!-- Section 4: Nutrition-Health -->
+        <section id="nutrition-health">
+            <h2><span class="icon">4</span> Nutrition–Health Interactions</h2>
+            
+            <div class="section-with-image">
+                <div class="section-image">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.TdXmc83s9J8CsnJNbOs0ngHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="High-quality seafood for octopus nutrition">
+                </div>
+                <div>
+                    <p>Nutritional status is closely linked to immune competence in aquatic animals. Reviews of aquatic disease demonstrate that nutritionally imbalanced or poor‑quality diets can increase susceptibility to infection and reduce recovery capacity following injury [1].</p>
+                    
+                    <div class="info-box success">
+                        <h4> Cephalopod-Specific Considerations</h4>
+                        <p>Although controlled immune function studies are not available for <em>E. dofleini</em>, nutrition reviews in cephalopods highlight diet composition and prey quality as key determinants of overall physiological condition [2].</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>📊 Preventative Strategy</h4>
+                <p>From a preventative health perspective, consistent monitoring of food intake, prey condition, and feeding behaviour therefore functions as an indirect but important disease‑mitigation strategy.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Stress Reduction -->
+        <section id="stress-reduction">
+            <h2><span class="icon">5</span> Stress Reduction and Behavioural Health</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>Cephalopods are recognised as cognitively complex and behaviourally responsive animals. Reviews of cephalopod cognition and sentience demonstrate that behavioural change can precede overt physical decline, making behaviour a sensitive early indicator of compromised welfare or health [2].</p>
+                    
+                    <div class="info-box success">
+                        <h4>🧠 Welfare Implications</h4>
+                        <p>Consequently, minimising chronic stress through appropriate enclosure design, controlled disturbance, and predictable husbandry routines operates as a preventative health intervention, not solely as an enrichment or ethical consideration [2].</p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFH1R5CPJximEpjMwoFdo-aZ9SHIKmJPPUBA&s" alt="Octopus in enriched environment showing natural behavior">
+                </div>
+            </div>
+
+            <h3>Key Stress Reduction Strategies:</h3>
+            <ul class="checklist">
+                <li>Provide adequate hiding spaces and environmental complexity</li>
+                <li>Maintain consistent feeding schedules</li>
+                <li>Minimize unnecessary disturbances</li>
+                <li>Monitor for behavioral changes</li>
+                <li>Ensure appropriate lighting cycles</li>
+            </ul>
+        </section>
+
+        <!-- Section 6: Ageing and Senescence -->
+        <section id="senescence">
+            <h2><span class="icon">6</span> Ageing, Senescence, and End‑of‑Life Management</h2>
+            
+            <div class="section-with-image">
+                <div class="section-image full-width">
+                    <img src="https://images.unsplash.com/photo-1582967788606-a171f1080ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Octopus displaying natural coloration patterns">
+                </div>
+            </div>
+
+            <p>Octopuses exhibit a well‑documented, hormonally mediated senescence following sexual maturation. Experimental and biochemical studies demonstrate that activation of the optic gland initiates a cascade of endocrine changes leading to cessation of feeding, tissue degeneration, self‑injury, and eventual death [3].</p>
+
+            <div class="info-box warning">
+                <h4>⚕️ Critical Distinction</h4>
+                <p>Critically, this process represents a normal and irreversible life‑history stage, <strong>not a primary disease state</strong>. Preventative health management therefore focuses on recognising senescence, differentiating it from treatable pathology, and avoiding inappropriate medical intervention during terminal decline [3].</p>
+            </div>
+
+            <h3>Signs of Normal Senescence:</h3>
+            <ul>
+                <li>Cessation of feeding</li>
+                <li>Tissue degeneration</li>
+                <li>Self-injury behaviors</li>
+                <li>Reduced activity levels</li>
+                <li>Loss of skin tone and coloration</li>
+            </ul>
+        </section>
+
+        <!-- Section 7: Veterinary Oversight -->
+        <section id="veterinary">
+            <h2><span class="icon">7</span> Role of Veterinary Oversight</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>Aquarium veterinary literature consistently emphasises that invertebrate health management requires species‑appropriate assessment rather than direct extrapolation from vertebrate or teleost models [4].</p>
+                    
+                    <div class="info-box">
+                        <h4>🏥 Collaborative Approach</h4>
+                        <p>Preventative health for <em>E. dofleini</em> therefore relies on collaboration between aquarists and veterinarians experienced in aquatic invertebrates, alongside acceptance of the current limits of cephalopod medical knowledge.</p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Veterinary health check and examination">
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <div class="summary-box">
+            <h2>✓ Summary: Preventative Health Priorities</h2>
+            <div class="priority-grid">
+                <div class="priority-card critical">
+                    <h3>🛡️ Early Disease Exclusion</h3>
+                    <p>Quarantine protocols (WOAH, 2023)</p>
+                </div>
+                <div class="priority-card">
+                    <h3>👁️ Frequent Monitoring</h3>
+                    <p>Skin condition and behaviour [1, 2]</p>
+                </div>
+                <div class="priority-card critical">
+                    <h3>💧 Water Quality</h3>
+                    <p>Stable, high-quality conditions (WOAH, 2023)</p>
+                </div>
+                <div class="priority-card">
+                    <h3> Nutritional Consistency</h3>
+                    <p>Intake monitoring [1]</p>
+                </div>
+                <div class="priority-card">
+                    <h3>🧘 Stress Minimisation</h3>
+                    <p>Enclosure management [2]</p>
+                </div>
+                <div class="priority-card critical">
+                    <h3>⏳ Senescence Recognition</h3>
+                    <p>Normal life processes [3]</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- References -->
+        <section id="references">
+            <h2>📚 Key References (Google Scholar–verifiable)</h2>
+            <div class="references">
+                <ul>
+                    <li><strong>Ali, S. E., Elgendy, M. Y., Abdelsalam, M., & Khalil, R. H.</strong> (2024). Alternative therapies and immune interactions in aquatic animal disease. <em>Aquaculture International</em>.</li>
+                    <li><strong>Birch, J., Burn, C., Schnell, A. K., Browning, H., & Crump, A.</strong> (2021). Review of the evidence of sentience in cephalopod molluscs. <em>Animal Sentience</em>, 6(32).</li>
+                    <li><strong>Wang, Z. Y., Pergande, M. R., Ragsdale, C. W., & Cologna, S. M.</strong> (2022). Steroid hormones of the octopus self‑destruct system. <em>Current Biology</em>, 32(11), 2572–2579.e4.</li>
+                    <li><strong>World Organisation for Animal Health (WOAH).</strong> (2023). <em>Aquatic Animal Health Code: General disease prevention principles</em>.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Giant Pacific Octopus Husbandry Portfolio</p>
+        <p>Created for professional aquaculture and aquarium management</p>
+        <p style="margin-top: 1rem;">
+            <a href="diet.html">Diet & Nutrition</a> | 
+            <a href="health.html">Preventative Health</a> | 
+            <a href="enclosure.html">Enclosure Design</a>
+        </p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Active navigation highlighting based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
