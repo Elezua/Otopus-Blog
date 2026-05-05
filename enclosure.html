@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giant Pacific Octopus - Enclosure Design</title>
+    <title>Giant Pacific Octopus - Enclosure Design for Optimal Health</title>
     <style>
         * {
             margin: 0;
@@ -105,7 +105,7 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
@@ -118,14 +118,14 @@
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            max-width: 800px;
+            font-size: 1.1rem;
+            max-width: 900px;
             margin: 0 auto 2rem;
             opacity: 0.95;
         }
 
         .hero-image {
-            max-width: 800px;
+            max-width: 900px;
             margin: 2rem auto;
             border-radius: 10px;
             overflow: hidden;
@@ -165,6 +165,16 @@
         .scope-box p {
             line-height: 1.8;
             opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .scope-box ul {
+            margin: 1rem 0 1rem 2rem;
+            line-height: 1.8;
+        }
+
+        .scope-box li {
+            margin-bottom: 0.5rem;
         }
 
         /* Section Styling */
@@ -189,8 +199,14 @@
 
         section h3 {
             color: var(--ocean-blue);
-            font-size: 1.4rem;
-            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        section h4 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
         }
 
         section p {
@@ -225,8 +241,26 @@
 
         .section-image.full-width img {
             width: 100%;
-            max-height: 400px;
+            max-height: 500px;
             object-fit: cover;
+        }
+
+        /* Image Caption with Vancouver Citation */
+        .image-caption {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--sand);
+            border-left: 4px solid var(--teal);
+            border-radius: 0 5px 5px 0;
+            line-height: 1.5;
+        }
+
+        .image-caption sup {
+            color: var(--primary-blue);
+            font-weight: bold;
         }
 
         /* Info Boxes */
@@ -256,103 +290,115 @@
             gap: 0.5rem;
         }
 
-        /* Priority Cards */
-        .priority-grid {
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .data-table table {
+            width: 100%;
+            min-width: 600px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--sand);
+        }
+
+        .data-table th {
+            background: var(--primary-blue);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: var(--sand);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        /* Spec Cards */
+        .spec-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .priority-card {
+        .spec-card {
             background: linear-gradient(135deg, var(--teal), var(--light-teal));
             color: var(--white);
             padding: 1.5rem;
             border-radius: 10px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .priority-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .priority-card:hover::before {
-            opacity: 1;
-        }
-
-        .priority-card:hover {
+        .spec-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        .priority-card h3 {
+        .spec-card h4 {
             color: var(--white);
             margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 1.1rem;
         }
 
-        .priority-card p {
+        .spec-card p {
             margin: 0;
             font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        .priority-card.critical {
+        .spec-card.highlight {
             background: linear-gradient(135deg, var(--coral), #f0b4a8);
         }
 
-        /* Feature Grid */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+        .spec-card.critical {
+            background: linear-gradient(135deg, var(--warning), #c0392b);
         }
 
-        .feature-card {
+        /* Parameter Boxes */
+        .param-box {
             background: var(--sand);
             padding: 1.5rem;
             border-radius: 10px;
-            border-top: 4px solid var(--teal);
-            transition: all 0.3s ease;
+            margin: 1rem 0;
+            border-left: 4px solid var(--teal);
         }
 
-        .feature-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .feature-card h4 {
+        .param-box h4 {
             color: var(--primary-blue);
             margin-bottom: 0.75rem;
-            font-size: 1.1rem;
         }
 
-        .feature-card p {
-            margin: 0;
+        .param-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--ocean-blue);
+            margin: 0.5rem 0;
+        }
+
+        .param-range {
+            color: #666;
             font-size: 0.95rem;
         }
 
-        /* Checklists */
-        .checklist {
+        /* Feature Lists */
+        .feature-list {
             list-style: none;
             margin: 1rem 0;
         }
 
-        .checklist li {
+        .feature-list li {
             padding: 0.75rem 1rem;
             padding-left: 2.5rem;
             position: relative;
@@ -362,13 +408,13 @@
             transition: all 0.3s ease;
         }
 
-        .checklist li:hover {
+        .feature-list li:hover {
             background: var(--light-teal);
             color: var(--white);
             transform: translateX(5px);
         }
 
-        .checklist li::before {
+        .feature-list li::before {
             content: '✓';
             position: absolute;
             left: 1rem;
@@ -377,7 +423,7 @@
             font-size: 1.2rem;
         }
 
-        .checklist li:hover::before {
+        .feature-list li:hover::before {
             color: var(--white);
         }
 
@@ -395,16 +441,19 @@
             font-size: 1.5rem;
         }
 
-        .references ul {
+        .references ol {
             list-style: none;
             margin-left: 0;
+            counter-reset: ref-counter;
         }
 
         .references li {
             padding: 0.75rem 0;
-            padding-left: 2rem;
+            padding-left: 2.5rem;
             position: relative;
             border-bottom: 1px solid rgba(0,0,0,0.1);
+            counter-increment: ref-counter;
+            line-height: 1.5;
         }
 
         .references li:last-child {
@@ -412,13 +461,17 @@
         }
 
         .references li::before {
-            content: "📚";
+            content: counter(ref-counter) ". ";
             position: absolute;
             left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
         }
 
-        .references li strong {
-            color: var(--primary-blue);
+        .references li em {
+            font-style: italic;
+            color: var(--ocean-blue);
         }
 
         /* Summary Box */
@@ -435,10 +488,6 @@
             color: var(--white);
             border-bottom-color: var(--light-teal);
             margin-bottom: 1.5rem;
-        }
-
-        .summary-box h2::after {
-            display: none;
         }
 
         /* Footer */
@@ -508,7 +557,7 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .hero .species-name {
@@ -519,8 +568,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .priority-grid,
-            .feature-grid {
+            .spec-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -530,6 +578,10 @@
 
             section h2 {
                 font-size: 1.5rem;
+            }
+
+            section h3 {
+                font-size: 1.3rem;
             }
 
             .scope-box,
@@ -565,12 +617,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: var(--teal);
             color: var(--white);
             border-radius: 50%;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -578,11 +630,12 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">GPO Husbandry</a>
+            <a href="#" class="logo">🐙 GPO Husbandry</a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Diet & Nutrition</a></li>
+                <li><a href="diet.html">Diet & Nutrition</a></li>
                 <li><a href="health.html">Preventative Health</a></li>
                 <li><a href="enclosure.html" class="active">Enclosure Design</a></li>
+                <li><a href="feeding.html">Feeding Management</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -594,258 +647,359 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Enclosure Design for Optimal Health</h1>
+        <h1>Enclosure Design to Promote Optimal Health & Husbandry</h1>
         <p class="species-name">Enteroctopus dofleini</p>
-        <p class="hero-subtitle">Evidence-based enclosure design principles promoting natural behavior and preventative health in Giant Pacific Octopus</p>
+        <p class="hero-subtitle">Evidence-based enclosure specifications for water-quality stability, disease prevention, safe containment, and staff/visitor safety</p>
         <div class="hero-image">
-            <img src="https://s.hdnux.com/photos/10/76/24/2352388/10/rawImage.jpg" alt="Giant Pacific Octopus in natural rocky habitat">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Giant Pacific Octopus in modern aquarium exhibit">
+            <div class="image-caption">
+                Figure 1. Modern GPO exhibit demonstrating appropriate volume, depth, and structural complexity for optimal health and husbandry.<sup>6</sup>
+            </div>
         </div>
     </section>
 
     <div class="container">
-        <!-- Scope and Evidence Base -->
+        <!-- Scope Section -->
         <div class="scope-box">
-            <h2>Scope and Evidence Base</h2>
-            <p>This enclosure‑design guidance focuses on preventative health outcomes for <em>Enteroctopus dofleini</em> in public aquaria. All design principles are derived from peer‑reviewed, Google Scholar–verifiable literature on octopus spatial ecology, habitat use, movement behaviour, and animal welfare. Where evidence is derived from octopuses or cephalopods more broadly rather than <em>E. dofleini</em> specifically, this is stated explicitly.</p>
+            <h2>📋 Scope and Evidence Base</h2>
+            <p>This enclosure design guidance prioritises health and management outcomes—specifically water‑quality stability, disease prevention, safe containment, cleanability, and staff and visitor safety—using three complementary sources of evidence.</p>
+            <ul>
+                <li><strong>Multi‑institution survey</strong> of Giant Pacific Octopus husbandry providing reported system volumes, water‑parameter ranges, and filtration approaches across public aquaria<sup>1</sup></li>
+                <li><strong>BIAZA Giant Pacific Octopus husbandry manual</strong> supplying species‑specific recommendations for temperature, salinity, containment, and staff safety risks<sup>2</sup></li>
+                <li><strong>Mortality review</strong> examining aquarium‑held octopuses reporting exhibit and holding system sizes alongside common health risks, including branchitis and parasitic infection<sup>3</sup></li>
+            </ul>
         </div>
 
-        <!-- Section 1: Spatial Scale -->
-        <section id="spatial-scale">
-            <h2><span class="icon">1</span> Spatial Scale and Use of Space</h2>
+        <!-- Section 1: Enclosure Design -->
+        <section id="enclosure-design">
+            <h2><span class="icon">1</span> Suitable Enclosure Design for Optimal Husbandry</h2>
+
+            <h3>1.1 Habitat Volume (Minimum, Typical, and Defensible Targets)</h3>
             
             <div class="section-with-image">
                 <div>
-                    <p>Telemetry and field‑based studies show that <em>E. dofleini</em> is a highly mobile benthic predator capable of occupying large home ranges and moving between shelter sites over time [3]. Restricted enclosure size therefore risks chronic limitation of natural movement patterns, which may contribute to behavioural suppression or abnormal activity.</p>
+                    <p>A multi‑institution survey of GPO husbandry reported habitat volumes ranging from 1,893 to 16,389 L, with a median habitat volume of 5,405 L<sup>1</sup>. The same survey identifies a habitat volume greater than 1,893 L as the "survey ideal level per AZA manual"<sup>1</sup>.</p>
                     
+                    <p>A published mortality review of aquarium facilities reported that octopuses were housed in exhibit and holding systems of approximately 715 gallons (2,707 L), 1,200 gallons (4,542 L), and 1,400 gallons (~5,300 L)<sup>3</sup>.</p>
+
                     <div class="info-box success">
-                        <h4>Design Priority</h4>
-                        <p>From a preventative‑health perspective, enclosure volume should prioritise usable benthic space rather than water depth alone, reflecting the species' demersal ecology [3].</p>
+                        <h4>📏 Evidence‑Supported Target</h4>
+                        <p>For a single adult <em>E. dofleini</em>: system volume around the multi‑institution median (~5,400 L), with >1,893 L as a defensible minimum benchmark, and multiple real‑world operational systems documented in the ~2,700–5,300 L range<sup>1,3</sup>.</p>
                     </div>
                 </div>
                 <div class="section-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcgxTsM8W6IE3dKmaZCzs9_wu-LySuebi_yA&s" alt="Octopus exploring benthic environment showing movement patterns">
+                    <img src="https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg" alt="Large aquarium exhibit showing appropriate volume for GPO">
+                    <div class="image-caption">
+                        Figure 2. GPO exhibit with volume exceeding 5,000 L, supporting natural movement and behavioral expression.<sup>7</sup>
+                    </div>
                 </div>
             </div>
 
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>Horizontal Space</h4>
-                    <p>Prioritize floor area over vertical depth for this demersal species</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Movement Freedom</h4>
-                    <p>Allow natural ranging behavior between shelter sites</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Risk of Restriction</h4>
-                    <p>Limited space can cause behavioral suppression and abnormal activity</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Shelter and Dens -->
-        <section id="shelter">
-            <h2><span class="icon">2</span> Provision of Shelter and Den Structures</h2>
+            <h3>1.2 Depth and Footprint</h3>
             
+            <div class="param-box">
+                <h4>📐 Documented Operational Dimensions</h4>
+                <p>A recent public procurement specification for GPO habitat replacement reports:</p>
+                <div class="param-value">132″ × 123″ × 84″</div>
+                <p class="param-range">≈ 3.35 m × 3.12 m × 2.13 m depth<br>Volume: ~2,100 gallons (~7,949 L)<sup>4</sup></p>
+            </div>
+
+            <div class="info-box">
+                <h4>🏗️ Achievable Design Parameters</h4>
+                <p>Modern operational exhibit designs can reasonably incorporate depths of around 2 m and total system volumes approaching 8,000 L as achievable and defensible examples<sup>4</sup>.</p>
+            </div>
+
+            <h3>1.3 Containment and Escape Prevention (Health‑Critical)</h3>
+
             <div class="section-with-image">
                 <div class="section-image full-width">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMT2Qm5dEm4UdQRzk_idZh-a-z-atR1EuOVg&s" alt="Multiple den structures and hiding places in octopus enclosure">
-                </div>
-            </div>
-
-            <p>Octopuses are well documented as den‑using animals, occupying crevices, cavities, and self‑modified shelters in the wild. Den use supports resting, predator avoidance, and feeding behaviours, and is considered a core component of normal octopus ecology [2, 3].</p>
-
-            <div class="info-box success">
-                <h4>Health Benefits</h4>
-                <p>In captive systems, the provision of multiple den options reduces competition for shelter and allows individuals to control visibility and disturbance. From a health perspective, access to shelter may reduce chronic stress and physical injury associated with repeated exposure or escape attempts [1].</p>
-            </div>
-
-            <h3>Essential Den Features:</h3>
-            <ul class="checklist">
-                <li>Multiple den options to provide choice</li>
-                <li>Various sizes to accommodate different postures</li>
-                <li>Stable, secure structures</li>
-                <li>Easy access and exit points</li>
-                <li>Located in different areas of the enclosure</li>
-            </ul>
-        </section>
-
-        <!-- Section 3: Substrate and Complexity -->
-        <section id="substrate">
-            <h2><span class="icon">3</span> Substrate and Structural Complexity</h2>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Field studies demonstrate that octopus habitat use is closely linked to structural complexity, including rocky substrates and heterogeneous benthic features (Scheel & Bisson, 2012). Enclosures lacking structural variation may limit behavioural expression and increase interaction with enclosure walls.</p>
-                    
-                    <div class="info-box">
-                        <h4>🪨 Welfare Impact</h4>
-                        <p>Structural complexity in captive environments is widely recognised as a key factor influencing animal welfare and health by promoting natural behaviour and reducing stress‑associated pathology [4].</p>
+                    <img src="https://krakenreef.com/cdn/shop/products/20220312_114051.jpg?v=1664756242&width=4032" alt="Secure aquarium lid and overflow protection system">
+                    <div class="image-caption">
+                        Figure 3. Lockable lid system with protected overflows and secure access ports preventing escape and ensuring electrical safety.<sup>8</sup>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGWeEut_zOjfmlFBEpYLWGdPFLF4PpXBg-hQ&s" alt="Rocky substrate with structural complexity for octopus habitat">
-                </div>
             </div>
 
-            <div class="info-box warning">
-                <h4>Important Consideration</h4>
-                <p>For octopuses, complexity should be benthic‑focused and stable, avoiding movable objects that could cause injury.</p>
-            </div>
+            <p>BIAZA guidance emphasises that <em>Enteroctopus dofleini</em> is capable of escaping through any opening larger than the beak, necessitating enclosure designs with tightly fitting lids and careful treatment of all penetrations, including pipework, overflows, and cable routes<sup>2</sup>.</p>
 
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>🪨 Rocky Substrates</h4>
-                    <p>Mimic natural benthic features with varied rock formations</p>
+            <div class="spec-grid">
+                <div class="spec-card critical">
+                    <h4>🔒 Rigid, Lockable Lid Systems</h4>
+                    <p>Prevent escape, fall injuries, and desiccation<sup>2</sup></p>
                 </div>
-                <div class="feature-card">
-                    <h4>Heterogeneous Features</h4>
-                    <p>Create varied textures and surfaces for exploration</p>
+                <div class="spec-card critical">
+                    <h4>🛡️ Protected Overflows & Standpipes</h4>
+                    <p>Secure access ports to remove escape routes and entrapment risks<sup>2</sup></p>
                 </div>
-                <div class="feature-card">
-                    <h4>Stability</h4>
-                    <p>Ensure all structures are secure and won't shift or collapse</p>
+                <div class="spec-card critical">
+                    <h4>⚡ Electrical Safety Integration</h4>
+                    <p>Formal enclosure design consideration as highlighted in BIAZA manual<sup>2</sup></p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Water Flow -->
-        <section id="water-flow">
-            <h2><span class="icon">4</span> Water Flow and Environmental Stability</h2>
-            
+        <!-- Section 2: Water Parameters -->
+        <section id="water-parameters">
+            <h2><span class="icon">2</span> Suitable Water Parameters for Health</h2>
+
+            <p>A multi‑institution survey reports both observed water‑quality ranges and stated "survey ideal levels per AZA manual" for GPO systems<sup>1</sup>.</p>
+
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Reported Range</th>
+                            <th>Ideal Range (AZA)</th>
+                            <th>BIAZA Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Temperature</strong></td>
+                            <td>5.0–14.4 °C</td>
+                            <td>6.0–12.0 °C<sup>1</sup></td>
+                            <td>6–11 °C (avoid 12–13 °C)<sup>2</sup></td>
+                        </tr>
+                        <tr>
+                            <td><strong>pH</strong></td>
+                            <td>7.4–8.3</td>
+                            <td>8.0–8.3<sup>1</sup></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Salinity</strong></td>
+                            <td>29–36 ppt</td>
+                            <td>28–33 ppt<sup>1</sup></td>
+                            <td>33–36 ppt<sup>2</sup></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nitrate</strong></td>
+                            <td>0–29 mg/dL</td>
+                            <td>0–19 mg/L<sup>1</sup>*</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dissolved Oxygen</strong></td>
+                            <td>90–109% saturation</td>
+                            <td>85–95% saturation<sup>1</sup></td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.85rem; color: #666;">*Note: Inconsistency in units within survey tables<sup>1</sup></p>
+
             <div class="section-with-image">
-                <div class="section-image">
-                    <img src="https://i0.wp.com/apeejay.news/wp-content/uploads/2023/09/040923-octopuses-02.jpg?resize=740%2C463&ssl=1" alt="Water circulation system showing moderate flow patterns">
-                </div>
                 <div>
-                    <p>Although species‑specific experimental data on flow preferences in <em>E. dofleini</em> are limited, benthic octopuses are generally associated with moderate, stable flow environments rather than highly turbulent conditions [3].</p>
+                    <h3>Species‑Specific Temperature Caution (Long‑term Health)</h3>
+                    <p>The BIAZA husbandry manual further refines temperature guidance, describing <em>E. dofleini</em> as a cold‑water species best maintained within a salinity range of 33–36 ppt and a temperature range of 6–11 °C<sup>2</sup>.</p>
                     
                     <div class="info-box warning">
-                        <h4>Health Consideration</h4>
-                        <p>Aquatic animal health frameworks identify environmental instability, including fluctuating flow regimes, as a contributor to chronic stress and compromised physiological function [5].</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-box success">
-                <h4>Design Goal</h4>
-                <p>Enclosure design should aim for predictable circulation patterns that maintain water quality without generating excessive turbulence at the benthos.</p>
-            </div>
-
-            <h3>Flow Management Checklist:</h3>
-            <ul class="checklist">
-                <li>Maintain moderate, consistent flow</li>
-                <li>Avoid high turbulence at substrate level</li>
-                <li>Ensure predictable circulation patterns</li>
-                <li>Provide low-flow refuge areas</li>
-                <li>Monitor flow stability regularly</li>
-            </ul>
-        </section>
-
-        <!-- Section 5: Lighting -->
-        <section id="lighting">
-            <h2><span class="icon">5</span> Lighting and Visual Environment</h2>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Octopuses possess highly developed visual systems and exhibit behavioural responses to changes in light intensity. Excessive or poorly controlled lighting may therefore influence activity patterns and shelter use.</p>
-                    
-                    <div class="info-box">
-                        <h4>👁️ Sensory Management</h4>
-                        <p>Welfare reviews of cephalopods emphasise that environmental conditions influencing sensory load should be carefully managed to avoid chronic stress responses [1].</p>
+                        <h4>⚠️ Critical Temperature Threshold</h4>
+                        <p>Prolonged exposure to 12–13 °C is harmful over the long term. Extended longevity reported in one facility operating at 5–8 °C<sup>2</sup>.</p>
                     </div>
                 </div>
                 <div class="section-image">
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.9ojfs0-HBHFljmVhHzjoXAHaEU?w=1161&h=677&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Controlled lighting system in aquarium with shaded areas">
+                    <img src="https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg" alt="Temperature monitoring and chilling system for cold-water octopus">
+                    <div class="image-caption">
+                        Figure 4. Precision temperature control maintaining 6–11 °C range, avoiding sustained exposure to harmful 12–13 °C levels.<sup>9</sup>
+                    </div>
                 </div>
             </div>
 
             <div class="info-box success">
-                <h4>💡 Preventative Health Approach</h4>
-                <p>From a preventative‑health standpoint, enclosure lighting should allow access to shaded refuges rather than uniformly illuminated space.</p>
+                <h4>🌡️ Defensible Operational Recommendation</h4>
+                <p>Manage <em>E. dofleini</em> as a cold‑water system, aiming for 6–11 °C where practical, explicitly avoiding sustained exposure to 12–13 °C, and recognising 5–8 °C as a viable operating band when chilling capacity allows<sup>1,2</sup>.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Life-Support Systems -->
+        <section id="lss">
+            <h2><span class="icon">3</span> Life‑Support Systems (LSS) and Monitoring</h2>
+
+            <h3>3.1 LSS Components Documented in Real Practice</h3>
+
+            <!-- <div class="section-with-image">
+                <div class="section-image full-width">
+                    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Life-support system schematic showing filtration components">
+                    <div class="image-caption">
+                        Figure 5. LSS schematic: Mechanical filtration → Biological filtration → Protein skimmer → UV sterilisation → Chiller/oxygenation → Return to exhibit.<sup>1,2</sup>
+                    </div>
+                </div>
+            </div> -->
+
+            <p>The multi‑institution survey reports a range of filtration and treatment methods used in GPO systems, including foam fractionation or protein skimming, UV sterilisation, bioball or biotower biofiltration, sand filtration, canister filters, filter socks, moving‑bed filters, bead filters, ozone, and carbon filtration, with protein skimmers, UV sterilisation, and biological filtration reported most frequently<sup>1</sup>.</p>
+
+            <div class="spec-grid">
+                <div class="spec-card highlight">
+                    <h4>✅ Minimum LSS Package</h4>
+                    <p>Mechanical solids removal + Biological filtration + Protein skimming + UV sterilisation (disinfection adjunct)<sup>1</sup></p>
+                </div>
+                <div class="spec-card">
+                    <h4>💨 Additional Considerations</h4>
+                    <p>Aeration, dissolved‑gas management, and water sterilisation as key system components<sup>2</sup></p>
+                </div>
             </div>
 
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>🌓 Light/Dark Cycles</h4>
-                    <p>Implement natural photoperiods with gradual transitions</p>
+            <h3>3.2 Monitoring (What to Measure and Why)</h3>
+
+            <p>Survey data indicate that institutions employ a wide range of water‑change strategies, from continuous exchange to weekly changes of up to 100%, suggesting that long‑term stability rather than a single husbandry routine is the critical outcome<sup>1</sup>.</p>
+
+            <div class="info-box success">
+                <h4>📊 Defensible Monitoring Thresholds<sup>5</sup></h4>
+                <ul style="margin: 0.75rem 0 0 1.25rem;">
+                    <li><strong>Ammonia‑N:</strong> &lt; 0.05 mg/L</li>
+                    <li><strong>Nitrite‑N:</strong> &lt; 0.5 mg/L</li>
+                    <li><strong>Total Nitrogen:</strong> &lt; 15 mg/L</li>
+                    <li><strong>pH:</strong> Maintained for effective nitrification</li>
+                    <li><strong>Dissolved Oxygen:</strong> Controlled within optimal range</li>
+                </ul>
+            </div>
+
+            <div class="section-with-image">
+                <div>
+                    <p>To support stable water quality in recirculating systems, teaching‑module materials provide defensible thresholds for nitrogen management and oxygen demand, alongside emphasis on pH maintenance for effective nitrification and dissolved‑oxygen control<sup>5</sup>.</p>
+                    
+                    <div class="info-box">
+                        <h4>🎯 Health Risk Reduction</h4>
+                        <p>These values serve as practical monitoring targets to reduce health risks associated with water‑quality deterioration<sup>5</sup>.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h4>🌑 Shaded Refuges</h4>
-                    <p>Ensure dens and hiding spots remain dark</p>
-                </div>
-                <div class="feature-card">
-                    <h4>🔆 Avoid Over-Illumination</h4>
-                    <p>Prevent uniformly bright conditions throughout enclosure</p>
+                <div class="section-image">
+                    <img src="https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg" alt="Water quality monitoring dashboard and testing equipment">
+                    <div class="image-caption">
+                        Figure 6. Continuous monitoring of temperature, salinity, pH, nitrate, and dissolved oxygen ensures water-quality stability.<sup>10</sup>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 6: Behavioral Health -->
-        <section id="behavioral-health">
-            <h2><span class="icon">6</span> Enclosure Design and Behavioural Health</h2>
-            
+        <!-- Section 4: Construction and Layout -->
+        <section id="construction">
+            <h2><span class="icon">4</span> Construction and Layout Promoting Health and Cleanliness</h2>
+
+            <h3>4.1 Materials Used in Practice and Cleanability</h3>
+
+            <div class="section-with-image">
+                <div>
+                    <p>Survey respondents reported the use of rockwork, fiberglass, acrylic, and concrete or cement as enclosure and décor materials<sup>1</sup>.</p>
+
+                    <div class="info-box warning">
+                        <h4>⚠️ Metal Sensitivity</h4>
+                        <p>The BIAZA manual notes particular sensitivity of octopuses to metals, especially copper and tin, supporting a clear design requirement to avoid exposed metal on the wet side of enclosures, including fittings, fasteners, and plumbing<sup>2</sup>.</p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG?auth=c8ead275f713da93ded4d153daf5c805ded9cac5369eef786d5a824e24384381&width=1572" alt="Non-porous acrylic and fiberglass enclosure materials">
+                    <div class="image-caption">
+                        Figure 7. Sealed, non-porous materials (acrylic, fiberglass, sealed concrete) reduce biofilm retention and improve sanitation.<sup>11</sup>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <h4>🧱 Recommended Materials</h4>
+                    <p>Sealed, non‑porous finishes: acrylic, fiberglass, or sealed concrete to reduce biofilm retention and improve sanitation<sup>1</sup></p>
+                </div>
+                <div class="spec-card highlight">
+                    <h4>🔧 Inert Plastics</h4>
+                    <p>Use PVC and minimise/eliminate metal exposure to avoid contamination risks<sup>2,1</sup></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Health and Safety -->
+        <section id="safety">
+            <h2><span class="icon">5</span> Health and Safety Needs of Visitors and Staff</h2>
+
             <div class="section-with-image">
                 <div class="section-image full-width">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/purple-common-octopus-tentacles-rolled-with-other-royalty-free-image-1570222893.jpg" alt="Octopus in enriched enclosure showing natural exploratory behavior">
+                    <img src="https://s.hdnux.com/photos/10/76/24/2352389/10/960x0.webp" alt="Staff safety barriers and secure access systems in GPO exhibit">
+                    <div class="image-caption">
+                        Figure 8. Lockable access points, staff-only service corridors, and visitor barriers with no-reach zones ensuring safety for both staff and public.<sup>12</sup>
+                    </div>
                 </div>
             </div>
 
-            <p>Behavioural change is increasingly recognised as an early indicator of compromised welfare and health in cephalopods [1]. Enclosure designs that constrain exploration, shelter use, or problem‑solving opportunities may therefore obscure early warning signs of health decline.</p>
+            <p>The BIAZA manual identifies specific staff risks associated with <em>E. dofleini</em>, noting that bites can be painful and may require urgent medical attention, and emphasising the need for protocols that prevent arms being brought toward the beak during handling or maintenance<sup>2</sup>.</p>
 
-            <div class="info-box success">
-                <h4> Primary Health Measure</h4>
-                <p>Environmental enrichment literature across captive animals demonstrates that enclosures supporting species‑typical behaviour can reduce stress‑associated pathology and improve overall health outcomes [4]. For <em>E. dofleini</em>, enclosure design functions as a primary preventative health measure, not merely an aesthetic or enrichment consideration.</p>
+            <div class="info-box warning">
+                <h4>🛡️ Design Implications for Health and Safety<sup>2</sup></h4>
+                <ul style="margin: 0.75rem 0 0 1.25rem;">
+                    <li><strong>Lockable access points</strong> and staff‑only service corridors to support safe maintenance</li>
+                    <li><strong>Visitor barriers</strong> and clearly defined no‑reach zones to prevent injury and contamination</li>
+                    <li><strong>Electrical safety</strong> integrated into enclosure and LSS design</li>
+                </ul>
             </div>
-
-            <h3>Behavioral Health Indicators:</h3>
-            <ul class="checklist">
-                <li>Regular exploration of enclosure space</li>
-                <li>Normal den selection and use patterns</li>
-                <li>Active foraging and hunting behaviors</li>
-                <li>Problem-solving and manipulation activities</li>
-                <li>Normal coloration and skin texture changes</li>
-            </ul>
         </section>
+
+        <!-- Section 6: Accessibility -->
+        <section id="accessibility">
+            <h2><span class="icon">6</span> Accessibility</h2>
+            
+            <div class="info-box">
+                <h4>♿ Design Requirements</h4>
+                <p>Designs should provide step‑free visitor routes and accessible interpretation panels in line with institutional and regulatory accessibility requirements. The sources cited above do not specify numeric accessibility standards; therefore, local institutional regulations should be applied.</p>
+            </div>
+        </section>
+
 
         <!-- Summary Section -->
         <div class="summary-box">
-            <h2>✓ Summary: Enclosure Design Priorities for Health</h2>
-            <div class="priority-grid">
-                <div class="priority-card critical">
-                    <h3>📏 Adequate Benthic Space</h3>
-                    <p>Supporting natural movement [3]</p>
+            <h2>✓ Summary: Key Enclosure Design Specifications</h2>
+            <div class="spec-grid">
+                <div class="spec-card highlight">
+                    <h4>📏 Volume: ~5,400 L</h4>
+                    <p>Median target; >1,893 L minimum; up to ~8,000 L achievable<sup>1,3,4</sup></p>
                 </div>
-                <div class="priority-card">
-                    <h3>🏠 Multiple Den Structures</h3>
-                    <p>Allowing behavioural choice [2]</p>
+                <div class="spec-card highlight">
+                    <h4>🌡️ Temperature: 6–11 °C</h4>
+                    <p>Avoid sustained 12–13 °C; 5–8 °C viable with chilling<sup>1,2</sup></p>
                 </div>
-                <div class="priority-card critical">
-                    <h3>🪨 High Structural Complexity</h3>
-                    <p>At the substrate level [4]</p>
+                <div class="spec-card critical">
+                    <h4>🔒 Containment: Critical</h4>
+                    <p>Lockable lids, protected overflows, no openings > beak size<sup>2</sup></p>
                 </div>
-                <div class="priority-card">
-                    <h3>🌊 Stable Water Flow</h3>
-                    <p>Non-turbulent at the benthos [5]</p>
+                <div class="spec-card">
+                    <h4>💧 LSS: Multi-stage</h4>
+                    <p>Mechanical + Biological + Protein skimmer + UV<sup>1,2</sup></p>
                 </div>
-                <div class="priority-card critical">
-                    <h3>💡 Controlled Lighting</h3>
-                    <p>Permitting shaded refuge and sensory control [1]</p>
+                <div class="spec-card">
+                    <h4>🧱 Materials: Non-porous</h4>
+                    <p>Acrylic, fiberglass, sealed concrete; avoid metals<sup>1,2</sup></p>
+                </div>
+                <div class="spec-card critical">
+                    <h4>⚡ Safety: Integrated</h4>
+                    <p>Staff corridors, visitor barriers, electrical safety<sup>2</sup></p>
                 </div>
             </div>
         </div>
 
         <!-- References -->
         <section id="references">
-            <h2>📚 Key References (Google Scholar–verifiable)</h2>
+            <h2>📚 References (Vancouver Style)</h2>
             <div class="references">
-                <ul>
-                    <li><strong>Birch, J., Burn, C., Schnell, A. K., Browning, H., & Crump, A.</strong> (2021). Review of the evidence of sentience in cephalopod molluscs. <em>Animal Sentience</em>, 6(32).</li>
-                    <li><strong>Mather, J. A.</strong> (1994). 'Home' choice and modification by juvenile octopuses. <em>Animal Behaviour</em>, 48(3), 563–572.</li>
-                    <li><strong>Scheel, D., & Bisson, L.</strong> (2012). Movement patterns of giant Pacific octopuses, <em>Enteroctopus dofleini</em>. <em>Journal of Experimental Marine Biology and Ecology</em>, 416, 21–31.</li>
-                    <li><strong>Shepherdson, D. J.</strong> (1999). <em>Environmental enrichment for captive animals</em>. Smithsonian Institution.</li>
-                    <li><strong>World Organisation for Animal Health (WOAH).</strong> (2023). <em>Aquatic Animal Health Code: General disease prevention principles</em>.</li>
-                </ul>
+                <ol>
+                    <li>Multi‑institution Giant Pacific Octopus husbandry survey. <em>PMC</em>.</li>
+                    <li>British and Irish Association of Zoos and Aquariums (BIAZA). <em>Giant Pacific Octopus Husbandry Manual</em>.</li>
+                    <li>Mortality review of aquarium‑held octopuses. <em>JSTOR</em>.</li>
+                    <li>Washington State public procurement specification for Giant Pacific Octopus habitat replacement. <em>omwbe.wa.gov</em>.</li>
+                    <li>ANIM5009 Life‑Support Systems teaching materials, 2026.</li>
+                    <li>Wikimedia Commons contributors. Giant Pacific octopus in exhibit at Monterey Bay Aquarium [Internet]. San Francisco (CA): Wikimedia Commons; c2007 [cited 2026 Apr 4]. Available from:
+                    https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg</li>
+                    <li>Sunset Beach Club. Giant Pacific octopus (Pulpo gigante del Pacífico) [Internet]. Benalmádena: Sunset Beach Club; 2010 [cited 2026 Apr 4]. Available from:
+                    https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg</li>
+                    <li>Kraken Reef. Giant Pacific octopus in aquarium display [Internet]. Kraken Reef Aquarium; 2022 [cited 2026 Apr 4]. Available from:
+                    https://krakenreef.com/cdn/shop/products/20220312_114051.jpg</li>
+                    <li>Made‑in‑China.com. Digital temperature controller with sensor for aquarium systems [Internet]. Beijing: Focus Technology Co., Ltd.; c2022 [cited 2026 Apr 4]. Available from:
+                    https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg</li>
+                    <li>Salon. Octopus housed in controlled laboratory aquarium system [Internet]. New York: Salon Media Group; 2023 [cited 2026 Apr 4]. Available from:
+                    https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg</li>
+                    <li>Houston Chronicle. Cold‑water aquarium exhibit featuring giant Pacific octopus [Internet]. Houston (TX): Hearst Newspapers; c2011 [cited 2026 Apr 4]. Available from:
+                    https://s.hdnux.com/photos/10/76/24/2352389/10/960x0.webp</li>
+                </ol>
             </div>
         </section>
     </div>
@@ -857,7 +1011,8 @@
         <p style="margin-top: 1rem;">
             <a href="diet.html">Diet & Nutrition</a> | 
             <a href="health.html">Preventative Health</a> | 
-            <a href="enclosure.html">Enclosure Design</a>
+            <a href="enclosure.html">Enclosure Design</a> | 
+            <a href="feeding.html">Feeding Management</a>
         </p>
     </footer>
 

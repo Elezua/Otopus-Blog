@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giant Pacific Octopus - Diet & Nutrition Management</title>
+    <title>Giant Pacific Octopus - Feeding & Nutrition Management</title>
     <style>
         * {
             margin: 0;
@@ -20,6 +20,8 @@
             --coral: #e8a598;
             --dark: #1a1a2e;
             --white: #ffffff;
+            --warning: #e74c3c;
+            --success: #48bb78;
         }
 
         body {
@@ -93,8 +95,8 @@
         /* Hero Section */
         .hero {
             margin-top: 70px;
-            background: linear-gradient(rgba(30, 58, 95, 0.8), rgba(46, 92, 138, 0.8)),
-                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnv1KlKIZSfk9A-QAuEPAjBGLOM9pF7iGSgcYI210PqSbsshg0Jg7KcgOdfN3jtnyoEHuxEqPTl-LhQOvAlj_WbFFYvQICx5oIanXqUpA&s=10');
+            background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(46, 92, 138, 0.85)),
+                        url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             color: var(--white);
@@ -115,8 +117,15 @@
             margin-bottom: 2rem;
         }
 
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
         .hero-image {
-            max-width: 600px;
+            max-width: 800px;
             margin: 2rem auto;
             border-radius: 10px;
             overflow: hidden;
@@ -136,53 +145,26 @@
             padding: 2rem;
         }
 
-        /* Quick Overview Cards */
-        .quick-overview {
-            background: var(--white);
-            padding: 2rem;
+        /* Scope Section */
+        .scope-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             margin: -3rem auto 3rem;
             position: relative;
             z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .quick-overview h2 {
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-size: 2rem;
+        .scope-box h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
         }
 
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .overview-card {
-            background: linear-gradient(135deg, var(--teal), var(--light-teal));
-            padding: 1.5rem;
-            border-radius: 10px;
-            color: var(--white);
-            transition: transform 0.3s ease;
-        }
-
-        .overview-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .overview-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .overview-card p {
-            font-size: 0.95rem;
-        }
-
-        .overview-card.highlight {
-            background: linear-gradient(135deg, var(--coral), #f0b4a8);
+        .scope-box p {
+            line-height: 1.8;
+            opacity: 0.95;
         }
 
         /* Section Styling */
@@ -200,12 +182,21 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 3px solid var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         section h3 {
             color: var(--ocean-blue);
             font-size: 1.4rem;
             margin: 1.5rem 0 1rem;
+        }
+
+        section h4 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin: 1.25rem 0 0.75rem;
         }
 
         section p {
@@ -244,43 +235,21 @@
             object-fit: cover;
         }
 
-        /* Lists */
-        ul, ol {
-            margin: 1rem 0 1rem 2rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        .diet-list {
-            list-style: none;
-            margin-left: 0;
-        }
-
-        .diet-list li {
-            padding: 0.75rem 1rem;
-            margin: 0.5rem 0;
+        /* Image Caption with Vancouver Citation */
+        .image-caption {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
             background: var(--sand);
-            border-left: 4px solid var(--teal);
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            border-left: 3px solid var(--teal);
+            border-radius: 0 5px 5px 0;
         }
 
-        .diet-list li:hover {
-            background: var(--light-teal);
-            color: var(--white);
-            transform: translateX(5px);
-        }
-
-        .diet-list li.important {
-            border-left-color: var(--coral);
-            background: #fff5f3;
-        }
-
-        .diet-list li.limit {
-            border-left-color: #e74c3c;
-            background: #fdf2f2;
+        .image-caption sup {
+            color: var(--primary-blue);
+            font-weight: bold;
         }
 
         /* Info Boxes */
@@ -293,22 +262,25 @@
         }
 
         .info-box.warning {
-            border-left-color: #e74c3c;
+            border-left-color: var(--warning);
             background: linear-gradient(135deg, #fff5f5, #fed7d7);
         }
 
         .info-box.success {
-            border-left-color: #48bb78;
+            border-left-color: var(--success);
             background: linear-gradient(135deg, #f0fff4, #c6f6d5);
         }
 
         .info-box h4 {
             color: var(--primary-blue);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Schedule Table */
-        .schedule-table {
+        /* Tables */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
@@ -316,32 +288,115 @@
             display: block;
         }
 
-        .schedule-table table {
+        .data-table table {
             width: 100%;
             min-width: 600px;
         }
 
-        .schedule-table th,
-        .schedule-table td {
+        .data-table th,
+        .data-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 2px solid var(--sand);
         }
 
-        .schedule-table th {
+        .data-table th {
             background: var(--primary-blue);
             color: var(--white);
             font-weight: 600;
         }
 
-        .schedule-table tr:hover {
+        .data-table tr:hover {
             background: var(--sand);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        /* Nutrient Grid */
+        .nutrient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .nutrient-card {
+            background: linear-gradient(135deg, var(--teal), var(--light-teal));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nutrient-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .nutrient-card h4 {
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .nutrient-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .nutrient-card.highlight {
+            background: linear-gradient(135deg, var(--coral), #f0b4a8);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.75rem 1rem;
+            padding-left: 2.5rem;
+            position: relative;
+            background: var(--sand);
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .checklist li:hover {
+            background: var(--light-teal);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 1rem;
+            color: var(--teal);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .checklist li:hover::before {
+            color: var(--white);
         }
 
         /* References */
         .references {
             background: var(--sand);
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: 10px;
             margin-top: 2rem;
         }
@@ -349,23 +404,53 @@
         .references h3 {
             color: var(--primary-blue);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
-        .references ul {
+        .references ol {
             list-style: none;
             margin-left: 0;
+            counter-reset: ref-counter;
         }
 
         .references li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
+            padding: 0.75rem 0;
+            padding-left: 2.5rem;
             position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            counter-increment: ref-counter;
         }
 
-        .references li:before {
-            content: "📚";
+        .references li:last-child {
+            border-bottom: none;
+        }
+
+        .references li::before {
+            content: counter(ref-counter) ". ";
             position: absolute;
             left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .references li strong {
+            color: var(--primary-blue);
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .summary-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 1.5rem;
         }
 
         /* Footer */
@@ -380,6 +465,36 @@
         footer a {
             color: var(--light-teal);
             text-decoration: none;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--teal);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 999;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: var(--ocean-blue);
+            transform: translateY(-3px);
         }
 
         /* Responsive Design */
@@ -416,7 +531,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .overview-grid {
+            .nutrient-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -428,7 +543,8 @@
                 font-size: 1.5rem;
             }
 
-            .quick-overview {
+            .scope-box,
+            .summary-box {
                 margin: -2rem 1rem 2rem;
                 padding: 1.5rem;
             }
@@ -437,35 +553,6 @@
         /* Smooth Scroll */
         html {
             scroll-behavior: smooth;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--teal);
-            color: var(--white);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 999;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-        }
-
-        .back-to-top:hover {
-            background: var(--ocean-blue);
-            transform: translateY(-3px);
         }
 
         /* Animation */
@@ -483,17 +570,31 @@
         section {
             animation: fadeIn 0.6s ease-out;
         }
+
+        /* Icon styling */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">GPO Husbandry</a>
+            <a href="#" class="logo">🐙 GPO Husbandry</a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="active">Diet & Nutrition</a></li>
+                <li><a href="diet.html">Diet & Nutrition</a></li>
                 <li><a href="health.html">Preventative Health</a></li>
                 <li><a href="enclosure.html">Enclosure Design</a></li>
+                <li><a href="feeding.html" class="active">Feeding Management</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -505,338 +606,417 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Diet & Nutrition Management</h1>
+        <h1>Feeding & Nutrition Management</h1>
         <p class="species-name">Enteroctopus dofleini</p>
+        <p class="hero-subtitle">Formulated diet with quantified nutrient supply, feeding schedules, and monitoring protocols for optimal health</p>
         <div class="hero-image">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnv1KlKIZSfk9A-QAuEPAjBGLOM9pF7iGSgcYI210PqSbsshg0Jg7KcgOdfN3jtnyoEHuxEqPTl-LhQOvAlj_WbFFYvQICx5oIanXqUpA&s=10" alt="Giant Pacific Octopus in natural habitat">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnv1KlKIZSfk9A-QAuEPAjBGLOM9pF7iGSgcYI210PqSbsshg0Jg7KcgOdfN3jtnyoEHuxEqPTl-LhQOvAlj_WbFFYvQICx5oIanXqUpA&s=10" alt="Giant Pacific Octopus feeding on prey">
+            <div class="image-caption">
+                Figure 1. Giant Pacific Octopus capturing prey using arms and suckers in natural benthic environment.<sup>14</sup>
+            </div>
         </div>
     </section>
 
     <div class="container">
-        <!-- Quick Overview -->
-        <div class="quick-overview">
-            <h2>Quick Diet Overview (at-a-glance)</h2>
-            <div class="overview-grid">
-                <div class="overview-card">
-                    <h3>Feeding Type</h3>
-                    <p>Carnivorous, opportunistic benthic predator</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Core Prey Groups</h3>
-                    <p>Crustaceans (primary), bivalves, lean fish (secondary)</p>
-                </div>
-                <div class="overview-card highlight">
-                    <h3>Diet Intent</h3>
-                    <p>High protein, low-lipid, mixed prey</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Key Ration</h3>
-                    <p>~3% body weight every 3 days at 7–9.5 °C</p>
-                </div>
-                <div class="overview-card highlight">
-                    <h3>Presentation</h3>
-                    <p>Shell-on prey to support normal processing</p>
-                </div>
-            </div>
+        <!-- Scope Section -->
+        <div class="scope-box">
+            <h2>📋 Part 1: Diet and Nutrition Management</h2>
+            <p>This section presents a formulated diet with quantified nutrient and energy supply, a feeding schedule, predicted effects on health and behaviour, feeding management considerations, and a food‑intake monitoring approach, in line with the husbandry portfolio requirements.<sup>1</sup></p>
         </div>
 
         <!-- Section 1: Feeding Ecology -->
         <section id="feeding-ecology">
-            <h2>1. Feeding Ecology & Digestive Adaptations</h2>
+            <h2><span class="icon">1</span> Feeding Ecology and Food Processing</h2>
             
             <div class="section-with-image">
                 <div>
-                    <h3>How food is found and processed</h3>
-                    <p>The Giant Pacific Octopus is a crepuscular, generalist predator that captures prey using its arms and web, then processes food with a keratinised beak and radula. Saliva contains neurotoxins and digestive enzymes that enable external digestion, allowing connective tissue to be dissolved and soft tissue extracted before ingestion [1, 5]</p>
+                    <p><em>Enteroctopus dofleini</em> is a benthic predator that captures prey using its arms and suckers and processes food with a keratinised beak and radula. Prey handling time therefore forms an important component of normal feeding behaviour. BIAZA guidance identifies wild prey as being dominated by crabs (e.g. <em>Cancer</em> spp.) and recommends brown crab (<em>Cancer pagurus</em>) as a suitable analogue in managed care, with smaller species such as shore crab (<em>Carcinus maenas</em>) serving as cost‑effective alternatives.<sup>2</sup></p>
                     
                     <div class="info-box success">
-                        <h4>Implication for managed care:</h4>
-                        <p>Diets should not rely solely on soft, pre-processed food items. At least part of the ration should require active handling and processing to match natural feeding sequences and time budgets [1].</p>
+                        <h4>🎯 Implication for Diet Design</h4>
+                        <p>Crustaceans should form the core of the ration, with cephalopods and fish used to broaden nutrient profiles while avoiding over‑reliance on a single prey type.<sup>2,3</sup></p>
                     </div>
                 </div>
                 <div class="section-image">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnv1KlKIZSfk9A-QAuEPAjBGLOM9pF7iGSgcYI210PqSbsshg0Jg7KcgOdfN3jtnyoEHuxEqPTl-LhQOvAlj_WbFFYvQICx5oIanXqUpA&s=10" alt="Octopus feeding on prey showing natural hunting behavior">
+                    <img src="https://www.thoughtco.com/thmb/_E5IA-Hhx2Eq5eVO0sUCJNy_Nt8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/143773811-56a5f6df3df78cf7728abd0e.jpg" alt="Crustaceans including crabs and shrimp for octopus diet">
+                    <div class="image-caption">
+                        Figure 2. Core crustacean prey items: crab and shrimp form the foundation of the formulated diet.<sup>15</sup>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                <!-- GIT Features Section - Add to your Feeding & Nutrition page -->
+        <section id="git-features">
+            <h2><span class="icon">9</span> Special Gastrointestinal Tract (GIT) Features and Implications for Diet</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>Cephalopods possess a short, highly specialised gastrointestinal tract adapted for rapid processing of animal prey rather than prolonged fermentation. Food is mechanically reduced by the beak and radula within the buccal mass before passing through an oesophagus that traverses the central brain, a constraint that limits ingestion of large, rigid fragments and favours soft tissues or prey that can be externally processed prior to swallowing.<sup>11</sup></p>
+                    
+                    <div class="info-box">
+                        <h4>🧠 Anatomical Constraint</h4>
+                        <p>The oesophagus passing through the brain limits the size and rigidity of ingestible food particles, favouring pre-processed or soft tissues.</p>
+                    </div>
+
+                    <div class="section-image full-width">
+                        <img src="https://www.researchgate.net/publication/363420515/figure/fig2/AS:11431281258561630@1720120870348/The-digestive-tract-removed-from-an-Octopus-vulgaris-weighing-900g-The-main-anatomical.tif" alt="Digestive anatomy diagram showing stomach, caecum and digestive gland">
+                        <div class="image-caption">
+                            Figure 10. The caecum and digestive gland (hepatopancreas) are the principal sites of extracellular digestion and nutrient absorption.<sup>16</sup>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="section-image">
+                    <img src="https://www.theenvironmentalblog.org/wp-content/uploads/2025/07/2-1.jpg" alt="Octopus beak and radula processing prey">
+                    <div class="image-caption">
+                        Figure 9. Mechanical processing by the keratinised beak and radula occurs in the buccal mass before ingestion.<sup>17</sup>
+                    </div>
                 </div>
             </div>
 
-            <h3>Gastrointestinal features (functional relevance)</h3>
-            <ul class="diet-list">
-                <li>Short, protein-adapted digestive tract typical of active carnivores [3]</li>
-                <li>Digestion relies heavily on protein metabolism; carbohydrate has little dietary importance [3</li>
-                <li>Lipid utilisation is limited; excessive dietary fat is undesirable [3]</li>
-            </ul>
+
+            <p>Following the oesophagus, ingesta enters a crop (in some individuals) and a muscular stomach, but the principal site of digestion and absorption is a large caecum closely associated with the digestive gland (hepatopancreas). Digestion in octopuses is predominantly extracellular, with digestive enzymes secreted by the digestive gland into the stomach and caecum, enabling efficient breakdown of protein‑rich prey.<sup>11,12</sup></p>
+
+            <div class="info-box success">
+                <h4>⚡ Digestive Efficiency</h4>
+                <p>Extracellular enzymatic digestion allows rapid breakdown of high-protein prey, supporting the octopus's active, predatory lifestyle.</p>
+            </div>
+
+            <p>Cephalopods lack adaptations for significant carbohydrate fermentation and have limited capacity to utilise structural carbohydrates, reflecting their carnivorous ecology. Instead, the digestive system is optimised for high‑protein, low‑carbohydrate diets, with rapid gut transit times supporting frequent, discrete feeding events rather than continuous grazing.<sup>11–13</sup></p>
+
+            <h3>Implications for Diet Formulation and Presentation:</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🥩 Prioritise Animal Protein</h4>
+                    <p>Diets should prioritise highly digestible animal protein and avoid plant‑based or fibre‑rich components.<sup>11–13</sup></p>
+                </div>
+                <div class="feature-card">
+                    <h4>🦀 Shell‑On Prey Strategy</h4>
+                    <p>Shell‑on prey supports natural external processing while preventing oversized fragments from entering the oesophagus.<sup>11</sup></p>
+                </div>
+                <div class="feature-card">
+                    <h4>⏱️ Discrete Meal Feeding</h4>
+                    <p>Rations should be offered as discrete meals, with monitoring of intake and digestion efficiency rather than ad‑libitum feeding.<sup>11–13</sup></p>
+                </div>
+            </div>
+
+            <div class="section-with-image">
+                <div>
+                    <div class="info-box warning">
+                        <h4>⚠️ Key Dietary Restrictions</h4>
+                        <ul style="margin: 0.75rem 0 0 1.25rem; padding: 0;">
+                            <li>Avoid high-fibre or plant-based ingredients</li>
+                            <li>Limit structural carbohydrates (chitin, cellulose)</li>
+                            <li>Prevent large, rigid food fragments</li>
+                            <li>Do not offer ad-libitum feeding schedules</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Prepared octopus diet with appropriate protein sources">
+                    <div class="image-caption">
+                        Figure 11. Formulated diets should contain highly digestible animal proteins with minimal fibre or carbohydrate content.<sup>18</sup>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Section 2: Wild Diet -->
-        <section id="wild-diet">
-            <h2>2. Wild Diet Template</h2>
+        <!-- Section 2: Formulated Diet -->
+        <section id="formulated-diet">
+            <h2><span class="icon">2</span> Formulated Diet (Ingredients and Inclusion Rates)</h2>
+
+            <h3>(A) Nutrient‑analysed wet mix (primary ration)</h3>
+            <p>The diet is formulated as a wet diet consisting of raw or frozen marine items, consistent with common aquarium practice and feed‑type definitions provided in module teaching materials.<sup>4,5</sup></p>
             
+            <h4>Composition (edible wet weight; per feed batch):</h4>
+            <div class="nutrient-grid">
+                <div class="nutrient-card highlight">
+                    <h4>🦀 50% Crab Meat Equivalent</h4>
+                    <p>Green/shore crab <em>Carcinus maenas</em> values used for nutrient analysis<sup>6</sup></p>
+                </div>
+                <div class="nutrient-card">
+                    <h4>🦑 30% Squid Mantle or Tentacle</h4>
+                    <p><em>Loligo vulgaris</em><sup>7</sup></p>
+                </div>
+                <div class="nutrient-card">
+                    <h4>🦐 20% Shrimp</h4>
+                    <p><em>Penaeus monodon</em><sup>8</sup></p>
+                </div>
+            </div>
+
             <div class="section-with-image">
                 <div class="section-image full-width">
-                    <img src="https://aquariumwhisperer.com/wp-content/uploads/2024/02/Octopus-hunting-for-food-on-a-coral-reef-1200x800.jpg" alt="Marine prey items including crustaceans and mollusks">
-                </div>
-            </div>
-
-            <p>Wild prey categories consistently reported for <em>E. dofleini</em> include:</p>
-            
-            <div class="overview-grid" style="margin: 2rem 0;">
-                <div class="overview-card">
-                    <h3>Crustaceans</h3>
-                    <p>Crabs and shrimp (dominant prey)</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Molluscs</h3>
-                    <p>Clams, mussels, snails</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Fish</h3>
-                    <p>Benthic fish (secondary component)</p>
-                </div>
-            </div>
-            <p>
-                [5].
-            </p>
-
-            <div class="info-box">
-                <h4>Template Application</h4>
-                <p>This template underpins the captive diet formulation below.</p>
-                
-            </div>
-        </section>
-
-        <!-- Section 3: Captive Diet -->
-        <section id="captive-diet">
-            <h2>3. Formulated Captive Diet</h2>
-
-            <h3>Core items (primary)</h3>
-            <p>These items form the foundation of the diet:</p>
-            <ul class="diet-list">
-                <li>Whole marine crabs (shell-on where possible) [1]</li>
-                <li>Shrimp/prawns (shell-on preferred where safe) [5]</li>
-                <li>Bivalves (mussels and/or clams, shell-on) [5]</li>
-            </ul>
-
-            <h3>Rotational / balancing items (secondary)</h3>
-            <ul class="diet-list">
-                <li>Lean marine fish (used in rotation, not as the bulk ration) [5]</li>
-                <li>Squid pieces (optional rotation item) [1]</li>
-            </ul>
-
-            <h3>Items to limit</h3>
-            <ul class="diet-list">
-                <li class="limit">Oily fish as frequent staples — high lipid content can push diets beyond recommended fat levels for octopus [3].</li>
-            </ul>
-
-            <div class="section-with-image">
-                <div class="section-image">
-                    <img src="https://feedingnature.com/wp-content/uploads/2022/07/What-Do-Giant-Pacific-Octopuses-Eat-3.png" alt="Giant Pacific Octopus diet - crustaceans and prey items" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;" >
-                </div>
-                <div>
-                    <div class="info-box success">
-                        <h4>Diet Diversity</h4>
-                        <p>A varied diet mimicking wild prey composition ensures optimal nutrition and behavioral enrichment.</p>
+                    <img src="https://olasquid.com/wp-content/uploads/2025/07/an-muc-co-tot-khong-3.jpg" alt="Squid and marine prey items for octopus nutrition">
+                    <div class="image-caption">
+                        Figure 3. Squid mantle and tentacles provide protein diversity in the formulated wet mix.<sup>19</sup>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Section 4: Nutrient Rationale -->
-        <section id="nutrient-rationale">
-            <h2>4. Nutrient & Energy Rationale</h2>
+            <h3>(B) Behavioural "processing" feeds (welfare and feeding behaviour)</h3>
+            <p>To promote natural prey handling, shell‑on crab (brown crab <em>Cancer pagurus</em> when available, otherwise <em>Carcinus maenas</em>) should be offered approximately once per week. These feeds are recorded separately, as the proportion of edible tissue varies due to shell remains.<sup>2,5</sup></p>
 
-            <h3>Macronutrient intent</h3>
-            <div class="overview-grid">
-                <div class="overview-card">
-                    <h3>Protein</h3>
-                    <p>Primary macronutrient supporting growth, activity, and maintenance [3].</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Lipids</h3>
-                    <p>Kept low overall; essential fatty acids supplied via mixed marine prey rather than fatty fish dominance [3].</p>
-                </div>
-                <div class="overview-card">
-                    <h3>Carbohydrate</h3>
-                    <p>Not targeted as a dietary requirement [3].</p>
-                </div>
+            <div class="info-box">
+                <h4>🔬 Welfare Benefit</h4>
+                <p>Shell-on prey promotes extended feeding times and normal prey-processing behaviour, supporting natural hunting sequences.<sup>2,5,9</sup></p>
             </div>
-
-            <h3>Energy provision</h3>
-            <p>Experimental work on <em>E. dofleini</em> indicates that a mixed, low-lipid diet provided at approximately <strong>3% body weight every 3 days</strong> maximises energy available for growth and activity at 7–9.5 °C. This is used as a conservative baseline for rationing, with individual adjustment based on monitoring outcomes [4].</p>
         </section>
 
-        <!-- Section 5: Feeding Schedule -->
-        <section id="feeding-schedule">
-            <h2>5. Feeding Schedule (Example)</h2>
+        <!-- Section 3: Nutrient Analysis -->
+        <section id="nutrient-analysis">
+            <h2><span class="icon">3</span> Nutrient and Energy Analysis (Worked Values)</h2>
 
-            <h3>Standard schedule (cool-water systems):</h3>
-            <p><strong>3 feeding days per week</strong> [1] (e.g. Mon–Thu–Sat)</p>
-
-            <div class="schedule-table">
+            <h3>Proximate composition inputs (per 100 g edible wet portion)</h3>
+            
+            <div class="data-table">
                 <table>
                     <thead>
                         <tr>
-                            <th>Day</th>
-                            <th>Feeding Items</th>
-                            <th>Notes</th>
+                            <th>Ingredient</th>
+                            <th>Moisture</th>
+                            <th>Protein</th>
+                            <th>Lipid/Fat</th>
+                            <th>Minerals/Ash</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Monday</strong></td>
-                            <td>
-                                <ul>
-                                    <li>One shell-on prey item (crab or bivalves)</li>
-                                    <li>One crustacean portion (shrimp/prawn)</li>
-                                    <li>One rotational item (lean fish or squid)</li>
-                                </ul>
-                            </td>
-                            <td>Monitor initial response</td>
+                            <td><strong>Crab</strong> (<em>C. maenas</em>) meat<sup>6</sup></td>
+                            <td>78.7 g</td>
+                            <td>17.1 g</td>
+                            <td>0.54–1.16 g*</td>
+                            <td>2.2 g</td>
                         </tr>
                         <tr>
-                            <td><strong>Thursday</strong></td>
-                            <td>
-                                <ul>
-                                    <li>One shell-on prey item (crab or bivalves)</li>
-                                    <li>One crustacean portion (shrimp/prawn)</li>
-                                    <li>One rotational item (lean fish or squid)</li>
-                                </ul>
-                            </td>
-                            <td>Check consumption rate</td>
+                            <td><strong>Squid</strong> (<em>L. vulgaris</em>) mantle<sup>7</sup></td>
+                            <td>78.54%</td>
+                            <td>18.52%</td>
+                            <td>1.37%</td>
+                            <td>1.45%</td>
                         </tr>
                         <tr>
-                            <td><strong>Saturday</strong></td>
-                            <td>
-                                <ul>
-                                    <li>One shell-on prey item (crab or bivalves)</li>
-                                    <li>One crustacean portion (shrimp/prawn)</li>
-                                    <li>One rotational item (lean fish or squid)</li>
-                                </ul>
-                            </td>
-                            <td>Weekly assessment</td>
+                            <td><strong>Shrimp</strong> (<em>P. monodon</em>)<sup>8</sup></td>
+                            <td>74.93%</td>
+                            <td>18.2%</td>
+                            <td>6.0%</td>
+                            <td>Not reported</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.9rem; color: #666;">*Raw claw ~0.54 g/100 g; leg ~1.16 g/100 g<sup>6</sup></p>
+
+            <div class="section-with-image">
+                <div>
+                    <h3>Calculated composition of the formulated wet mix (per 100 g mix)</h3>
+                    <p>Based on 50/30/20 inclusion rates:</p>
+                    <ul>
+                        <li><strong>Moisture:</strong> ~77.9% → <strong>Dry matter (DM):</strong> ~22.1%<sup>6–8</sup></li>
+                        <li><strong>Crude protein:</strong> ~17.75 g/100 g<sup>6–8</sup></li>
+                        <li><strong>Crude fat:</strong> ~1.88 g/100 g (using crab raw claw lipid values)<sup>6–8</sup></li>
+                        <li><strong>Ash/minerals (partial):</strong> crab contributes ~1.1 g/100 g and squid ~0.44 g/100 g; shrimp ash unavailable<sup>6–8</sup></li>
+                    </ul>
+                </div>
+                <div class="section-image">
+                    <img src="images/Designer (15).png" alt="Nutritional analysis and food preparation">
+                    <div class="image-caption">
+                        Figure 4. Nutrient analysis and controlled preparation ensure diet quality and consistency. <b>Image generated by the author using AI tools.</b>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Energy (digestible energy estimate)</h3>
+            <p>Standard digestible energy (DE) coefficients from teaching materials are used: 23 kJ/g protein and 39 kJ/g crude fat (and 17 kJ/g nitrogen‑free extract when carbohydrate data are available).<sup>5</sup></p>
+
+            <div class="info-box success">
+                <h4>⚡ Energy Calculation</h4>
+                <p>As carbohydrate values are not consistently reported for the cited seafood items, energy is estimated from protein and fat only:</p>
+                <p style="margin-top: 0.75rem; font-weight: bold;">Energy per 100 g wet mix: (17.75 × 23) + (1.88 × 39) ≈ 481 kJ/100 g (≈ 4.8 kJ/g)<sup>5–8</sup></p>
+            </div>
+        </section>
+
+        <!-- Section 4: Comparison with Requirements -->
+        <section id="requirements">
+            <h2><span class="icon">4</span> Comparison with Known or Estimated Requirements</h2>
+            
+            <div class="section-with-image">
+                <div>
+                    <p>An energetics study of immature <em>E. dofleini</em> reports that a mixed low‑lipid diet offered at approximately 3% body weight every three days at 7–9.5 °C maximised energy available for growth and activity.<sup>9</sup></p>
+                    
+                    <div class="info-box">
+                        <h4>📊 Energy Supply Estimate</h4>
+                        <p>Using the calculated diet energy density (4.8 kJ/g), an average intake of 1% body weight per day provides approximately ~48 kJ/kg/day (10 g/kg/day × 4.8 kJ/g).<sup>5–9</sup></p>
+                        <p style="margin-top: 0.5rem;"><em>This value represents an energy‑supply estimate, not a defined physiological requirement, as the cited study does not report a kJ requirement.</em><sup>9</sup></p>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="images/Designer (12).png" alt="Octopus growth and energy requirements">
+                    <div class="image-caption">
+                        Figure 5. Energy requirements vary with temperature and life stage; 3% body weight every 3 days optimizes growth at 7–9.5°C. <b>Image generated by the author using AI tools.</b>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Feeding Schedule -->
+        <section id="feeding-schedule">
+            <h2><span class="icon">5</span> Feeding Schedule</h2>
+
+            <h3>Baseline schedule (cool systems)</h3>
+            <p>Feed every third day (approximately three feeds per week) using the nutrient‑analysed wet mix, aligning with published feeding regimes.<sup>9</sup></p>
+
+            <h4>Example weekly structure:</h4>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feed Type</th>
+                            <th>Frequency</th>
+                            <th>Composition</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Formulated wet mix</strong></td>
+                            <td>2–3 feeds/week</td>
+                            <td>Crab, squid, shrimp<sup>5–8</sup></td>
+                            <td>Primary nutrition</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shell‑on crab</strong></td>
+                            <td>1 feed/week</td>
+                            <td><em>Cancer pagurus</em> or <em>C. maenas</em><sup>2,5</sup></td>
+                            <td>Prey processing & handling</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="info-box">
-                <h4>Ration Adjustment</h4>
-                <p>Rations are calculated from estimated body weight and adjusted based on intake monitoring and condition indicators [5].</p>
+            <div class="section-with-image">
+                <div class="section-image full-width">
+                    <img src="https://ars.els-cdn.com/content/image/1-s2.0-S0022098123000643-gr1.jpg" alt="Scientific figure from octopus research study" style="width: 100%; max-width: 1200px; height: auto; border-radius: 10px; display: block;">
+                        Figure 6. Shell-on prey promotes natural handling behavior and extended feeding times.<sup>20</sup>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ Adjustment Protocol</h4>
+                <p>Feeding frequency and ration size should be adjusted using intake data and body condition trends, accounting for life stage, reproductive status, and seasonal temperature variation.<sup>1,5,9</sup></p>
             </div>
         </section>
 
-        <!-- Section 6: Health Effects -->
-        <section id="health-effects">
-            <h2>6. Health & Behavioural Effects</h2>
+        <!-- Section 6: Expected Effects -->
+        <section id="expected-effects">
+            <h2><span class="icon">6</span> Expected Effects on Health and Behaviour</h2>
+
+            <div class="nutrient-grid">
+                <div class="nutrient-card highlight">
+                    <h4>✅ Benefits</h4>
+                    <p>The formulated diet is high in protein and low in lipid, consistent with a mixed low‑lipid feeding approach associated with improved growth efficiency in immature <em>E. dofleini</em>.<sup>7–9</sup> Shell‑on prey promotes extended feeding times and normal prey‑processing behaviour.<sup>2,5,9</sup></p>
+                </div>
+                <div class="nutrient-card">
+                    <h4>⚠️ Risks</h4>
+                    <p>Diets in aquaria may drift toward higher lipid content if oily fish are used excessively. Survey‑based analyses indicate that fat levels commonly exceed recommended levels in some octopus feeding programmes.<sup>10</sup></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Feeding Management -->
+        <section id="management">
+            <h2><span class="icon">7</span> Feeding Management (Cost, Availability, Storage)</h2>
 
             <div class="section-with-image">
                 <div>
-                    <h3>Expected benefits</h3>
-                    <ul class="diet-list">
-                        <li class="important">Supports normal prey capture and processing behaviour [1]</li>
-                        <li class="important">Promotes longer feeding times compared with soft diets [5]</li>
-                        <li class="important">Reduces risk of excess lipid intake [3]</li>
-                    </ul>
+                    <h3>Cost and availability</h3>
+                    <p>Large crabs are relatively expensive; BIAZA recommends smaller crab species such as <em>Carcinus maenas</em> as practical and affordable substitutes.<sup>2</sup></p>
 
-                    <h3>Potential risks</h3>
-                    <ul class="diet-list">
-                        <li class="limit">Over-reliance on fatty fish leading to elevated dietary fat [3]</li>
-                        <li class="limit">Vitamin degradation in frozen feeds if supplementation is not considered [1]</li>
-                    </ul>
+                    <h3>Storage and preparation</h3>
+                    <p>Frozen storage (−18 °C), controlled thawing (preferably under refrigeration), inspection prior to feeding, and prompt removal of uneaten food are recommended to maintain nutrient quality and protect water quality.<sup>5</sup></p>
                 </div>
                 <div class="section-image">
-                    <img src="https://tse4.mm.bing.net/th/id/OIP.RZG65u--KyR8KNe36CfqigHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Octopus enclosure or habitat" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+                    <img src="images/Designer (13).png" alt="Frozen food storage and preparation">
+                    <div class="image-caption">
+                        Figure 7. Proper frozen storage (−18°C) and controlled thawing maintain nutrient quality and water quality <b>Image generated by the author using AI tools</b>.
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 7: Management Considerations -->
-        <section id="management">
-            <h2>7. Feeding Management Considerations</h2>
+        <!-- Section 8: Food Intake Monitoring -->
+        <section id="monitoring">
+            <h2><span class="icon">8</span> Food Intake Monitoring</h2>
 
-            <h3>Cost & availability</h3>
-            <ul>
-                <li>Mixed diets allow substitution within prey groups based on seasonal availability and cost [4]</li>
-                <li>Crabs are often the most expensive item; bivalves and shrimp can partially offset cost [4]</li>
+            <p>Monitoring ensures that animals consume the formulated diet and assists in detecting dietary drift due to substitution, refusals, or over‑feeding.<sup>5,10</sup></p>
+
+            <h3>At each feed event:</h3>
+            <ul class="checklist">
+                <li>Weigh and record each item offered (crab, squid, shrimp), noting shell‑on versus shell‑off feeds<sup>5–8</sup></li>
+                <li>Record feeding latency and prey handling behaviour, particularly during shell‑on feeds<sup>2,5</sup></li>
+                <li>Remove and weigh uneaten remains to estimate actual intake<sup>5</sup></li>
             </ul>
-
-            <h3>Storage & preparation</h3>
-            <div class="info-box">
-                <ul>
-                    <li>Frozen storage with clear batch/date labelling</li>
-                    <li>Thaw only daily requirements</li>
-                    <li>Remove uneaten food promptly to maintain water quality [1]</li>
-                </ul>
-            </div>
-
-            <h3>Preparation time</h3>
-            <p>Shell-on prey increases preparation and clean-up time but provides important behavioural and welfare benefits [1].</p>
 
             <div class="section-with-image">
                 <div class="section-image full-width">
-                    <img src="https://i.pinimg.com/originals/88/83/4f/88834f371a9c2c7c34be271f3715c743.jpg" alt="Octopus husbandry or aquarium setup" style="width: 100%; border-radius: 10px;">
+                    <img src="images/Designer (14).png"  alt="Food intake monitoring and weighing">
+                    <div class="image-caption">
+                        Figure 8. Systematic monitoring of food intake, latency, and uneaten remains enables precise ration adjustment.<b>Image generated by the author using AI tools</b>.
+                    </div>
                 </div>
+            </div>
+
+            <h3>Weekly review:</h3>
+            <div class="info-box success">
+                <h4>📈 Adjustment Protocol</h4>
+                <p>Compare total intake against the expected ration (3% body weight every three days) and adjust feeding levels if body condition or weight trends upward or downward.<sup>5,9</sup></p>
             </div>
         </section>
 
-        <!-- Section 8: Monitoring -->
-        <section id="monitoring">
-            <h2>8. Food Intake Monitoring</h2>
-
-            <h3>Rationale</h3>
-            <p>Rapid growth potential and temperature-sensitive energetics make <em>E. dofleini</em> vulnerable to silent under- or over-feeding without structured monitoring [4].</p>
-
-            <h3>Practical monitoring approach</h3>
-            
-            <div class="overview-grid">
-                <div class="overview-card">
-                    <h3>At Each Feed</h3>
-                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
-                        <li>Record item types and weights offered</li>
-                        <li>Note time to first contact and consumption</li>
-                        <li>Remove and record uneaten remains</li>
-                    </ul>
+        <!-- Summary Section -->
+        <div class="summary-box">
+            <h2>✓ Summary: Key Feeding Management Points</h2>
+            <div class="nutrient-grid">
+                <div class="nutrient-card highlight">
+                    <h4>🦀 Crustacean-Based Diet</h4>
+                    <p>50% crab, 30% squid, 20% shrimp; high protein, low lipid<sup>6–8</sup></p>
                 </div>
-                <div class="overview-card highlight">
-                    <h3>Weekly Review</h3>
-                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
-                        <li>Summarise intake, refusals, prey balance</li>
-                        <li>Adjust ration size or prey composition as required [5]</li>
-                    </ul>
+                <div class="nutrient-card">
+                    <h4>⚡ Energy Density</h4>
+                    <p>~4.8 kJ/g wet mix; 3% body weight every 3 days at 7–9.5°C<sup>5,9</sup></p>
+                </div>
+                <div class="nutrient-card highlight">
+                    <h4>🐚 Weekly Shell-On Feeds</h4>
+                    <p>Promote natural prey handling and extended feeding times<sup>2,5</sup></p>
+                </div>
+                <div class="nutrient-card">
+                    <h4>📊 Systematic Monitoring</h4>
+                    <p>Weigh offered/refused food; adjust based on body condition<sup>5,10</sup></p>
                 </div>
             </div>
-        </section>
-
-        <!-- Section 9: Seasonal Adjustments -->
-        <section id="seasonal">
-            <h2>9. Seasonal & Life-stage Adjustments</h2>
-
-            <div class="section-with-image">
-                <div>
-                    <ul class="diet-list">
-                        <li>Energy demand is strongly temperature-dependent; avoid compensatory overfeeding if temperatures drift upward [4]</li>
-                        <li>Juveniles may require proportionally higher intake relative to size [4]</li>
-                        <li>Senescent individuals often reduce intake; feeding strategy should shift toward welfare monitoring rather than growth [5]</li>
-                    </ul>
-                </div>
-                <div class="section-image">
-                    <img src="https://koala.sh/api/image/v2-inol4-75lne.jpg?width=1216&height=832&dream" alt="Octopus showing natural coloration and behavior">
-                </div>
-            </div>
-        </section>
+        </div>
 
         <!-- References -->
+        <!-- References Section - Vancouver Style (Numbered 1-12) -->
         <section id="references">
-            <h2>Key References</h2>
+            <h2>📚 References (Vancouver Style)</h2>
             <div class="references">
-                <ul>
-                    <li>AZA Aquatic Invertebrate Taxon Advisory Group (2014). Giant Pacific Octopus Care Manual.</li>
-                    <li>Hunt, K. et al. (2026). Nutritional insights into octopus diets in aquaria.</li>
-                    <li>Navarro, J.C. et al. (2014). Nutrition as a key factor for cephalopod aquaculture.</li>
-                    <li>Rigby, P.R. & Sakurai, Y. Temperature and feeding-related growth efficiency in Enteroctopus dofleini.</li>
-                    <li>Slater, M. & Buttling, O. (2011). BIAZA Giant Pacific Octopus Husbandry Manual.</li>
-                    
-                    
-                </ul>
+                <ol>
+                    <li>Slater M, Buttling O. Management Guidelines for the Welfare of Zoo Animals: The Giant Pacific Octopus <em>Enteroctopus dofleini</em>. BIAZA Aquarium Working Group – Cephalopod Focus Group; 2011.</li>
+                    <li>Comparative digestive physiology handout (ANIM5012). Module teaching material.</li>
+                    <li>ANIM5012 feed formulation workshop. Module teaching material.</li>
+                    <li>Applied nutrition and diet formulation (ANIM5012). Module teaching material.</li>
+                    <li>Skonberg DI, Perkins BL. Nutrient composition of green crab (<em>Carcinus maenas</em>) leg meat and claw meat. <em>Food Chemistry</em>. 2002;77(4):401–404.</li>
+                    <li>Atayeter S, Ercoşkun H. Chemical composition of European squid (<em>Loligo vulgaris</em>) mantles and tentacles. <em>J Food Sci Technol</em>. 2011;48(1):83–89.</li>
+                    <li>Mansur MA, Mustafi S, Islam MS, Hossain MA. Proximate composition of shrimp (<em>Penaeus monodon</em>). <em>Bangladesh J Fish</em>. 2018;30(2):263–269.</li>
+                    <li>Rigby PR, Sakurai Y. Temperature‑ and feeding‑related growth efficiency of immature octopuses <em>Enteroctopus dofleini</em>. Google Scholar indexed record.</li>
+                    <li>Hunt K, Freeman M, Chamberlain C, Perkins K. Nutritional insights into octopus diets in aquaria. <em>J Zoo Aquar Res</em>. 2026;14(1).</li>
+                    <li>Ponte G, Almansa E, Andrews PLR. Editorial: The digestive tract of cephalopods: at the interface between physiology and ecology. <em>Front Physiol</em>. 2018;9:1409.</li>
+                    <li>Bidder AM. The digestive mechanisms of the European squids <em>Loligo vulgaris</em> and <em>L. forbesii</em>. <em>Q J Microsc Sci</em>. 1950;91:1–43.</li>
+                    <li>Ponte G, Almansa E, Andrews PLR, editors. <em>The Digestive Tract of Cephalopods: At the Interface Between Physiology and Ecology</em>. Lausanne: Frontiers Media SA; 2019.</li>
+                </ol>
             </div>
         </section>
     </div>
@@ -848,7 +1028,8 @@
         <p style="margin-top: 1rem;">
             <a href="diet.html">Diet & Nutrition</a> | 
             <a href="health.html">Preventative Health</a> | 
-            <a href="enclosure.html">Enclosure Design</a>
+            <a href="enclosure.html">Enclosure Design</a> | 
+            <a href="feeding.html">Feeding Management</a>
         </p>
     </footer>
 
