@@ -393,6 +393,285 @@
             color: var(--white);
         }
 
+            /* Limitations Section - Text-Only Styling */
+    #limitations {
+        margin: 3rem 0;
+        background: var(--white);
+        padding: 2.5rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    #limitations h2 {
+        color: var(--primary-blue);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--warning);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    #limitations h3 {
+        color: var(--ocean-blue);
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1.5rem;
+    }
+
+    #limitations h4 {
+        color: var(--primary-blue);
+        font-size: 1.2rem;
+        margin: 1rem 0 0.75rem;
+    }
+
+    #limitations p {
+        margin-bottom: 1rem;
+        text-align: justify;
+        line-height: 1.7;
+    }
+
+    #limitations .intro-text {
+        margin-bottom: 2rem;
+    }
+
+    /* Limitation Grid Cards */
+    .limitation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .limitation-card {
+        background: var(--sand);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--teal);
+        transition: all 0.3s ease;
+    }
+
+    .limitation-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-left-color: var(--ocean-blue);
+    }
+
+    .limitation-card.critical {
+        background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        border-left-color: var(--warning);
+    }
+
+    .limitation-card.critical:hover {
+        border-left-color: #c0392b;
+    }
+
+    .limitation-card h4 {
+        color: var(--primary-blue);
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+    }
+
+    .limitation-card p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Action List Styling */
+    .action-list {
+        list-style: none;
+        margin: 1.5rem 0;
+        padding-left: 0;
+    }
+
+    .action-list li {
+        padding: 1rem 1.25rem;
+        padding-left: 2.5rem;
+        position: relative;
+        background: var(--sand);
+        margin: 0.75rem 0;
+        border-radius: 5px;
+        border-left: 3px solid var(--teal);
+        transition: all 0.3s ease;
+        line-height: 1.6;
+    }
+
+    .action-list li:hover {
+        background: var(--light-teal);
+        color: var(--white);
+        transform: translateX(5px);
+        border-left-color: var(--ocean-blue);
+    }
+
+    .action-list li:hover::before {
+        color: var(--white);
+    }
+
+    .action-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 1rem;
+        color: var(--teal);
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .action-list li strong {
+        color: var(--primary-blue);
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .action-list li:hover strong {
+        color: var(--white);
+    }
+
+    /* Research Priorities Box */
+    .research-priorities {
+        background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+        color: var(--white);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 2.5rem 0;
+    }
+
+    .research-priorities h4 {
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .priority-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .priority-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .priority-list li:last-child {
+        border-bottom: none;
+    }
+
+    .priority-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--teal);
+        color: var(--white);
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .priority-text {
+        flex: 1;
+        line-height: 1.6;
+    }
+
+    .priority-text em {
+        font-style: italic;
+    }
+
+    /* Conclusion Box */
+    .conclusion-box {
+        background: var(--sand);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--coral);
+        margin-top: 2rem;
+    }
+
+    .conclusion-box p {
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    .conclusion-box strong {
+        color: var(--primary-blue);
+    }
+
+    /* Info Box Styles (if not already defined) */
+    .info-box {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-left: 5px solid var(--teal);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .info-box.warning {
+        border-left-color: var(--warning);
+        background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    }
+
+    .info-box.success {
+        border-left-color: var(--success);
+        background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+    }
+
+    .info-box h4 {
+        color: var(--primary-blue);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #limitations {
+        padding: 1.5rem;
+    }
+    
+    #limitations h2 {
+        font-size: 1.5rem;
+    }
+    
+    #limitations h3 {
+        font-size: 1.3rem;
+    }
+    
+    .limitation-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .priority-list li {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .priority-number {
+        align-self: flex-start;
+    }
+}
+
+/* Icon styling for section header */
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--warning);
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 1.1rem;
+}
+
         /* References */
         .references {
             background: var(--sand);
@@ -591,10 +870,9 @@
         <div class="nav-container">
             <a href="#" class="logo">🐙 GPO Husbandry</a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="diet.html">Diet & Nutrition</a></li>
+                <li><a href="index.html" class="active">Feeding Management</a></li>
                 <li><a href="health.html">Preventative Health</a></li>
                 <li><a href="enclosure.html">Enclosure Design</a></li>
-                <li><a href="feeding.html" class="active">Feeding Management</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -715,9 +993,9 @@
                     </div>
                 </div>
                 <div class="section-image">
-                    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Prepared octopus diet with appropriate protein sources">
+                    <img src="images/Designer (16).png" alt="Prepared octopus diet with appropriate protein sources">
                     <div class="image-caption">
-                        Figure 11. Formulated diets should contain highly digestible animal proteins with minimal fibre or carbohydrate content.<sup>18</sup>
+                        Figure 11. Formulated diets should contain highly digestible animal proteins with minimal fibre or carbohydrate content <b>Image generated by the author using AI tools.</b>
                     </div>
                 </div>
             </div>
@@ -975,6 +1253,92 @@
             </div>
         </section>
 
+                <!-- Limitations of Study Section - Text-Only Design -->
+        <section id="limitations">
+            <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
+            
+            <div class="intro-text">
+                <p>Despite using available data, feeding recommendations for <em>Enteroctopus dofleini</em> remain constrained by several limitations. Species‑specific nutrient requirements are not fully defined, meaning diets are largely inferred from prey composition studies and other cephalopods rather than direct experimental validation<sup>5–7,10–12</sup>.</p>
+                
+                <div class="info-box warning">
+                    <h4>🔬 Key Knowledge Gap</h4>
+                    <p>No controlled feeding trials have established definitive protein, lipid, or micronutrient requirements for <em>E. dofleini</em>; current formulations rely on extrapolation from related species and wild prey analysis.</p>
+                </div>
+            </div>
+
+            <h3>Major Limitations Affecting Dietary Recommendations</h3>
+            
+            <div class="limitation-grid">
+                <div class="limitation-card">
+                    <h4>📊 Inferred Nutrient Requirements</h4>
+                    <p>Species‑specific nutrient requirements are not fully defined; diets inferred from prey composition studies and other cephalopods rather than direct experimental validation<sup>5–7,10–12</sup></p>
+                </div>
+                <div class="limitation-card">
+                    <h4>📋 Practice-Based Feeding Regimes</h4>
+                    <p>Feeding regimes (e.g., 3–5 feeds/week; 1–5% body weight) derived from institutional surveys, reflecting current practice rather than optimal physiological requirements<sup>9</sup></p>
+                </div>
+                <div class="limitation-card critical">
+                    <h4>🔄 Prey Nutritional Variability</h4>
+                    <p>Nutritional variability in prey items due to season, origin, and processing reduces consistency; freezing/thawing can degrade key micronutrients such as thiamine<sup>4</sup></p>
+                </div>
+                <div class="limitation-card">
+                    <h4>🐙 Individual Variation & System Interactions</h4>
+                    <p>Individual variation in feeding behaviour and diet–water quality interactions introduce uncertainty; overfeeding or inappropriate composition can impact system stability and animal health<sup>4</sup></p>
+                </div>
+            </div>
+
+            <h3>Implications for Practice</h3>
+            
+            <div class="info-box success">
+                <h4>✅ Adaptive Management Approach</h4>
+                <p>Consequently, dietary protocols must remain adaptive and responsive to individual and environmental conditions rather than fixed standards.</p>
+            </div>
+
+            <ul class="action-list">
+                <li>
+                    <strong>Monitor individual response:</strong> Adjust rations based on body condition, feeding behaviour, and waste production rather than fixed percentages
+                </li>
+                <li>
+                    <strong>Track prey source variability:</strong> Document origin, season, and processing method for each prey batch to identify nutritional drift
+                </li>
+                <li>
+                    <strong>Integrate water quality data:</strong> Correlate feeding events with ammonia/nitrite spikes to refine ration sizing
+                </li>
+                <li>
+                    <strong>Supplement strategically:</strong> Consider thiamine or other micronutrient supplementation when using frozen prey long-term<sup>4</sup>
+                </li>
+                <li>
+                    <strong>Document outcomes:</strong> Contribute intake and health data to multi-institution databases to strengthen the evidence base
+                </li>
+            </ul>
+
+            <div class="research-priorities">
+                <h4 style="color: white;">🎯 Research Priorities to Address Limitations</h4>
+                <ul class="priority-list">
+                    <li>
+                        <span class="priority-number">1</span>
+                        <span class="priority-text">Controlled feeding trials to define protein:lipid ratios for <em>E. dofleini</em></span>
+                    </li>
+                    <li>
+                        <span class="priority-number">2</span>
+                        <span class="priority-text">Quantification of micronutrient retention through freeze-thaw cycles</span>
+                    </li>
+                    <li>
+                        <span class="priority-number">3</span>
+                        <span class="priority-text">Longitudinal studies linking diet composition to growth, reproduction, and longevity</span>
+                    </li>
+                    <li>
+                        <span class="priority-number">4</span>
+                        <span class="priority-text">Standardised protocols for prey nutritional analysis across institutions</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="conclusion-box">
+                <p><strong>Summary:</strong> While current dietary protocols for <em>Enteroctopus dofleini</em> are grounded in the best available evidence, practitioners must acknowledge inherent uncertainties and maintain flexibility in application. Continuous monitoring, documentation, and contribution to collaborative research efforts are essential for advancing species-specific knowledge and improving welfare outcomes<sup>4–7,9–12</sup>.</p>
+            </div>
+        </section>
+
         <!-- Summary Section -->
         <div class="summary-box">
             <h2>✓ Summary: Key Feeding Management Points</h2>
@@ -1003,20 +1367,45 @@
         <section id="references">
             <h2>📚 References (Vancouver Style)</h2>
             <div class="references">
-                <ol>
-                    <li>Slater M, Buttling O. Management Guidelines for the Welfare of Zoo Animals: The Giant Pacific Octopus <em>Enteroctopus dofleini</em>. BIAZA Aquarium Working Group – Cephalopod Focus Group; 2011.</li>
-                    <li>Comparative digestive physiology handout (ANIM5012). Module teaching material.</li>
-                    <li>ANIM5012 feed formulation workshop. Module teaching material.</li>
-                    <li>Applied nutrition and diet formulation (ANIM5012). Module teaching material.</li>
-                    <li>Skonberg DI, Perkins BL. Nutrient composition of green crab (<em>Carcinus maenas</em>) leg meat and claw meat. <em>Food Chemistry</em>. 2002;77(4):401–404.</li>
-                    <li>Atayeter S, Ercoşkun H. Chemical composition of European squid (<em>Loligo vulgaris</em>) mantles and tentacles. <em>J Food Sci Technol</em>. 2011;48(1):83–89.</li>
-                    <li>Mansur MA, Mustafi S, Islam MS, Hossain MA. Proximate composition of shrimp (<em>Penaeus monodon</em>). <em>Bangladesh J Fish</em>. 2018;30(2):263–269.</li>
-                    <li>Rigby PR, Sakurai Y. Temperature‑ and feeding‑related growth efficiency of immature octopuses <em>Enteroctopus dofleini</em>. Google Scholar indexed record.</li>
-                    <li>Hunt K, Freeman M, Chamberlain C, Perkins K. Nutritional insights into octopus diets in aquaria. <em>J Zoo Aquar Res</em>. 2026;14(1).</li>
-                    <li>Ponte G, Almansa E, Andrews PLR. Editorial: The digestive tract of cephalopods: at the interface between physiology and ecology. <em>Front Physiol</em>. 2018;9:1409.</li>
-                    <li>Bidder AM. The digestive mechanisms of the European squids <em>Loligo vulgaris</em> and <em>L. forbesii</em>. <em>Q J Microsc Sci</em>. 1950;91:1–43.</li>
-                    <li>Ponte G, Almansa E, Andrews PLR, editors. <em>The Digestive Tract of Cephalopods: At the Interface Between Physiology and Ecology</em>. Lausanne: Frontiers Media SA; 2019.</li>
-                </ol>
+            <ol>
+                <li>ANIM5012 Website brief 2026. Part 1: Diet and nutrition management (assessment guidance).</li>
+                
+                <li>Slater M, Buttling O. Management Guidelines for the Welfare of Zoo Animals: The Giant Pacific Octopus <em>Enteroctopus dofleini</em>. BIAZA Aquarium Working Group – Cephalopod Focus Group; 2011.</li>
+                
+                <li>Comparative digestive physiology handout (ANIM5012). Module teaching material.</li>
+                
+                <li>ANIM5012 feed formulation workshop. Module teaching material.</li>
+                
+                <li>Applied nutrition and diet formulation (ANIM5012). Module teaching material.</li>
+                
+                <li>Skonberg DI, Perkins BL. Nutrient composition of green crab (<em>Carcinus maenas</em>) leg meat and claw meat. <em>Food Chemistry</em>. 2002;77(4):401–404.</li>
+                
+                <li>Atayeter S, Ercoşkun H. Chemical composition of European squid (<em>Loligo vulgaris</em>) mantles and tentacles. <em>J Food Sci Technol</em>. 2011;48(1):83–89.</li>
+                
+                <li>Mansur MA, Mustafi S, Islam MS, Hossain MA. Proximate composition of shrimp (<em>Penaeus monodon</em>). <em>Bangladesh J Fish</em>. 2018;30(2):263–269.</li>
+                
+                <li>Rigby PR, Sakurai Y. Temperature‑ and feeding‑related growth efficiency of immature octopuses <em>Enteroctopus dofleini</em>. Google Scholar indexed record.</li>
+                
+                <li>Hunt K, Freeman M, Chamberlain C, Perkins K. Nutritional insights into octopus diets in aquaria. <em>J Zoo Aquar Res</em>. 2026;14(1).</li>
+                
+                <li>Ponte G, Almansa E, Andrews PLR. Editorial: The digestive tract of cephalopods: at the interface between physiology and ecology. <em>Front Physiol</em>. 2018;9:1409.</li>
+                
+                <li>Bidder AM. The digestive mechanisms of the European squids <em>Loligo vulgaris</em> and <em>L. forbesii</em>. <em>Q J Microsc Sci</em>. 1950;91:1–43.</li>
+                
+                <li>Ponte G, Almansa E, Andrews PLR, editors. <em>The Digestive Tract of Cephalopods: At the Interface Between Physiology and Ecology</em>. Lausanne: Frontiers Media SA; 2019.</li>
+                
+                <li>Unknown author. Mixed marine prey items used in octopus diets [image on Internet]. [cited 2026]. Available from: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnv1KlKIZSfk9A-QAuEPAjBGLOM9pF7iGSgcYI210PqSbsshg0Jg7KcgOdfN3jtnyoEHuxEqPTl-LhQOvAlj_WbFFYvQICx5oIanXqUpA&s=10</li>
+                
+                <li>ThoughtCo. Giant Pacific octopus feeding and prey handling behaviour [image on Internet]. [cited 2026]. Available from: https://www.thoughtco.com/thmb/_E5IA-Hhx2Eq5eVO0sUCJNy_Nt8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/143773811-56a5f6df3df78cf7728abd0e.jpg</li>
+                
+                <li>Unknown author. Digestive tract removed from an adult <em>Octopus vulgaris</em> showing major anatomical features [figure on Internet]. ResearchGate; [cited 2026]. Available from: https://www.researchgate.net/publication/363420515/figure/fig2</li>
+                
+                <li>Unknown author. Marine ecosystem and prey availability relevant to cephalopod feeding [image on Internet]. The Environmental Blog; [cited 2026]. Available from: https://www.theenvironmentalblog.org/wp-content/uploads/2025/07/2-1.jpg</li>
+                
+                <li>OLA Squid. Commercial squid and seafood products used for human and animal consumption [image on Internet]. [cited 2026]. Available from: https://olasquid.com/wp-content/uploads/2025/07/an-muc-co-tot-khong-3.jpg</li>
+                
+                <li>Elsevier. Temperature‑ and feeding‑related growth efficiency of cephalopods [figure on Internet]. [cited 2026]. Available from: https://ars.els-cdn.com/content/image/1-s2.0-S0022098123000643-gr1.jpg</li>
+            </ol>
             </div>
         </section>
     </div>

@@ -534,6 +534,332 @@
             transform: translateY(-3px);
         }
 
+                /* Limitations Section - Enclosure Design (Text-Only) */
+        #limitations {
+            margin: 3rem 0;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        #limitations h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        #limitations h3 {
+            color: var(--ocean-blue);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sand);
+        }
+
+        #limitations h4 {
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            margin: 1rem 0 0.75rem;
+            font-weight: 600;
+        }
+
+        #limitations p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        #limitations .intro-text {
+            margin-bottom: 2rem;
+        }
+
+        /* Limitation Grid Cards */
+        .limitation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .limitation-card {
+            background: var(--sand);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--teal);
+            transition: all 0.25s ease;
+        }
+
+        .limitation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left-color: var(--ocean-blue);
+        }
+
+        .limitation-card.critical {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border-left-color: var(--warning);
+        }
+
+        .limitation-card.critical:hover {
+            border-left-color: #c0392b;
+        }
+
+        .limitation-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .limitation-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        /* Action List Styling */
+        .action-list {
+            list-style: none;
+            margin: 1.5rem 0;
+            padding-left: 0;
+        }
+
+        .action-list li {
+            padding: 1rem 1.25rem;
+            padding-left: 2.75rem;
+            position: relative;
+            background: var(--sand);
+            margin: 0.75rem 0;
+            border-radius: 5px;
+            border-left: 3px solid var(--teal);
+            transition: all 0.25s ease;
+            line-height: 1.6;
+        }
+
+        .action-list li:hover {
+            background: var(--light-teal);
+            color: var(--white);
+            transform: translateX(4px);
+            border-left-color: var(--ocean-blue);
+        }
+
+        .action-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 1.1rem;
+            color: var(--teal);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.25s ease;
+        }
+
+        .action-list li:hover::before {
+            color: var(--white);
+        }
+
+        .action-list li strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .action-list li:hover strong {
+            color: var(--white);
+        }
+
+        /* Research Priorities Box */
+        .research-priorities {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2.5rem 0;
+        }
+
+        .research-priorities h4 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .priority-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .priority-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.6;
+        }
+
+        .priority-list li:last-child {
+            border-bottom: none;
+        }
+
+        .priority-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .priority-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .priority-text em {
+            font-style: italic;
+        }
+
+        /* Conclusion Box */
+        .conclusion-box {
+            background: var(--sand);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--coral);
+            margin-top: 2rem;
+        }
+
+        .conclusion-box p {
+            margin: 0;
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        .conclusion-box strong {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        /* Info Box Styles (ensure consistency) */
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid var(--teal);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-box.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        }
+
+        .info-box.success {
+            border-left-color: var(--success);
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        }
+
+        .info-box h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Icon styling for section header */
+        #limitations .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--warning);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #limitations {
+                padding: 1.5rem;
+                margin: 2rem 1rem;
+            }
+            
+            #limitations h2 {
+                font-size: 1.5rem;
+            }
+            
+            #limitations h3 {
+                font-size: 1.3rem;
+            }
+            
+            #limitations h4 {
+                font-size: 1.05rem;
+            }
+            
+            .limitation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-list li {
+                padding: 0.875rem 1rem;
+                padding-left: 2.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .priority-list li {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .priority-number {
+                align-self: flex-start;
+            }
+            
+            .research-priorities {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print-friendly adjustments */
+        @media print {
+            #limitations {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .limitation-card,
+            .action-list li,
+            .conclusion-box {
+                break-inside: avoid;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -943,6 +1269,96 @@
                 <p>Designs should provide step‑free visitor routes and accessible interpretation panels in line with institutional and regulatory accessibility requirements. The sources cited above do not specify numeric accessibility standards; therefore, local institutional regulations should be applied.</p>
             </div>
         </section>
+
+            <!-- Limitations of Study Section - Enclosure Design Page (Text-Only) -->
+    <section id="limitations">
+        <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
+        
+        <div class="intro-text">
+            <p>Enclosure design recommendations for <em>Enteroctopus dofleini</em> are limited by an incomplete understanding of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes. Existing guidance largely prioritises structural features (e.g. escape prevention, water flow, material choice) derived from husbandry manuals rather than experimentally validated welfare data<sup>1</sup>. As a result, enclosure design often ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats.</p>
+            
+            <div class="info-box warning">
+                <h4>🔬 Core Constraint</h4>
+                <p>No controlled experimental studies have quantified the relationship between specific enclosure parameters (size, complexity, enrichment frequency) and measurable welfare outcomes for <em>E. dofleini</em>; current designs rely on precautionary principles and expert consensus rather than species-specific evidence.</p>
+            </div>
+        </div>
+
+        <h3>Major Limitations Affecting Enclosure Design Protocols</h3>
+        
+        <div class="limitation-grid">
+            <div class="limitation-card">
+                <h4>🧩 Incomplete Interaction Understanding</h4>
+                <p>Limited knowledge of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes</p>
+            </div>
+            <div class="limitation-card">
+                <h4>📋 Manual-Derived vs. Experimental Guidance</h4>
+                <p>Existing guidance prioritises structural features (escape prevention, water flow, material choice) from husbandry manuals rather than experimentally validated welfare data<sup>1</sup></p>
+            </div>
+            <div class="limitation-card critical">
+                <h4>🏠 Containment vs. Ecological Replication</h4>
+                <p>Design ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats</p>
+            </div>
+            <div class="limitation-card">
+                <h4>📏 Absence of Quantified Thresholds</h4>
+                <p>No defined thresholds for enclosure size, structural complexity, or enrichment frequency makes it difficult to assess whether current designs meet behavioural and cognitive needs</p>
+            </div>
+            <div class="limitation-card">
+                <h4>👁️ Observation Constraints</h4>
+                <p>Solitary and cryptic nature of octopuses restricts behavioural observation, reducing the ability to evaluate enclosure adequacy objectively</p>
+            </div>
+        </div>
+
+        <h3>Implications for Practice</h3>
+        
+        <div class="info-box success">
+            <h4>✅ Precautionary, Observation‑Driven Design</h4>
+            <p>Given these limitations, enclosure design protocols must prioritise flexibility, continuous behavioural monitoring, and conservative interpretation of welfare indicators rather than rigid compliance with unvalidated specifications.</p>
+        </div>
+
+        <ul class="action-list">
+            <li>
+                <strong>Document behavioural baselines:</strong> Establish individual normal patterns for den use, exploration, and activity to enable detection of enclosure-related stress
+            </li>
+            <li>
+                <strong>Implement iterative enrichment:</strong> Introduce structural or sensory modifications systematically and record behavioural responses to build institutional knowledge
+            </li>
+            <li>
+                <strong>Apply conservative sizing:</strong> When quantified thresholds are unavailable, prioritise larger volumes and greater complexity to accommodate individual variation
+            </li>
+            <li>
+                <strong>Integrate multi-modal assessment:</strong> Combine direct observation, video monitoring, and physiological indicators (where feasible) to triangulate enclosure adequacy
+            </li>
+            <li>
+                <strong>Contribute to collaborative databases:</strong> Share anonymised enclosure specifications and behavioural outcomes to strengthen the species‑specific evidence base over time<sup>1</sup>
+            </li>
+        </ul>
+
+        <div class="research-priorities">
+            <h4 style="color: white;">🎯 Research Priorities to Address Limitations</h4>
+            <ul class="priority-list">
+                <li>
+                    <span class="priority-number">1</span>
+                    <span class="priority-text">Controlled experimental studies to define minimum enclosure volume, complexity metrics, and enrichment frequency thresholds for optimal <em>E. dofleini</em> welfare</span>
+                </li>
+                <li>
+                    <span class="priority-number">2</span>
+                    <span class="priority-text">Validation of behavioural indicators (den use, exploration, problem-solving) against physiological stress markers in captive octopuses</span>
+                </li>
+                <li>
+                    <span class="priority-number">3</span>
+                    <span class="priority-text">Development of standardised, non-invasive monitoring protocols for assessing enclosure adequacy in solitary, cryptic cephalopods</span>
+                </li>
+                <li>
+                    <span class="priority-number">4</span>
+                    <span class="priority-text">Multi-institution longitudinal studies linking specific enclosure parameters to health outcomes, longevity, and reproductive success</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="conclusion-box">
+            <p><strong>Summary:</strong> While current enclosure design protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in threshold definition, behavioural interpretation, and welfare validation. A precautionary, observation-driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species-specific knowledge<sup>1</sup>.</p>
+        </div>
+    </section>
 
 
         <!-- Summary Section -->

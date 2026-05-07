@@ -588,6 +588,332 @@
             transform: translateY(-3px);
         }
 
+            /* Limitations Section - Preventative Health (Text-Only) */
+    #limitations {
+        margin: 3rem 0;
+        background: var(--white);
+        padding: 2.5rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    #limitations h2 {
+        color: var(--primary-blue);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--warning);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    #limitations h3 {
+        color: var(--ocean-blue);
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--sand);
+    }
+
+    #limitations h4 {
+        color: var(--primary-blue);
+        font-size: 1.15rem;
+        margin: 1rem 0 0.75rem;
+        font-weight: 600;
+    }
+
+    #limitations p {
+        margin-bottom: 1rem;
+        text-align: justify;
+        line-height: 1.7;
+        color: var(--dark);
+    }
+
+    #limitations .intro-text {
+        margin-bottom: 2rem;
+    }
+
+    /* Limitation Grid Cards */
+    .limitation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem;
+        margin: 2rem 0;
+    }
+
+    .limitation-card {
+        background: var(--sand);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--teal);
+        transition: all 0.25s ease;
+    }
+
+    .limitation-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        border-left-color: var(--ocean-blue);
+    }
+
+    .limitation-card.critical {
+        background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        border-left-color: var(--warning);
+    }
+
+    .limitation-card.critical:hover {
+        border-left-color: #c0392b;
+    }
+
+    .limitation-card h4 {
+        color: var(--primary-blue);
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .limitation-card p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--dark);
+    }
+
+    /* Action List Styling */
+    .action-list {
+        list-style: none;
+        margin: 1.5rem 0;
+        padding-left: 0;
+    }
+
+    .action-list li {
+        padding: 1rem 1.25rem;
+        padding-left: 2.75rem;
+        position: relative;
+        background: var(--sand);
+        margin: 0.75rem 0;
+        border-radius: 5px;
+        border-left: 3px solid var(--teal);
+        transition: all 0.25s ease;
+        line-height: 1.6;
+    }
+
+    .action-list li:hover {
+        background: var(--light-teal);
+        color: var(--white);
+        transform: translateX(4px);
+        border-left-color: var(--ocean-blue);
+    }
+
+    .action-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 1.1rem;
+        color: var(--teal);
+        font-weight: bold;
+        font-size: 1.1rem;
+        transition: color 0.25s ease;
+    }
+
+    .action-list li:hover::before {
+        color: var(--white);
+    }
+
+    .action-list li strong {
+        color: var(--primary-blue);
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+    }
+
+    .action-list li:hover strong {
+        color: var(--white);
+    }
+
+    /* Research Priorities Box */
+    .research-priorities {
+        background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+        color: var(--white);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 2.5rem 0;
+    }
+
+    .research-priorities h4 {
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+    }
+
+    .priority-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .priority-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        line-height: 1.6;
+    }
+
+    .priority-list li:last-child {
+        border-bottom: none;
+    }
+
+    .priority-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        background: var(--teal);
+        color: var(--white);
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        margin-top: 0.2rem;
+    }
+
+    .priority-text {
+        flex: 1;
+        font-size: 0.95rem;
+    }
+
+    .priority-text em {
+        font-style: italic;
+    }
+
+    /* Conclusion Box */
+    .conclusion-box {
+        background: var(--sand);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--coral);
+        margin-top: 2rem;
+    }
+
+    .conclusion-box p {
+        margin: 0;
+        line-height: 1.7;
+        color: var(--dark);
+    }
+
+    .conclusion-box strong {
+        color: var(--primary-blue);
+        font-weight: 600;
+    }
+
+    /* Info Box Styles (ensure consistency) */
+    .info-box {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-left: 5px solid var(--teal);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .info-box.warning {
+        border-left-color: var(--warning);
+        background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    }
+
+    .info-box.success {
+        border-left-color: var(--success);
+        background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+    }
+
+    .info-box h4 {
+        color: var(--primary-blue);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    /* Icon styling for section header */
+    #limitations .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: var(--warning);
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        #limitations {
+            padding: 1.5rem;
+            margin: 2rem 1rem;
+        }
+        
+        #limitations h2 {
+            font-size: 1.5rem;
+        }
+        
+        #limitations h3 {
+            font-size: 1.3rem;
+        }
+        
+        #limitations h4 {
+            font-size: 1.05rem;
+        }
+        
+        .limitation-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .action-list li {
+            padding: 0.875rem 1rem;
+            padding-left: 2.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .priority-list li {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .priority-number {
+            align-self: flex-start;
+        }
+        
+        .research-priorities {
+            padding: 1.5rem;
+        }
+    }
+
+    /* Print-friendly adjustments */
+    @media print {
+        #limitations {
+            box-shadow: none;
+            border: 1px solid #ccc;
+        }
+        
+        .limitation-card,
+        .action-list li,
+        .conclusion-box {
+            break-inside: avoid;
+        }
+    }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -1086,11 +1412,101 @@
                     </div>
                 </div>
                 <div class="section-image">
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Veterinary health assessment and data review">
+                    <img src="https://cdn.animalchannel.co/wp-content/uploads/2024/06/28154829/GiantOcto.jpg" alt="Veterinary health assessment and data review">
                     <div class="image-caption">
                         Figure 8. Integrated prevention model: daily keeper data collection, weekly curator audits, and monthly veterinary trend review for early intervention.<sup>17</sup>
                     </div>
                 </div>
+            </div>
+        </section>
+
+                <!-- Limitations of Study Section - Preventative Health Page (Text-Only) -->
+        <section id="limitations">
+            <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
+            
+            <div class="intro-text">
+                <p>Preventative health strategies for <em>Enteroctopus dofleini</em> are constrained by limited species‑specific clinical data and a reliance on extrapolation from general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup>. Current thresholds for water quality and disease prevention are largely derived from system‑level management principles, meaning they prioritise stability rather than defined physiological limits<sup>1</sup>. This reduces precision in identifying subclinical stress or early pathology.</p>
+                
+                <div class="info-box warning">
+                    <h4>🔬 Core Constraint</h4>
+                    <p>No controlled clinical trials have established species-specific diagnostic thresholds for <em>E. dofleini</em>; current protocols rely on extrapolation from teleost models and general aquatic animal health frameworks.</p>
+                </div>
+            </div>
+
+            <h3>Major Limitations Affecting Preventative Health Protocols</h3>
+            
+            <div class="limitation-grid">
+                <div class="limitation-card">
+                    <h4>📊 Extrapolated Health Frameworks</h4>
+                    <p>Limited species‑specific clinical data; reliance on general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup></p>
+                </div>
+                <div class="limitation-card">
+                    <h4>🎯 System‑Level vs. Physiological Thresholds</h4>
+                    <p>Water quality and disease prevention thresholds derived from system‑level management principles, prioritising stability over defined physiological limits<sup>1</sup></p>
+                </div>
+                <div class="limitation-card critical">
+                    <h4>🔍 Predictive vs. Diagnostic Indicators</h4>
+                    <p>Many health indicators (behavioural change, feeding decline) are predictive rather than diagnostic, making it difficult to distinguish reversible conditions from irreversible senescence</p>
+                </div>
+                <div class="limitation-card">
+                    <h4>⏱️ Lifespan Constraints on Monitoring</h4>
+                    <p>Short lifespan and rapid post‑maturation decline characteristic of octopuses limit opportunities for longitudinal monitoring or intervention<sup>9</sup></p>
+                </div>
+                <div class="limitation-card">
+                    <h4>🏥 Reactive vs. Preventative Veterinary Bias</h4>
+                    <p>Low frequency of routine veterinary examination in practice introduces bias toward reactive rather than preventative health management, reducing early detection capacity<sup>9</sup></p>
+                </div>
+            </div>
+
+            <h3>Implications for Practice</h3>
+            
+            <div class="info-box success">
+                <h4>✅ Adaptive, Observation‑Based Management</h4>
+                <p>Given these limitations, preventative health protocols must prioritise continuous observation, trend analysis, and conservative intervention thresholds rather than rigid diagnostic criteria.</p>
+            </div>
+
+            <ul class="action-list">
+                <li>
+                    <strong>Establish baseline behaviour:</strong> Document individual normal patterns for feeding, activity, and coloration to enable detection of subtle deviations
+                </li>
+                <li>
+                    <strong>Use multi‑parameter assessment:</strong> Combine water quality data, behavioural scores, and external condition checks to reduce false positives from single indicators
+                </li>
+                <li>
+                    <strong>Apply conservative escalation:</strong> When indicators are predictive rather than diagnostic, intervene earlier with low‑risk measures (e.g., reduce disturbance, verify water stability)
+                </li>
+                <li>
+                    <strong>Document decision rationale:</strong> Record why interventions were initiated to build institutional knowledge and support future evidence synthesis
+                </li>
+                <li>
+                    <strong>Contribute to collaborative databases:</strong> Share anonymised health and outcome data to strengthen the species‑specific evidence base over time<sup>1,9</sup>
+                </li>
+            </ul>
+
+            <div class="research-priorities">
+                <h4 style="color: white;">🎯 Research Priorities to Address Limitations</h4>
+                <ul class="priority-list">
+                    <li>
+                        <span class="priority-number">1</span>
+                        <span class="priority-text">Controlled studies to define species‑specific physiological thresholds for temperature, dissolved oxygen, and nitrogenous waste in <em>E. dofleini</em></span>
+                    </li>
+                    <li>
+                        <span class="priority-number">2</span>
+                        <span class="priority-text">Validation of behavioural and external‑appearance scoring tools against histopathological or biochemical markers of stress</span>
+                    </li>
+                    <li>
+                        <span class="priority-number">3</span>
+                        <span class="priority-text">Longitudinal multi‑institution studies to distinguish normal senescence patterns from preventable pathology</span>
+                    </li>
+                    <li>
+                        <span class="priority-number">4</span>
+                        <span class="priority-text">Development of standardised protocols for routine veterinary assessment of cephalopods in aquarium settings</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="conclusion-box">
+                <p><strong>Summary:</strong> While current preventative health protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in diagnostic precision, threshold definition, and early‑warning interpretation. A conservative, observation‑driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species‑specific knowledge<sup>1,9</sup>.</p>
             </div>
         </section>
 
@@ -1129,33 +1545,41 @@
         <section id="references">
             <h2>📚 References (Vancouver Style)</h2>
             <div class="references">
-                <ol>
-                    <li>Kirby AJ, Balko JA, Goertz CEC, Lewbart GA. Characterization of current husbandry and veterinary care practices of the giant Pacific octopus (<em>Enteroctopus dofleini</em>) using an online survey. <em>Veterinary Sciences</em>. 2023;10(7):448. doi:10.3390/vetsci10070448.</li>
-                    <li>Seeley KE, Clayton LA, Hadfield CA, Muth D, Mankowski JL, Kelly KM. Retrospective review of mortality in giant Pacific octopus (<em>Enteroctopus dofleini</em>). <em>Journal of Zoo and Wildlife Medicine</em>. 2016;47(1):271–274. doi:10.1638/2015-0032.1.</li>
-                    <li>Holst MM, Miller-Morgan T. The use of a species-specific health and welfare assessment tool for the giant Pacific octopus, <em>Enteroctopus dofleini</em>. <em>Journal of Applied Animal Welfare Science</em>. 2020;23(3):256–270. doi:10.1080/10888705.2019.1672613.</li>
-                    <li>Plowman A. Applied nutrition and diet formulation. Lecture material for ANIM5012 Aquarium Health and Nutrition. University of Plymouth; 2026.</li>
-                    <li>Association of Zoos and Aquariums Aquatic Invertebrate Taxon Advisory Group (AITAG). <em>Giant Pacific Octopus (Enteroctopus dofleini) Care Manual</em>. Silver Spring (MD): Association of Zoos and Aquariums; 2014.</li>
-                    <li>Wang ZY, Pergande MR, Ragsdale CW, Cologna SM. Steroid hormones of the octopus self-destruct system. <em>Current Biology</em>. 2022;32(11):2572–2579.e4. doi:10.1016/j.cub.2022.04.014.</li>
-                    <li>Slater M, Buttling O. Management guidelines for the welfare of zoo animals: The giant Pacific octopus (<em>Enteroctopus dofleini</em>). London: British and Irish Association of Zoos and Aquariums (BIAZA); 2011.</li>
-                    <li>Rawling M. ANIM5009: Life support systems and aquatic animal health. Lecture presentation. University of Plymouth; 2026.</li>
-                    <li>Lewbart GA, Mankowski JL. Case report: Gill infection consistent with <em>Aggregata</em> spp. in an adult female giant Pacific octopus (<em>Enteroctopus dofleini</em>). Presented at: Conference on Aquatic Animal Health; 2022.</li>
-                    <li>Oregon Public Broadcasting (OPB). Giant Pacific octopus [Internet]. Portland (OR): OPB; c2024 [cited 2026 Apr 4]. Available from:
-                    https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG</li>
-                    <li>Desun‑Uniwill. Water quality monitoring system for aquaculture [Internet]. Shenzhen: Desun Sensor; 2023 [cited 2026 Apr 4]. Available from:
-                    https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg</li>
-                    <li>Shutterstock. Aquaculture water quality monitoring equipment [Internet]. New York: Shutterstock; 2020 [cited 2026 Apr 4]. Available from:
-                    https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg</li>
-                    <li>Holst MM, Miller‑Morgan T. Species‑specific health and welfare assessment tool for the giant Pacific octopus [screenshot of journal figure] [Internet]. Oregon Sea Grant; 2020 [cited 2026 Apr 4]. Available from:
-                    https://seagrant.oregonstate.edu/sites/seagrant.oregonstate.edu/files/r-20-011_the_use_of_a_species_specific_health_and_welfare_assessment_tool_for_the_giant_pacific_octopus_enteroctopus_dofleini.pdf</li>
-                    <li>OctoNation. Octopus on rocky substrate (octopus mollusk) [Internet]. OctoNation; 2023 [cited 2026 Apr 4]. Available from:
-                    https://octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg</li>
-                    <li>New England Aquarium. Giant Pacific octopus (Enteroctopus dofleini) [Internet]. Boston (MA): New England Aquarium; 2023 [cited 2026 Apr 4]. Available from:
-                    https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg</li>
-                    <li>Newsweek. Giant Pacific octopus underwater [Internet]. New York: Newsweek; 2025 [cited 2026 Apr 4]. Available from:
-                    https://assets.newsweek.com/wp-content/uploads/2025/08/860308-03-26-giant-pacific-octopus.jpg</li>
-                    <li>Unsplash. Octopus in aquarium environment [Internet]. Unsplash; c2019 [cited 2026 Apr 4]. Available from:
-                    https://images.unsplash.com/photo-1579684385127-1ef15d508118</li>
-                </ol>
+                <<ol>
+            <li>Kirby AJ, Balko JA, Goertz CEC, Lewbart GA. Characterization of current husbandry and veterinary care practices of the giant Pacific octopus (<em>Enteroctopus dofleini</em>) using an online survey. <em>Vet Sci</em>. 2023;10(7):448. doi:10.3390/vetsci10070448.</li>
+            
+            <li>Seeley KE, Clayton LA, Hadfield CA, Muth D, Mankowski JL, Kelly KM. Retrospective review of mortality in giant Pacific octopus (<em>Enteroctopus dofleini</em>). <em>J Zoo Wildl Med</em>. 2016;47(1):271–4. doi:10.1638/2015-0032.1.</li>
+            
+            <li>Holst MM, Miller-Morgan T. The use of a species-specific health and welfare assessment tool for the giant Pacific octopus, <em>Enteroctopus dofleini</em>. <em>J Appl Anim Welf Sci</em>. 2020;23(3):256–70. doi:10.1080/10888705.2019.1672613.</li>
+            
+            <li>Plowman A. Applied nutrition and diet formulation [lecture material]. ANIM5012 Aquarium Health and Nutrition. Plymouth: University of Plymouth; 2026.</li>
+            
+            <li>Association of Zoos and Aquariums Aquatic Invertebrate Taxon Advisory Group (AITAG). Giant Pacific octopus (<em>Enteroctopus dofleini</em>) care manual. Silver Spring (MD): Association of Zoos and Aquariums; 2014.</li>
+            
+            <li>Wang ZY, Pergande MR, Ragsdale CW, Cologna SM. Steroid hormones of the octopus self-destruct system. <em>Curr Biol</em>. 2022;32(11):2572–9.e4. doi:10.1016/j.cub.2022.04.014.</li>
+            
+            <li>Slater M, Buttling O. Management guidelines for the welfare of zoo animals: the giant Pacific octopus (<em>Enteroctopus dofleini</em>). London: British and Irish Association of Zoos and Aquariums (BIAZA); 2011.</li>
+            
+            <li>Rawling M. ANIM5009: life support systems and aquatic animal health [lecture presentation]. Plymouth: University of Plymouth; 2026.</li>
+            
+            <li>Lewbart GA, Mankowski JL. Case report: gill infection consistent with <em>Aggregata</em> spp. in an adult female giant Pacific octopus (<em>Enteroctopus dofleini</em>). In: Conference on Aquatic Animal Health; 2022.</li>
+            
+            <li>Oregon Public Broadcasting (OPB). Giant Pacific octopus [Internet]. Portland (OR): OPB; c2024 [cited 2026 Apr 4]. Available from: https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSIMI5F4TFD2F6CWRSVWZM.JPG</li>
+            
+            <li>Desun-Uniwill. Water quality monitoring system for aquaculture [Internet]. Shenzhen: Desun Sensor; 2023 [cited 2026 Apr 4]. Available from: https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg</li>
+            
+            <li>Shutterstock. Aquaculture water quality monitoring equipment [Internet]. New York (NY): Shutterstock; 2020 [cited 2026 Apr 4]. Available from: https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg</li>
+            
+            <li>Holst MM, Miller-Morgan T. Species-specific health and welfare assessment tool for the giant Pacific octopus [screenshot] [Internet]. Oregon Sea Grant; 2020 [cited 2026 Apr 4]. Available from: https://seagrant.oregonstate.edu/sites/seagrant.oregonstate.edu/files/r-20-011_the_use_of_a_species_specific_health_and_welfare_assessment_tool_for_the_giant_pacific_octopus_enteroctopus_dofleini.pdf</li>
+            
+            <li>OctoNation. Octopus on rocky substrate (octopus mollusk) [Internet]. OctoNation; 2023 [cited 2026 Apr 4]. Available from: https://octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg</li>
+            
+            <li>New England Aquarium. Giant Pacific octopus (<em>Enteroctopus dofleini</em>) [Internet]. Boston (MA): New England Aquarium; 2023 [cited 2026 Apr 4]. Available from: https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg</li>
+            
+            <li>Newsweek. Giant Pacific octopus underwater [Internet]. New York (NY): Newsweek; 2025 [cited 2026 Apr 4]. Available from: https://assets.newsweek.com/wp-content/uploads/2025/08/860308-03-26-giant-pacific-octopus.jpg</li>
+            
+            <li>Animal Channel. Giant Pacific octopus in aquarium setting [Internet]. Animal Channel; c2023 [cited 2026 Apr 4]. Available from: https://animalchannel.co/aquarium-giant-pacific-octopus/</li>
+        </ol>
             </div>
         </section>
     </div>
