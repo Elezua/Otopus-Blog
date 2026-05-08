@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giant Pacific Octopus - Enclosure Design for Optimal Health</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary-blue: #1e3a5f;
@@ -22,24 +19,28 @@
             --white: #ffffff;
             --warning: #e74c3c;
             --success: #48bb78;
+            --light-gray: #e0e0e0;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--sand);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
-            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            padding: 1rem 0;
+        /* ===== MAIN NAVIGATION ===== */
+        .navbar {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 0.75rem 0;
         }
 
         .nav-container {
@@ -53,83 +54,317 @@
 
         .logo {
             color: var(--white);
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
             color: var(--white);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.25s ease;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            background-color: var(--teal);
-            transform: translateY(-2px);
+            background: var(--teal);
+            transform: translateY(-1px);
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            gap: 5px;
+            padding: 5px;
         }
 
         .hamburger span {
             width: 25px;
             height: 3px;
-            background-color: var(--white);
-            margin: 3px 0;
-            transition: 0.3s;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+        /* ===== SUB-NAVIGATION (Page Sections) ===== */
+        .subnav {
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--light-gray);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 999;
+            padding: 0.5rem 0;
+        }
+
+        .subnav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .subnav-toggle {
+            display: none;
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: var(--sand);
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subnav-toggle::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .subnav-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        .subnav-list {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.3rem 0;
+            scrollbar-width: thin;
+        }
+
+        .subnav-list::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .subnav-list::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 2px;
+        }
+
+        .subnav-list a {
+            flex-shrink: 0;
+            padding: 0.4rem 0.9rem;
+            background: var(--sand);
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .subnav-list a:hover,
+        .subnav-list a.active {
+            background: var(--light-teal);
+            color: var(--white);
+            border-left-color: var(--ocean-blue);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Menu */
+        .mobile-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.25);
+            transition: right 0.3s ease;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active { right: 0; }
+
+        .mobile-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .mobile-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mobile-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .mobile-close:hover { transform: scale(1.1); }
+
+        .mobile-section {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .mobile-section:last-child { border-bottom: none; }
+
+        .mobile-section h4 {
+            color: var(--primary-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.6rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--teal);
+        }
+
+        .mobile-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-links li { margin-bottom: 0.2rem; }
+
+        .mobile-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.8rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-links a:hover,
+        .mobile-links a.active {
+            background: var(--light-teal);
+            color: var(--white);
+            border-left-color: var(--ocean-blue);
+            transform: translateX(3px);
+        }
+
+        .mobile-links a i {
+            width: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .mobile-main a {
+            background: var(--sand);
+            font-weight: 500;
+        }
+
+        .mobile-main a:hover {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main { margin-top: 110px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 70px;
-            background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(46, 92, 138, 0.85)),
+            background: linear-gradient(rgba(30,58,95,0.9), rgba(46,92,138,0.9)),
                         url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             color: var(--white);
-            padding: 4rem 2rem;
+            padding: 3rem 0 2.5rem;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .hero .species-name {
-            font-size: 1.5rem;
+        .hero .species {
+            font-size: 1.2rem;
             font-style: italic;
-            color: var(--light-teal);
-            margin-bottom: 2rem;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.1rem;
-            max-width: 900px;
-            margin: 0 auto 2rem;
-            opacity: 0.95;
+        .hero .subtitle {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
         .hero-image {
-            max-width: 900px;
-            margin: 2rem auto;
-            border-radius: 10px;
+            max-width: 750px;
+            margin: 1.5rem auto 0;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
         .hero-image img {
@@ -138,34 +373,87 @@
             display: block;
         }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+        /* Sections */
+        section {
+            padding: 2.25rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            scroll-margin-top: 120px;
         }
 
-        /* Scope Section */
+        section:last-of-type { border-bottom: none; }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 0 0 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 3px solid var(--teal);
+        }
+
+        h2 .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 0.95rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.8rem 0 1rem;
+            color: var(--ocean-blue);
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin: 1.3rem 0 0.7rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        ul, ol { margin: 0.9rem 0 0.9rem 2rem; }
+        li { margin-bottom: 0.45rem; line-height: 1.6; }
+        strong { font-weight: 600; }
+        em { font-style: italic; }
+
+        /* Scope Box */
         .scope-box {
             background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
             color: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            margin: -3rem auto 3rem;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: -2.5rem auto 2.5rem;
             position: relative;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         }
 
         .scope-box h2 {
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
         }
 
         .scope-box p {
             line-height: 1.8;
-            opacity: 0.95;
-            margin-bottom: 1rem;
+            opacity: 0.98;
+            margin-bottom: 0;
         }
 
         .scope-box ul {
@@ -177,99 +465,13 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Section Styling */
-        section {
-            margin: 3rem 0;
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        section h2 {
-            color: var(--primary-blue);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--teal);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        section h3 {
-            color: var(--ocean-blue);
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
-        }
-
-        section h4 {
-            color: var(--primary-blue);
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.75rem;
-        }
-
-        section p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        .section-with-image {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-            margin: 2rem 0;
-        }
-
-        .section-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .section-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .section-image.full-width {
-            grid-column: 1 / -1;
-            margin: 2rem 0;
-        }
-
-        .section-image.full-width img {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-        }
-
-        /* Image Caption with Vancouver Citation */
-        .image-caption {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            background: var(--sand);
-            border-left: 4px solid var(--teal);
-            border-radius: 0 5px 5px 0;
-            line-height: 1.5;
-        }
-
-        .image-caption sup {
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-
         /* Info Boxes */
         .info-box {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-left: 5px solid var(--teal);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.4rem 0;
+            border-radius: 0 6px 6px 0;
         }
 
         .info-box.warning {
@@ -283,73 +485,93 @@
         }
 
         .info-box h4 {
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+            margin: 0 0 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .info-box ul {
+            margin: 0.5rem 0 0 1.3rem;
+            padding: 0;
         }
 
         /* Tables */
-        .data-table {
+        .table-container {
+            overflow-x: auto;
+            margin: 1.3rem 0;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            display: block;
+            background: var(--white);
+            font-size: 0.93rem;
         }
 
-        .data-table table {
-            width: 100%;
-            min-width: 600px;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 1rem;
+        th, td {
+            padding: 0.85rem 1rem;
             text-align: left;
-            border-bottom: 2px solid var(--sand);
+            border-bottom: 1px solid var(--light-gray);
         }
 
-        .data-table th {
+        th {
             background: var(--primary-blue);
             color: var(--white);
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
         }
 
-        .data-table tr:hover {
-            background: var(--sand);
-        }
-
-        .data-table tr:nth-child(even) {
-            background: #fafafa;
-        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: #fafafa; }
+        tr:hover { background: var(--sand); }
 
         /* Spec Cards */
         .spec-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.3rem;
+            margin: 1.8rem 0;
         }
 
         .spec-card {
-            background: linear-gradient(135deg, var(--teal), var(--light-teal));
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            background: var(--sand);
+            padding: 1.4rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--teal);
+            transition: all 0.25s ease;
         }
 
         .spec-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left-color: var(--ocean-blue);
+        }
+
+        .spec-card.highlight {
+            background: linear-gradient(135deg, var(--coral), #f0b4a8);
+            color: var(--white);
+        }
+
+        .spec-card.highlight h4 {
+            color: var(--white);
+        }
+
+        .spec-card.critical {
+            background: linear-gradient(135deg, var(--warning), #c0392b);
         }
 
         .spec-card h4 {
-            color: var(--white);
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            margin: 0 0 0.6rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .spec-card p {
@@ -358,60 +580,55 @@
             line-height: 1.6;
         }
 
-        .spec-card.highlight {
-            background: linear-gradient(135deg, var(--coral), #f0b4a8);
-        }
-
-        .spec-card.critical {
-            background: linear-gradient(135deg, var(--warning), #c0392b);
-        }
-
         /* Parameter Boxes */
         .param-box {
             background: var(--sand);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
+            padding: 1.4rem;
+            border-radius: 8px;
             border-left: 4px solid var(--teal);
+            margin: 1.2rem 0;
         }
 
         .param-box h4 {
-            color: var(--primary-blue);
-            margin-bottom: 0.75rem;
+            margin: 0 0 0.6rem;
+            font-size: 1.05rem;
         }
 
         .param-value {
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--ocean-blue);
-            margin: 0.5rem 0;
+            margin: 0.4rem 0;
         }
 
         .param-range {
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* Feature Lists */
         .feature-list {
             list-style: none;
-            margin: 1rem 0;
+            margin: 1.2rem 0;
+            padding-left: 0;
         }
 
         .feature-list li {
-            padding: 0.75rem 1rem;
-            padding-left: 2.5rem;
+            padding: 0.8rem 1rem 0.8rem 2.6rem;
             position: relative;
             background: var(--sand);
-            margin: 0.5rem 0;
+            margin: 0.6rem 0;
             border-radius: 5px;
-            transition: all 0.3s ease;
+            border-left: 3px solid var(--teal);
+            transition: all 0.25s ease;
+            line-height: 1.6;
         }
 
         .feature-list li:hover {
             background: var(--light-teal);
             color: var(--white);
-            transform: translateX(5px);
+            transform: translateX(4px);
+            border-left-color: var(--ocean-blue);
         }
 
         .feature-list li::before {
@@ -420,121 +637,75 @@
             left: 1rem;
             color: var(--teal);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            transition: color 0.25s;
         }
 
         .feature-list li:hover::before {
             color: var(--white);
         }
 
-        /* References */
-        .references {
-            background: var(--sand);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-        }
-
-        .references h3 {
+        .feature-list li strong {
             color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
         }
 
-        .references ol {
-            list-style: none;
-            margin-left: 0;
-            counter-reset: ref-counter;
+        .feature-list li:hover strong {
+            color: var(--white);
         }
 
-        .references li {
-            padding: 0.75rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            counter-increment: ref-counter;
+        /* Image Captions */
+        .image-caption {
+            font-size: 0.85rem;
+            color: #555;
+            font-style: italic;
+            margin-top: 0.6rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--sand);
+            border-left: 3px solid var(--teal);
+            border-radius: 0 4px 4px 0;
             line-height: 1.5;
         }
 
-        .references li:last-child {
-            border-bottom: none;
-        }
-
-        .references li::before {
-            content: counter(ref-counter) ". ";
-            position: absolute;
-            left: 0;
+        .image-caption sup {
             color: var(--primary-blue);
             font-weight: bold;
-            font-variant-numeric: tabular-nums;
         }
 
-        .references li em {
-            font-style: italic;
-            color: var(--ocean-blue);
+        .section-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin: 1.5rem 0;
         }
 
-        /* Summary Box */
-        .summary-box {
-            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            color: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            margin: 3rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .section-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .summary-box h2 {
-            color: var(--white);
-            border-bottom-color: var(--light-teal);
-            margin-bottom: 1.5rem;
+        .section-image.full-width {
+            grid-column: 1 / -1;
+            margin: 1.8rem 0;
         }
 
-        /* Footer */
-        footer {
-            background: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+        .section-image.full-width img {
+            max-height: 420px;
+            object-fit: cover;
         }
 
-        footer a {
-            color: var(--light-teal);
-            text-decoration: none;
+        .section-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            align-items: start;
+            margin: 1.8rem 0;
         }
 
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--teal);
-            color: var(--white);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 999;
-            font-size: 1.5rem;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-        }
-
-        .back-to-top:hover {
-            background: var(--ocean-blue);
-            transform: translateY(-3px);
-        }
-
-                /* Limitations Section - Enclosure Design (Text-Only) */
+        /* Limitations Section */
         #limitations {
             margin: 3rem 0;
             background: var(--white);
@@ -581,7 +752,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Limitation Grid Cards */
         .limitation-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -628,7 +798,6 @@
             color: var(--dark);
         }
 
-        /* Action List Styling */
         .action-list {
             list-style: none;
             margin: 1.5rem 0;
@@ -679,7 +848,6 @@
             color: var(--white);
         }
 
-        /* Research Priorities Box */
         .research-priorities {
             background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
             color: var(--white);
@@ -713,9 +881,7 @@
             line-height: 1.6;
         }
 
-        .priority-list li:last-child {
-            border-bottom: none;
-        }
+        .priority-list li:last-child { border-bottom: none; }
 
         .priority-number {
             display: inline-flex;
@@ -737,11 +903,8 @@
             font-size: 0.95rem;
         }
 
-        .priority-text em {
-            font-style: italic;
-        }
+        .priority-text em { font-style: italic; }
 
-        /* Conclusion Box */
         .conclusion-box {
             background: var(--sand);
             padding: 1.5rem;
@@ -761,700 +924,857 @@
             font-weight: 600;
         }
 
-        /* Info Box Styles (ensure consistency) */
-        .info-box {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-left: 5px solid var(--teal);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 10px 10px 0;
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        .info-box.warning {
-            border-left-color: var(--warning);
-            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        .summary-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 1.3rem;
+            font-size: 1.5rem;
         }
 
-        .info-box.success {
-            border-left-color: var(--success);
-            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        /* References */
+        .references {
+            background: var(--sand);
+            padding: 2rem 0;
+            margin-top: 2rem;
         }
 
-        .info-box h4 {
+        .references h2 {
             color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+        }
+
+        .references ol {
+            list-style: none;
+            margin-left: 0;
+            counter-reset: ref-counter;
+            padding-left: 0;
+        }
+
+        .references li {
+            padding: 0.7rem 0;
+            padding-left: 2.4rem;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            counter-increment: ref-counter;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        .references li:last-child { border-bottom: none; }
+
+        .references li::before {
+            content: counter(ref-counter) ". ";
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .references li em {
+            font-style: italic;
+            color: var(--ocean-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--light-teal);
+            text-decoration: none;
+            margin: 0 0.4rem;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--teal);
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Icon styling for section header */
-        #limitations .icon {
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            background: var(--warning);
-            color: var(--white);
-            border-radius: 50%;
-            font-size: 1.1rem;
-            flex-shrink: 0;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 999;
+            font-size: 1.3rem;
+            border: none;
         }
 
-        /* Responsive Design */
+        .back-to-top.visible { opacity: 1; }
+        .back-to-top:hover {
+            background: var(--ocean-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        @media (min-width: 769px) and (max-width: 900px) {
+            .nav-links {
+                display: flex;
+                gap: 0.8rem;
+            }
+            .nav-links a {
+                font-size: 0.82rem;
+                padding: 0.35rem 0.7rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            #limitations {
-                padding: 1.5rem;
-                margin: 2rem 1rem;
+            .subnav-toggle { display: flex; }
+            .subnav-list {
+                display: none;
+                flex-wrap: wrap;
+                padding: 0.5rem 0;
+            }
+            .subnav-list.active { display: flex; }
+            
+            .hero h1 { font-size: 1.6rem; }
+            .hero .species { font-size: 1.05rem; }
+            .hero .subtitle { font-size: 0.95rem; }
+            
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            
+            .container { padding: 0 1.2rem; }
+            section { padding: 1.8rem 0; }
+            
+            .section-with-image {
+                grid-template-columns: 1fr;
             }
             
-            #limitations h2 {
-                font-size: 1.5rem;
-            }
-            
-            #limitations h3 {
-                font-size: 1.3rem;
-            }
-            
-            #limitations h4 {
-                font-size: 1.05rem;
-            }
-            
+            .spec-grid,
             .limitation-grid {
                 grid-template-columns: 1fr;
             }
             
-            .action-list li {
-                padding: 0.875rem 1rem;
-                padding-left: 2.5rem;
-                font-size: 0.95rem;
-            }
-            
-            .priority-list li {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .priority-number {
-                align-self: flex-start;
-            }
-            
-            .research-priorities {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Print-friendly adjustments */
-        @media print {
-            #limitations {
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
-            
-            .limitation-card,
-            .action-list li,
-            .conclusion-box {
-                break-inside: avoid;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--ocean-blue);
-                flex-direction: column;
-                padding: 1rem;
-                gap: 0.5rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero .species-name {
-                font-size: 1.2rem;
-            }
-
-            .section-with-image {
-                grid-template-columns: 1fr;
-            }
-
-            .spec-grid {
-                grid-template-columns: 1fr;
-            }
-
-            section {
-                padding: 1.5rem;
-            }
-
-            section h2 {
-                font-size: 1.5rem;
-            }
-
-            section h3 {
-                font-size: 1.3rem;
-            }
-
             .scope-box,
             .summary-box {
                 margin: -2rem 1rem 2rem;
                 padding: 1.5rem;
             }
+            
+            .mobile-menu { width: 90%; }
+            main { margin-top: 105px; }
+            .navbar { padding: 0.6rem 0; }
+            .subnav { top: 52px; }
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        @media (max-width: 480px) {
+            .hero { padding: 2rem 0 1.5rem; }
+            .hero h1 { font-size: 1.4rem; }
+            h2 { font-size: 1.3rem; }
+            .info-box, .conclusion-box { padding: 1rem 1.2rem; }
         }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 2rem; }
+        .text-muted { color: #666; font-size: 0.9rem; }
 
         /* Animation */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         section {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        /* Icon styling */
-        .icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background: var(--teal);
-            color: var(--white);
-            border-radius: 50%;
-            font-size: 1.1rem;
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
+    <!-- ===== MAIN NAVIGATION (Links to other pages) ===== -->
+    <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">🐙 GPO Husbandry</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Feeding Management</a></li>
+            
+            <!-- Desktop Main Nav -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="feeding.html">Feeding Management</a></li>
                 <li><a href="health.html">Preventative Health</a></li>
-                <li><a href="enclosure.html" class="active">Enclosure Design</a></li>
             </ul>
+            
+            <!-- Hamburger -->
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Enclosure Design to Promote Optimal Health & Husbandry</h1>
-        <p class="species-name">Enteroctopus dofleini</p>
-        <p class="hero-subtitle">Evidence-based enclosure specifications for water-quality stability, disease prevention, safe containment, and staff/visitor safety</p>
-        <div class="hero-image">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Giant Pacific Octopus in modern aquarium exhibit">
-            <div class="image-caption">
-                Figure 1. Modern GPO exhibit demonstrating appropriate volume, depth, and structural complexity for optimal health and husbandry.<sup>6</sup>
-            </div>
-        </div>
-    </section>
-
-    <div class="container">
-        <!-- Scope Section -->
-        <div class="scope-box">
-            <h2>📋 Scope and Evidence Base</h2>
-            <p>This enclosure design guidance prioritises health and management outcomes—specifically water‑quality stability, disease prevention, safe containment, cleanability, and staff and visitor safety—using three complementary sources of evidence.</p>
-            <ul>
-                <li><strong>Multi‑institution survey</strong> of Giant Pacific Octopus husbandry providing reported system volumes, water‑parameter ranges, and filtration approaches across public aquaria<sup>1</sup></li>
-                <li><strong>BIAZA Giant Pacific Octopus husbandry manual</strong> supplying species‑specific recommendations for temperature, salinity, containment, and staff safety risks<sup>2</sup></li>
-                <li><strong>Mortality review</strong> examining aquarium‑held octopuses reporting exhibit and holding system sizes alongside common health risks, including branchitis and parasitic infection<sup>3</sup></li>
+    <!-- ===== SUB-NAVIGATION (Page Sections - Dropdown on mobile) ===== -->
+    <div class="subnav">
+        <div class="subnav-container">
+            <button class="subnav-toggle" id="subnavToggle">📋 Page Sections</button>
+            <ul class="subnav-list" id="subnavList">
+                <li><a href="#enclosure-design">🏗️ 1. Enclosure Design</a></li>
+                <li><a href="#water-parameters">💧 2. Water Parameters</a></li>
+                <li><a href="#lss">⚙️ 3. Life-Support Systems</a></li>
+                <li><a href="#construction">🧱 4. Construction</a></li>
+                <li><a href="#safety">🛡️ 5. Health & Safety</a></li>
+                <li><a href="#accessibility">♿ 6. Accessibility</a></li>
+                <li><a href="#limitations">⚠️ 7. Limitations</a></li>
             </ul>
         </div>
+    </div>
 
-        <!-- Section 1: Enclosure Design -->
-        <section id="enclosure-design">
-            <h2><span class="icon">1</span> Suitable Enclosure Design for Optimal Husbandry</h2>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
 
-            <h3>1.1 Habitat Volume (Minimum, Typical, and Defensible Targets)</h3>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>A multi‑institution survey of GPO husbandry reported habitat volumes ranging from 1,893 to 16,389 L, with a median habitat volume of 5,405 L<sup>1</sup>. The same survey identifies a habitat volume greater than 1,893 L as the "survey ideal level per AZA manual"<sup>1</sup>.</p>
-                    
-                    <p>A published mortality review of aquarium facilities reported that octopuses were housed in exhibit and holding systems of approximately 715 gallons (2,707 L), 1,200 gallons (4,542 L), and 1,400 gallons (~5,300 L)<sup>3</sup>.</p>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-header">
+            <h3>🐙 GPO Enclosure Design</h3>
+            <button class="mobile-close" id="mobileClose">&times;</button>
+        </div>
+        
+        <!-- Main Pages -->
+        <div class="mobile-section">
+            <h4>Main Pages</h4>
+            <ul class="mobile-links mobile-main">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="feeding.html">🍽️ Feeding Management</a></li>
+                <li><a href="health.html">❤️ Preventative Health</a></li>
+            </ul>
+        </div>
+        
+        <!-- Enclosure Subsections -->
+        <div class="mobile-section">
+            <h4>Enclosure Design Sections</h4>
+            <ul class="mobile-links">
+                <li><a href="#enclosure-design">🏗️ 1. Enclosure Design</a></li>
+                <li><a href="#water-parameters">💧 2. Water Parameters</a></li>
+                <li><a href="#lss">⚙️ 3. Life-Support Systems</a></li>
+                <li><a href="#construction">🧱 4. Construction</a></li>
+                <li><a href="#safety">🛡️ 5. Health & Safety</a></li>
+                <li><a href="#accessibility">♿ 6. Accessibility</a></li>
+                <li><a href="#limitations">⚠️ 7. Limitations</a></li>
+            </ul>
+        </div>
+    </div>
 
-                    <div class="info-box success">
-                        <h4>📏 Evidence‑Supported Target</h4>
-                        <p>For a single adult <em>E. dofleini</em>: system volume around the multi‑institution median (~5,400 L), with >1,893 L as a defensible minimum benchmark, and multiple real‑world operational systems documented in the ~2,700–5,300 L range<sup>1,3</sup>.</p>
-                    </div>
-                </div>
-                <div class="section-image">
-                    <img src="https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg" alt="Large aquarium exhibit showing appropriate volume for GPO">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Enclosure Design to Promote Optimal Health & Husbandry</h1>
+                <div class="species">Enteroctopus dofleini</div>
+                <p class="subtitle">Evidence-based enclosure specifications for water-quality stability, disease prevention, safe containment, and staff/visitor safety</p>
+                
+                <div class="hero-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Giant Pacific Octopus in modern aquarium exhibit">
                     <div class="image-caption">
-                        Figure 2. GPO exhibit with volume exceeding 5,000 L, supporting natural movement and behavioral expression.<sup>7</sup>
+                        <strong>Figure 1.</strong> Modern GPO exhibit demonstrating appropriate volume, depth, and structural complexity for optimal health and husbandry<sup>6</sup>.
                     </div>
                 </div>
             </div>
+        </section>
 
-            <h3>1.2 Depth and Footprint</h3>
-            
-            <div class="param-box">
-                <h4>📐 Documented Operational Dimensions</h4>
-                <p>A recent public procurement specification for GPO habitat replacement reports:</p>
-                <div class="param-value">132″ × 123″ × 84″</div>
-                <p class="param-range">≈ 3.35 m × 3.12 m × 2.13 m depth<br>Volume: ~2,100 gallons (~7,949 L)<sup>4</sup></p>
+        <div class="container">
+            <!-- Scope Section -->
+            <div class="scope-box">
+                <h2>📋 Scope and Evidence Base</h2>
+                <p>This enclosure design guidance prioritises health and management outcomes—specifically water‑quality stability, disease prevention, safe containment, cleanability, and staff and visitor safety—using three complementary sources of evidence.</p>
+                <ul>
+                    <li><strong>Multi‑institution survey</strong> of Giant Pacific Octopus husbandry providing reported system volumes, water‑parameter ranges, and filtration approaches across public aquaria<sup>1</sup></li>
+                    <li><strong>BIAZA Giant Pacific Octopus husbandry manual</strong> supplying species‑specific recommendations for temperature, salinity, containment, and staff safety risks<sup>2</sup></li>
+                    <li><strong>Mortality review</strong> examining aquarium‑held octopuses reporting exhibit and holding system sizes alongside common health risks, including branchitis and parasitic infection<sup>3</sup></li>
+                </ul>
             </div>
 
-            <div class="info-box">
-                <h4>🏗️ Achievable Design Parameters</h4>
-                <p>Modern operational exhibit designs can reasonably incorporate depths of around 2 m and total system volumes approaching 8,000 L as achievable and defensible examples<sup>4</sup>.</p>
-            </div>
+            <!-- Section 1: Enclosure Design -->
+            <section id="enclosure-design">
+                <h2><span class="icon">1</span> Suitable Enclosure Design for Optimal Husbandry</h2>
 
-            <h3>1.3 Containment and Escape Prevention (Health‑Critical)</h3>
+                <h3>1.1 Habitat Volume (Minimum, Typical, and Defensible Targets)</h3>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>A multi‑institution survey of GPO husbandry reported habitat volumes ranging from 1,893 to 16,389 L, with a median habitat volume of 5,405 L<sup>1</sup>. The same survey identifies a habitat volume greater than 1,893 L as the "survey ideal level per AZA manual"<sup>1</sup>.</p>
+                        
+                        <p>A published mortality review of aquarium facilities reported that octopuses were housed in exhibit and holding systems of approximately 715 gallons (2,707 L), 1,200 gallons (4,542 L), and 1,400 gallons (~5,300 L)<sup>3</sup>.</p>
 
-            <div class="section-with-image">
+                        <div class="info-box success">
+                            <h4>📏 Evidence‑Supported Target</h4>
+                            <p>For a single adult <em>E. dofleini</em>: system volume around the multi‑institution median (~5,400 L), with >1,893 L as a defensible minimum benchmark, and multiple real‑world operational systems documented in the ~2,700–5,300 L range<sup>1,3</sup>.</p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg" alt="Large aquarium exhibit showing appropriate volume for GPO">
+                        <div class="image-caption">
+                            <strong>Figure 2.</strong> GPO exhibit with volume exceeding 5,000 L, supporting natural movement and behavioral expression<sup>7</sup>.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>1.2 Depth and Footprint</h3>
+                
+                <div class="param-box">
+                    <h4>📐 Documented Operational Dimensions</h4>
+                    <p>A recent public procurement specification for GPO habitat replacement reports:</p>
+                    <div class="param-value">132″ × 123″ × 84″</div>
+                    <p class="param-range">≈ 3.35 m × 3.12 m × 2.13 m depth<br>Volume: ~2,100 gallons (~7,949 L)<sup>4</sup></p>
+                </div>
+
+                <div class="info-box">
+                    <h4>🏗️ Achievable Design Parameters</h4>
+                    <p>Modern operational exhibit designs can reasonably incorporate depths of around 2 m and total system volumes approaching 8,000 L as achievable and defensible examples<sup>4</sup>.</p>
+                </div>
+
+                <h3>1.3 Containment and Escape Prevention (Health‑Critical)</h3>
+
                 <div class="section-image full-width">
                     <img src="https://krakenreef.com/cdn/shop/products/20220312_114051.jpg?v=1664756242&width=4032" alt="Secure aquarium lid and overflow protection system">
                     <div class="image-caption">
-                        Figure 3. Lockable lid system with protected overflows and secure access ports preventing escape and ensuring electrical safety.<sup>8</sup>
+                        <strong>Figure 3.</strong> Lockable lid system with protected overflows and secure access ports preventing escape and ensuring electrical safety<sup>8</sup>.
                     </div>
                 </div>
-            </div>
 
-            <p>BIAZA guidance emphasises that <em>Enteroctopus dofleini</em> is capable of escaping through any opening larger than the beak, necessitating enclosure designs with tightly fitting lids and careful treatment of all penetrations, including pipework, overflows, and cable routes<sup>2</sup>.</p>
+                <p>BIAZA guidance emphasises that <em>Enteroctopus dofleini</em> is capable of escaping through any opening larger than the beak, necessitating enclosure designs with tightly fitting lids and careful treatment of all penetrations, including pipework, overflows, and cable routes<sup>2</sup>.</p>
 
-            <div class="spec-grid">
-                <div class="spec-card critical">
-                    <h4>🔒 Rigid, Lockable Lid Systems</h4>
-                    <p>Prevent escape, fall injuries, and desiccation<sup>2</sup></p>
-                </div>
-                <div class="spec-card critical">
-                    <h4>🛡️ Protected Overflows & Standpipes</h4>
-                    <p>Secure access ports to remove escape routes and entrapment risks<sup>2</sup></p>
-                </div>
-                <div class="spec-card critical">
-                    <h4>⚡ Electrical Safety Integration</h4>
-                    <p>Formal enclosure design consideration as highlighted in BIAZA manual<sup>2</sup></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Water Parameters -->
-        <section id="water-parameters">
-            <h2><span class="icon">2</span> Suitable Water Parameters for Health</h2>
-
-            <p>A multi‑institution survey reports both observed water‑quality ranges and stated "survey ideal levels per AZA manual" for GPO systems<sup>1</sup>.</p>
-
-            <div class="data-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Parameter</th>
-                            <th>Reported Range</th>
-                            <th>Ideal Range (AZA)</th>
-                            <th>BIAZA Recommendation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Temperature</strong></td>
-                            <td>5.0–14.4 °C</td>
-                            <td>6.0–12.0 °C<sup>1</sup></td>
-                            <td>6–11 °C (avoid 12–13 °C)<sup>2</sup></td>
-                        </tr>
-                        <tr>
-                            <td><strong>pH</strong></td>
-                            <td>7.4–8.3</td>
-                            <td>8.0–8.3<sup>1</sup></td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Salinity</strong></td>
-                            <td>29–36 ppt</td>
-                            <td>28–33 ppt<sup>1</sup></td>
-                            <td>33–36 ppt<sup>2</sup></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Nitrate</strong></td>
-                            <td>0–29 mg/dL</td>
-                            <td>0–19 mg/L<sup>1</sup>*</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Dissolved Oxygen</strong></td>
-                            <td>90–109% saturation</td>
-                            <td>85–95% saturation<sup>1</sup></td>
-                            <td>—</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p style="font-size: 0.85rem; color: #666;">*Note: Inconsistency in units within survey tables<sup>1</sup></p>
-
-            <div class="section-with-image">
-                <div>
-                    <h3>Species‑Specific Temperature Caution (Long‑term Health)</h3>
-                    <p>The BIAZA husbandry manual further refines temperature guidance, describing <em>E. dofleini</em> as a cold‑water species best maintained within a salinity range of 33–36 ppt and a temperature range of 6–11 °C<sup>2</sup>.</p>
-                    
-                    <div class="info-box warning">
-                        <h4>⚠️ Critical Temperature Threshold</h4>
-                        <p>Prolonged exposure to 12–13 °C is harmful over the long term. Extended longevity reported in one facility operating at 5–8 °C<sup>2</sup>.</p>
+                <div class="spec-grid">
+                    <div class="spec-card critical">
+                        <h4>🔒 Rigid, Lockable Lid Systems</h4>
+                        <p>Prevent escape, fall injuries, and desiccation<sup>2</sup></p>
+                    </div>
+                    <div class="spec-card critical">
+                        <h4>🛡️ Protected Overflows & Standpipes</h4>
+                        <p>Secure access ports to remove escape routes and entrapment risks<sup>2</sup></p>
+                    </div>
+                    <div class="spec-card critical">
+                        <h4>⚡ Electrical Safety Integration</h4>
+                        <p>Formal enclosure design consideration as highlighted in BIAZA manual<sup>2</sup></p>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg" alt="Temperature monitoring and chilling system for cold-water octopus">
-                    <div class="image-caption">
-                        Figure 4. Precision temperature control maintaining 6–11 °C range, avoiding sustained exposure to harmful 12–13 °C levels.<sup>9</sup>
+            </section>
+
+            <!-- Section 2: Water Parameters -->
+            <section id="water-parameters">
+                <h2><span class="icon">2</span> Suitable Water Parameters for Health</h2>
+
+                <p>A multi‑institution survey reports both observed water‑quality ranges and stated "survey ideal levels per AZA manual" for GPO systems<sup>1</sup>.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Reported Range</th>
+                                <th>Ideal Range (AZA)</th>
+                                <th>BIAZA Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Temperature</strong></td>
+                                <td>5.0–14.4 °C</td>
+                                <td>6.0–12.0 °C</td>
+                                <td>6–11 °C (avoid 12–13 °C)<sup>2</sup></td>
+                            </tr>
+                            <tr>
+                                <td><strong>pH</strong></td>
+                                <td>7.4–8.3</td>
+                                <td>8.0–8.3</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Salinity</strong></td>
+                                <td>29–36 ppt</td>
+                                <td>28–33 ppt</td>
+                                <td>33–36 ppt<sup>2</sup></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nitrate</strong></td>
+                                <td>0–29 mg/dL</td>
+                                <td>0–19 mg/L*</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dissolved Oxygen</strong></td>
+                                <td>90–109% saturation</td>
+                                <td>85–95% saturation</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted">*Note: Inconsistency in units within survey tables<sup>1</sup></p>
+
+                <div class="section-with-image">
+                    <div>
+                        <h3>Species‑Specific Temperature Caution (Long‑term Health)</h3>
+                        <p>The BIAZA husbandry manual further refines temperature guidance, describing <em>E. dofleini</em> as a cold‑water species best maintained within a salinity range of 33–36 ppt and a temperature range of 6–11 °C<sup>2</sup>.</p>
+                        
+                        <div class="info-box warning">
+                            <h4>⚠️ Critical Temperature Threshold</h4>
+                            <p>Prolonged exposure to 12–13 °C is harmful over the long term. Extended longevity reported in one facility operating at 5–8 °C<sup>2</sup>.</p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg" alt="Temperature monitoring and chilling system for cold-water octopus">
+                        <div class="image-caption">
+                            <strong>Figure 4.</strong> Precision temperature control maintaining 6–11 °C range, avoiding sustained exposure to harmful 12–13 °C levels<sup>9</sup>.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="info-box success">
-                <h4>🌡️ Defensible Operational Recommendation</h4>
-                <p>Manage <em>E. dofleini</em> as a cold‑water system, aiming for 6–11 °C where practical, explicitly avoiding sustained exposure to 12–13 °C, and recognising 5–8 °C as a viable operating band when chilling capacity allows<sup>1,2</sup>.</p>
-            </div>
-        </section>
+                <div class="info-box success">
+                    <h4>🌡️ Defensible Operational Recommendation</h4>
+                    <p>Manage <em>E. dofleini</em> as a cold‑water system, aiming for 6–11 °C where practical, explicitly avoiding sustained exposure to 12–13 °C, and recognising 5–8 °C as a viable operating band when chilling capacity allows<sup>1,2</sup>.</p>
+                </div>
+            </section>
 
-        <!-- Section 3: Life-Support Systems -->
-        <section id="lss">
-            <h2><span class="icon">3</span> Life‑Support Systems (LSS) and Monitoring</h2>
+            <!-- Section 3: Life-Support Systems -->
+            <section id="lss">
+                <h2><span class="icon">3</span> Life‑Support Systems (LSS) and Monitoring</h2>
 
-            <h3>3.1 LSS Components Documented in Real Practice</h3>
+                <h3>3.1 LSS Components Documented in Real Practice</h3>
 
-            <!-- <div class="section-with-image">
-                <div class="section-image full-width">
-                    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Life-support system schematic showing filtration components">
-                    <div class="image-caption">
-                        Figure 5. LSS schematic: Mechanical filtration → Biological filtration → Protein skimmer → UV sterilisation → Chiller/oxygenation → Return to exhibit.<sup>1,2</sup>
+                <p>The multi‑institution survey reports a range of filtration and treatment methods used in GPO systems, including foam fractionation or protein skimming, UV sterilisation, bioball or biotower biofiltration, sand filtration, canister filters, filter socks, moving‑bed filters, bead filters, ozone, and carbon filtration, with protein skimmers, UV sterilisation, and biological filtration reported most frequently<sup>1</sup>.</p>
+
+                <div class="spec-grid">
+                    <div class="spec-card highlight">
+                        <h4>✅ Minimum LSS Package</h4>
+                        <p>Mechanical solids removal + Biological filtration + Protein skimming + UV sterilisation (disinfection adjunct)<sup>1</sup></p>
+                    </div>
+                    <div class="spec-card">
+                        <h4>💨 Additional Considerations</h4>
+                        <p>Aeration, dissolved‑gas management, and water sterilisation as key system components<sup>2</sup></p>
                     </div>
                 </div>
-            </div> -->
 
-            <p>The multi‑institution survey reports a range of filtration and treatment methods used in GPO systems, including foam fractionation or protein skimming, UV sterilisation, bioball or biotower biofiltration, sand filtration, canister filters, filter socks, moving‑bed filters, bead filters, ozone, and carbon filtration, with protein skimmers, UV sterilisation, and biological filtration reported most frequently<sup>1</sup>.</p>
+                <h3>3.2 Monitoring (What to Measure and Why)</h3>
 
-            <div class="spec-grid">
-                <div class="spec-card highlight">
-                    <h4>✅ Minimum LSS Package</h4>
-                    <p>Mechanical solids removal + Biological filtration + Protein skimming + UV sterilisation (disinfection adjunct)<sup>1</sup></p>
+                <p>Survey data indicate that institutions employ a wide range of water‑change strategies, from continuous exchange to weekly changes of up to 100%, suggesting that long‑term stability rather than a single husbandry routine is the critical outcome<sup>1</sup>.</p>
+
+                <div class="info-box success">
+                    <h4>📊 Defensible Monitoring Thresholds<sup>5</sup></h4>
+                    <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                        <li><strong>Ammonia‑N:</strong> &lt; 0.05 mg/L</li>
+                        <li><strong>Nitrite‑N:</strong> &lt; 0.5 mg/L</li>
+                        <li><strong>Total Nitrogen:</strong> &lt; 15 mg/L</li>
+                        <li><strong>pH:</strong> Maintained for effective nitrification</li>
+                        <li><strong>Dissolved Oxygen:</strong> Controlled within optimal range</li>
+                    </ul>
                 </div>
-                <div class="spec-card">
-                    <h4>💨 Additional Considerations</h4>
-                    <p>Aeration, dissolved‑gas management, and water sterilisation as key system components<sup>2</sup></p>
-                </div>
-            </div>
 
-            <h3>3.2 Monitoring (What to Measure and Why)</h3>
-
-            <p>Survey data indicate that institutions employ a wide range of water‑change strategies, from continuous exchange to weekly changes of up to 100%, suggesting that long‑term stability rather than a single husbandry routine is the critical outcome<sup>1</sup>.</p>
-
-            <div class="info-box success">
-                <h4>📊 Defensible Monitoring Thresholds<sup>5</sup></h4>
-                <ul style="margin: 0.75rem 0 0 1.25rem;">
-                    <li><strong>Ammonia‑N:</strong> &lt; 0.05 mg/L</li>
-                    <li><strong>Nitrite‑N:</strong> &lt; 0.5 mg/L</li>
-                    <li><strong>Total Nitrogen:</strong> &lt; 15 mg/L</li>
-                    <li><strong>pH:</strong> Maintained for effective nitrification</li>
-                    <li><strong>Dissolved Oxygen:</strong> Controlled within optimal range</li>
-                </ul>
-            </div>
-
-            <div class="section-with-image">
-                <div>
-                    <p>To support stable water quality in recirculating systems, teaching‑module materials provide defensible thresholds for nitrogen management and oxygen demand, alongside emphasis on pH maintenance for effective nitrification and dissolved‑oxygen control<sup>5</sup>.</p>
-                    
-                    <div class="info-box">
-                        <h4>🎯 Health Risk Reduction</h4>
-                        <p>These values serve as practical monitoring targets to reduce health risks associated with water‑quality deterioration<sup>5</sup>.</p>
+                <div class="section-with-image">
+                    <div>
+                        <p>To support stable water quality in recirculating systems, teaching‑module materials provide defensible thresholds for nitrogen management and oxygen demand, alongside emphasis on pH maintenance for effective nitrification and dissolved‑oxygen control<sup>5</sup>.</p>
+                        
+                        <div class="info-box">
+                            <h4>🎯 Health Risk Reduction</h4>
+                            <p>These values serve as practical monitoring targets to reduce health risks associated with water‑quality deterioration<sup>5</sup>.</p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg" alt="Water quality monitoring dashboard and testing equipment">
+                        <div class="image-caption">
+                            <strong>Figure 5.</strong> Continuous monitoring of temperature, salinity, pH, nitrate, and dissolved oxygen ensures water-quality stability<sup>10</sup>.
+                        </div>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg" alt="Water quality monitoring dashboard and testing equipment">
-                    <div class="image-caption">
-                        Figure 6. Continuous monitoring of temperature, salinity, pH, nitrate, and dissolved oxygen ensures water-quality stability.<sup>10</sup>
+            </section>
+
+            <!-- Section 4: Construction and Layout -->
+            <section id="construction">
+                <h2><span class="icon">4</span> Construction and Layout Promoting Health and Cleanliness</h2>
+
+                <h3>4.1 Materials Used in Practice and Cleanability</h3>
+
+                <div class="section-with-image">
+                    <div>
+                        <p>Survey respondents reported the use of rockwork, fiberglass, acrylic, and concrete or cement as enclosure and décor materials<sup>1</sup>.</p>
+
+                        <div class="info-box warning">
+                            <h4>⚠️ Metal Sensitivity</h4>
+                            <p>The BIAZA manual notes particular sensitivity of octopuses to metals, especially copper and tin, supporting a clear design requirement to avoid exposed metal on the wet side of enclosures, including fittings, fasteners, and plumbing<sup>2</sup>.</p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG?auth=c8ead275f713da93ded4d153daf5c805ded9cac5369eef786d5a824e24384381&width=1572" alt="Non-porous acrylic and fiberglass enclosure materials">
+                        <div class="image-caption">
+                            <strong>Figure 6.</strong> Sealed, non-porous materials (acrylic, fiberglass, sealed concrete) reduce biofilm retention and improve sanitation<sup>11</sup>.
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Section 4: Construction and Layout -->
-        <section id="construction">
-            <h2><span class="icon">4</span> Construction and Layout Promoting Health and Cleanliness</h2>
-
-            <h3>4.1 Materials Used in Practice and Cleanability</h3>
-
-            <div class="section-with-image">
-                <div>
-                    <p>Survey respondents reported the use of rockwork, fiberglass, acrylic, and concrete or cement as enclosure and décor materials<sup>1</sup>.</p>
-
-                    <div class="info-box warning">
-                        <h4>⚠️ Metal Sensitivity</h4>
-                        <p>The BIAZA manual notes particular sensitivity of octopuses to metals, especially copper and tin, supporting a clear design requirement to avoid exposed metal on the wet side of enclosures, including fittings, fasteners, and plumbing<sup>2</sup>.</p>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <h4>🧱 Recommended Materials</h4>
+                        <p>Sealed, non‑porous finishes: acrylic, fiberglass, or sealed concrete to reduce biofilm retention and improve sanitation<sup>1</sup></p>
+                    </div>
+                    <div class="spec-card highlight">
+                        <h4>🔧 Inert Plastics</h4>
+                        <p>Use PVC and minimise/eliminate metal exposure to avoid contamination risks<sup>2,1</sup></p>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG?auth=c8ead275f713da93ded4d153daf5c805ded9cac5369eef786d5a824e24384381&width=1572" alt="Non-porous acrylic and fiberglass enclosure materials">
-                    <div class="image-caption">
-                        Figure 7. Sealed, non-porous materials (acrylic, fiberglass, sealed concrete) reduce biofilm retention and improve sanitation.<sup>11</sup>
-                    </div>
-                </div>
-            </div>
+            </section>
 
-            <div class="spec-grid">
-                <div class="spec-card">
-                    <h4>🧱 Recommended Materials</h4>
-                    <p>Sealed, non‑porous finishes: acrylic, fiberglass, or sealed concrete to reduce biofilm retention and improve sanitation<sup>1</sup></p>
-                </div>
-                <div class="spec-card highlight">
-                    <h4>🔧 Inert Plastics</h4>
-                    <p>Use PVC and minimise/eliminate metal exposure to avoid contamination risks<sup>2,1</sup></p>
-                </div>
-            </div>
-        </section>
+            <!-- Section 5: Health and Safety -->
+            <section id="safety">
+                <h2><span class="icon">5</span> Health and Safety Needs of Visitors and Staff</h2>
 
-        <!-- Section 5: Health and Safety -->
-        <section id="safety">
-            <h2><span class="icon">5</span> Health and Safety Needs of Visitors and Staff</h2>
-
-            <div class="section-with-image">
                 <div class="section-image full-width">
                     <img src="https://s.hdnux.com/photos/10/76/24/2352389/10/960x0.webp" alt="Staff safety barriers and secure access systems in GPO exhibit">
                     <div class="image-caption">
-                        Figure 8. Lockable access points, staff-only service corridors, and visitor barriers with no-reach zones ensuring safety for both staff and public.<sup>12</sup>
+                        <strong>Figure 7.</strong> Lockable access points, staff-only service corridors, and visitor barriers with no-reach zones ensuring safety for both staff and public<sup>12</sup>.
+                    </div>
+                </div>
+
+                <p>The BIAZA manual identifies specific staff risks associated with <em>E. dofleini</em>, noting that bites can be painful and may require urgent medical attention, and emphasising the need for protocols that prevent arms being brought toward the beak during handling or maintenance<sup>2</sup>.</p>
+
+                <div class="info-box warning">
+                    <h4>🛡️ Design Implications for Health and Safety<sup>2</sup></h4>
+                    <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                        <li><strong>Lockable access points</strong> and staff‑only service corridors to support safe maintenance</li>
+                        <li><strong>Visitor barriers</strong> and clearly defined no‑reach zones to prevent injury and contamination</li>
+                        <li><strong>Electrical safety</strong> integrated into enclosure and LSS design</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 6: Accessibility -->
+            <section id="accessibility">
+                <h2><span class="icon">6</span> Accessibility</h2>
+                
+                <div class="info-box">
+                    <h4>♿ Design Requirements</h4>
+                    <p>Designs should provide step‑free visitor routes and accessible interpretation panels in line with institutional and regulatory accessibility requirements. The sources cited above do not specify numeric accessibility standards; therefore, local institutional regulations should be applied.</p>
+                </div>
+            </section>
+
+            <!-- Limitations Section (Text-Only) -->
+            <section id="limitations">
+                <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
+                
+                <div class="intro-text">
+                    <p>Enclosure design recommendations for <em>Enteroctopus dofleini</em> are limited by an incomplete understanding of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes. Existing guidance largely prioritises structural features (e.g. escape prevention, water flow, material choice) derived from husbandry manuals rather than experimentally validated welfare data<sup>1</sup>. As a result, enclosure design often ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats.</p>
+                    
+                    <div class="info-box warning">
+                        <h4>🔬 Core Constraint</h4>
+                        <p>No controlled experimental studies have quantified the relationship between specific enclosure parameters (size, complexity, enrichment frequency) and measurable welfare outcomes for <em>E. dofleini</em>; current designs rely on precautionary principles and expert consensus rather than species-specific evidence.</p>
+                    </div>
+                </div>
+
+                <h3>Major Limitations Affecting Enclosure Design Protocols</h3>
+                
+                <div class="limitation-grid">
+                    <div class="limitation-card">
+                        <h4>🧩 Incomplete Interaction Understanding</h4>
+                        <p>Limited knowledge of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>📋 Manual-Derived vs. Experimental Guidance</h4>
+                        <p>Existing guidance prioritises structural features (escape prevention, water flow, material choice) from husbandry manuals rather than experimentally validated welfare data<sup>1</sup></p>
+                    </div>
+                    <div class="limitation-card critical">
+                        <h4>🏠 Containment vs. Ecological Replication</h4>
+                        <p>Design ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>📏 Absence of Quantified Thresholds</h4>
+                        <p>No defined thresholds for enclosure size, structural complexity, or enrichment frequency makes it difficult to assess whether current designs meet behavioural and cognitive needs</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>👁️ Observation Constraints</h4>
+                        <p>Solitary and cryptic nature of octopuses restricts behavioural observation, reducing the ability to evaluate enclosure adequacy objectively</p>
+                    </div>
+                </div>
+
+                <h3>Implications for Practice</h3>
+                
+                <div class="info-box success">
+                    <h4>✅ Precautionary, Observation‑Driven Design</h4>
+                    <p>Given these limitations, enclosure design protocols must prioritise flexibility, continuous behavioural monitoring, and conservative interpretation of welfare indicators rather than rigid compliance with unvalidated specifications.</p>
+                </div>
+
+                <ul class="action-list">
+                    <li>
+                        <strong>Document behavioural baselines:</strong> Establish individual normal patterns for den use, exploration, and activity to enable detection of enclosure-related stress
+                    </li>
+                    <li>
+                        <strong>Implement iterative enrichment:</strong> Introduce structural or sensory modifications systematically and record behavioural responses to build institutional knowledge
+                    </li>
+                    <li>
+                        <strong>Apply conservative sizing:</strong> When quantified thresholds are unavailable, prioritise larger volumes and greater complexity to accommodate individual variation
+                    </li>
+                    <li>
+                        <strong>Integrate multi-modal assessment:</strong> Combine direct observation, video monitoring, and physiological indicators (where feasible) to triangulate enclosure adequacy
+                    </li>
+                    <li>
+                        <strong>Contribute to collaborative databases:</strong> Share anonymised enclosure specifications and behavioural outcomes to strengthen the species‑specific evidence base over time<sup>1</sup>
+                    </li>
+                </ul>
+
+                <div class="research-priorities">
+                    <h4>🎯 Research Priorities to Address Limitations</h4>
+                    <ul class="priority-list">
+                        <li>
+                            <span class="priority-number">1</span>
+                            <span class="priority-text">Controlled experimental studies to define minimum enclosure volume, complexity metrics, and enrichment frequency thresholds for optimal <em>E. dofleini</em> welfare</span>
+                        </li>
+                        <li>
+                            <span class="priority-number">2</span>
+                            <span class="priority-text">Validation of behavioural indicators (den use, exploration, problem-solving) against physiological stress markers in captive octopuses</span>
+                        </li>
+                        <li>
+                            <span class="priority-number">3</span>
+                            <span class="priority-text">Development of standardised, non-invasive monitoring protocols for assessing enclosure adequacy in solitary, cryptic cephalopods</span>
+                        </li>
+                        <li>
+                            <span class="priority-number">4</span>
+                            <span class="priority-text">Multi-institution longitudinal studies linking specific enclosure parameters to health outcomes, longevity, and reproductive success</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="conclusion-box">
+                    <p><strong>Summary:</strong> While current enclosure design protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in threshold definition, behavioural interpretation, and welfare validation. A precautionary, observation-driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species-specific knowledge<sup>1</sup>.</p>
+                </div>
+            </section>
+
+            <!-- Summary Box -->
+            <div class="summary-box">
+                <h2>✓ Summary: Key Enclosure Design Specifications</h2>
+                <div class="spec-grid">
+                    <div class="spec-card highlight">
+                        <h4>📏 Volume: ~5,400 L</h4>
+                        <p>Median target; >1,893 L minimum; up to ~8,000 L achievable<sup>1,3,4</sup></p>
+                    </div>
+                    <div class="spec-card highlight">
+                        <h4>🌡️ Temperature: 6–11 °C</h4>
+                        <p>Avoid sustained 12–13 °C; 5–8 °C viable with chilling<sup>1,2</sup></p>
+                    </div>
+                    <div class="spec-card critical">
+                        <h4>🔒 Containment: Critical</h4>
+                        <p>Lockable lids, protected overflows, no openings > beak size<sup>2</sup></p>
+                    </div>
+                    <div class="spec-card">
+                        <h4>💧 LSS: Multi-stage</h4>
+                        <p>Mechanical + Biological + Protein skimmer + UV<sup>1,2</sup></p>
+                    </div>
+                    <div class="spec-card">
+                        <h4>🧱 Materials: Non-porous</h4>
+                        <p>Acrylic, fiberglass, sealed concrete; avoid metals<sup>1,2</sup></p>
+                    </div>
+                    <div class="spec-card critical">
+                        <h4>⚡ Safety: Integrated</h4>
+                        <p>Staff corridors, visitor barriers, electrical safety<sup>2</sup></p>
                     </div>
                 </div>
             </div>
 
-            <p>The BIAZA manual identifies specific staff risks associated with <em>E. dofleini</em>, noting that bites can be painful and may require urgent medical attention, and emphasising the need for protocols that prevent arms being brought toward the beak during handling or maintenance<sup>2</sup>.</p>
-
-            <div class="info-box warning">
-                <h4>🛡️ Design Implications for Health and Safety<sup>2</sup></h4>
-                <ul style="margin: 0.75rem 0 0 1.25rem;">
-                    <li><strong>Lockable access points</strong> and staff‑only service corridors to support safe maintenance</li>
-                    <li><strong>Visitor barriers</strong> and clearly defined no‑reach zones to prevent injury and contamination</li>
-                    <li><strong>Electrical safety</strong> integrated into enclosure and LSS design</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Section 6: Accessibility -->
-        <section id="accessibility">
-            <h2><span class="icon">6</span> Accessibility</h2>
-            
-            <div class="info-box">
-                <h4>♿ Design Requirements</h4>
-                <p>Designs should provide step‑free visitor routes and accessible interpretation panels in line with institutional and regulatory accessibility requirements. The sources cited above do not specify numeric accessibility standards; therefore, local institutional regulations should be applied.</p>
-            </div>
-        </section>
-
-            <!-- Limitations of Study Section - Enclosure Design Page (Text-Only) -->
-    <section id="limitations">
-        <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
-        
-        <div class="intro-text">
-            <p>Enclosure design recommendations for <em>Enteroctopus dofleini</em> are limited by an incomplete understanding of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes. Existing guidance largely prioritises structural features (e.g. escape prevention, water flow, material choice) derived from husbandry manuals rather than experimentally validated welfare data<sup>1</sup>. As a result, enclosure design often ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats.</p>
-            
-            <div class="info-box warning">
-                <h4>🔬 Core Constraint</h4>
-                <p>No controlled experimental studies have quantified the relationship between specific enclosure parameters (size, complexity, enrichment frequency) and measurable welfare outcomes for <em>E. dofleini</em>; current designs rely on precautionary principles and expert consensus rather than species-specific evidence.</p>
-            </div>
-        </div>
-
-        <h3>Major Limitations Affecting Enclosure Design Protocols</h3>
-        
-        <div class="limitation-grid">
-            <div class="limitation-card">
-                <h4>🧩 Incomplete Interaction Understanding</h4>
-                <p>Limited knowledge of how spatial complexity, environmental enrichment, and behavioural expression interact to influence long‑term health outcomes</p>
-            </div>
-            <div class="limitation-card">
-                <h4>📋 Manual-Derived vs. Experimental Guidance</h4>
-                <p>Existing guidance prioritises structural features (escape prevention, water flow, material choice) from husbandry manuals rather than experimentally validated welfare data<sup>1</sup></p>
-            </div>
-            <div class="limitation-card critical">
-                <h4>🏠 Containment vs. Ecological Replication</h4>
-                <p>Design ensures containment and system stability but does not necessarily replicate the ecological variability experienced in natural habitats</p>
-            </div>
-            <div class="limitation-card">
-                <h4>📏 Absence of Quantified Thresholds</h4>
-                <p>No defined thresholds for enclosure size, structural complexity, or enrichment frequency makes it difficult to assess whether current designs meet behavioural and cognitive needs</p>
-            </div>
-            <div class="limitation-card">
-                <h4>👁️ Observation Constraints</h4>
-                <p>Solitary and cryptic nature of octopuses restricts behavioural observation, reducing the ability to evaluate enclosure adequacy objectively</p>
-            </div>
-        </div>
-
-        <h3>Implications for Practice</h3>
-        
-        <div class="info-box success">
-            <h4>✅ Precautionary, Observation‑Driven Design</h4>
-            <p>Given these limitations, enclosure design protocols must prioritise flexibility, continuous behavioural monitoring, and conservative interpretation of welfare indicators rather than rigid compliance with unvalidated specifications.</p>
-        </div>
-
-        <ul class="action-list">
-            <li>
-                <strong>Document behavioural baselines:</strong> Establish individual normal patterns for den use, exploration, and activity to enable detection of enclosure-related stress
-            </li>
-            <li>
-                <strong>Implement iterative enrichment:</strong> Introduce structural or sensory modifications systematically and record behavioural responses to build institutional knowledge
-            </li>
-            <li>
-                <strong>Apply conservative sizing:</strong> When quantified thresholds are unavailable, prioritise larger volumes and greater complexity to accommodate individual variation
-            </li>
-            <li>
-                <strong>Integrate multi-modal assessment:</strong> Combine direct observation, video monitoring, and physiological indicators (where feasible) to triangulate enclosure adequacy
-            </li>
-            <li>
-                <strong>Contribute to collaborative databases:</strong> Share anonymised enclosure specifications and behavioural outcomes to strengthen the species‑specific evidence base over time<sup>1</sup>
-            </li>
-        </ul>
-
-        <div class="research-priorities">
-            <h4 style="color: white;">🎯 Research Priorities to Address Limitations</h4>
-            <ul class="priority-list">
-                <li>
-                    <span class="priority-number">1</span>
-                    <span class="priority-text">Controlled experimental studies to define minimum enclosure volume, complexity metrics, and enrichment frequency thresholds for optimal <em>E. dofleini</em> welfare</span>
-                </li>
-                <li>
-                    <span class="priority-number">2</span>
-                    <span class="priority-text">Validation of behavioural indicators (den use, exploration, problem-solving) against physiological stress markers in captive octopuses</span>
-                </li>
-                <li>
-                    <span class="priority-number">3</span>
-                    <span class="priority-text">Development of standardised, non-invasive monitoring protocols for assessing enclosure adequacy in solitary, cryptic cephalopods</span>
-                </li>
-                <li>
-                    <span class="priority-number">4</span>
-                    <span class="priority-text">Multi-institution longitudinal studies linking specific enclosure parameters to health outcomes, longevity, and reproductive success</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="conclusion-box">
-            <p><strong>Summary:</strong> While current enclosure design protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in threshold definition, behavioural interpretation, and welfare validation. A precautionary, observation-driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species-specific knowledge<sup>1</sup>.</p>
-        </div>
-    </section>
-
-
-        <!-- Summary Section -->
-        <div class="summary-box">
-            <h2>✓ Summary: Key Enclosure Design Specifications</h2>
-            <div class="spec-grid">
-                <div class="spec-card highlight">
-                    <h4>📏 Volume: ~5,400 L</h4>
-                    <p>Median target; >1,893 L minimum; up to ~8,000 L achievable<sup>1,3,4</sup></p>
-                </div>
-                <div class="spec-card highlight">
-                    <h4>🌡️ Temperature: 6–11 °C</h4>
-                    <p>Avoid sustained 12–13 °C; 5–8 °C viable with chilling<sup>1,2</sup></p>
-                </div>
-                <div class="spec-card critical">
-                    <h4>🔒 Containment: Critical</h4>
-                    <p>Lockable lids, protected overflows, no openings > beak size<sup>2</sup></p>
-                </div>
-                <div class="spec-card">
-                    <h4>💧 LSS: Multi-stage</h4>
-                    <p>Mechanical + Biological + Protein skimmer + UV<sup>1,2</sup></p>
-                </div>
-                <div class="spec-card">
-                    <h4>🧱 Materials: Non-porous</h4>
-                    <p>Acrylic, fiberglass, sealed concrete; avoid metals<sup>1,2</sup></p>
-                </div>
-                <div class="spec-card critical">
-                    <h4>⚡ Safety: Integrated</h4>
-                    <p>Staff corridors, visitor barriers, electrical safety<sup>2</sup></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- References -->
-        <section id="references">
-            <h2>📚 References (Vancouver Style)</h2>
-            <div class="references">
+            <!-- References -->
+            <section class="references" id="references">
+                <h2>📚 References (Vancouver Style)</h2>
                 <ol>
                     <li>Multi‑institution Giant Pacific Octopus husbandry survey. <em>PMC</em>.</li>
                     <li>British and Irish Association of Zoos and Aquariums (BIAZA). <em>Giant Pacific Octopus Husbandry Manual</em>.</li>
                     <li>Mortality review of aquarium‑held octopuses. <em>JSTOR</em>.</li>
                     <li>Washington State public procurement specification for Giant Pacific Octopus habitat replacement. <em>omwbe.wa.gov</em>.</li>
                     <li>ANIM5009 Life‑Support Systems teaching materials, 2026.</li>
-                    <li>Wikimedia Commons contributors. Giant Pacific octopus in exhibit at Monterey Bay Aquarium [Internet]. San Francisco (CA): Wikimedia Commons; c2007 [cited 2026 Apr 4]. Available from:
-                    https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg</li>
-                    <li>Sunset Beach Club. Giant Pacific octopus (Pulpo gigante del Pacífico) [Internet]. Benalmádena: Sunset Beach Club; 2010 [cited 2026 Apr 4]. Available from:
-                    https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg</li>
-                    <li>Kraken Reef. Giant Pacific octopus in aquarium display [Internet]. Kraken Reef Aquarium; 2022 [cited 2026 Apr 4]. Available from:
-                    https://krakenreef.com/cdn/shop/products/20220312_114051.jpg</li>
-                    <li>Made‑in‑China.com. Digital temperature controller with sensor for aquarium systems [Internet]. Beijing: Focus Technology Co., Ltd.; c2022 [cited 2026 Apr 4]. Available from:
-                    https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg</li>
-                    <li>Salon. Octopus housed in controlled laboratory aquarium system [Internet]. New York: Salon Media Group; 2023 [cited 2026 Apr 4]. Available from:
-                    https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg</li>
-                    <li>Houston Chronicle. Cold‑water aquarium exhibit featuring giant Pacific octopus [Internet]. Houston (TX): Hearst Newspapers; c2011 [cited 2026 Apr 4]. Available from:
-                    https://s.hdnux.com/photos/10/76/24/2352389/10/960x0.webp</li>
+                    <li>Wikimedia Commons contributors. Giant Pacific octopus in exhibit at Monterey Bay Aquarium [Internet]. San Francisco (CA): Wikimedia Commons; c2007 [cited 2026 Apr 4]. Available from: https://upload.wikimedia.org/wikipedia/commons/0/0d/Giant_Pacific_octopus_in_exhibit_at_Monterey_Bay_Aquarium.jpg</li>
+                    <li>Sunset Beach Club. Giant Pacific octopus (Pulpo gigante del Pacífico) [Internet]. Benalmádena: Sunset Beach Club; 2010 [cited 2026 Apr 4]. Available from: https://www.sunsetbeachclub.com/blog/wp-content/uploads/2010/08/Pulpo-Gigente-del-Pacifico.jpg</li>
+                    <li>Kraken Reef. Giant Pacific octopus in aquarium display [Internet]. Kraken Reef Aquarium; 2022 [cited 2026 Apr 4]. Available from: https://krakenreef.com/cdn/shop/products/20220312_114051.jpg</li>
+                    <li>Made‑in‑China.com. Digital temperature controller with sensor for aquarium systems [Internet]. Beijing: Focus Technology Co., Ltd.; c2022 [cited 2026 Apr 4]. Available from: https://image.made-in-china.com/2f0j00rwYkhizylFqv/Smart-Temperature-Controller-for-Fish-Tank-and-Greenhouse-Plants-Temperature-Controlling-Automatically-with-Sensor-Automatically-Detects-Day-Night-Dual-Mode-.jpg</li>
+                    <li>Salon. Octopus housed in controlled laboratory aquarium system [Internet]. New York: Salon Media Group; 2023 [cited 2026 Apr 4]. Available from: https://www.salon.com/app/uploads/2023/10/octopus_in_lab_tank_holding_hands_1246499730.jpg</li>
+                    <li>Houston Chronicle. Cold‑water aquarium exhibit featuring giant Pacific octopus [Internet]. Houston (TX): Hearst Newspapers; c2011 [cited 2026 Apr 4]. Available from: https://s.hdnux.com/photos/10/76/24/2352389/10/960x0.webp</li>
                 </ol>
-            </div>
-        </section>
-    </div>
+            </section>
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Giant Pacific Octopus Husbandry Portfolio</p>
-        <p>Created for professional aquaculture and aquarium management</p>
-        <p style="margin-top: 1rem;">
-            <a href="diet.html">Diet & Nutrition</a> | 
-            <a href="health.html">Preventative Health</a> | 
-            <a href="enclosure.html">Enclosure Design</a> | 
-            <a href="feeding.html">Feeding Management</a>
-        </p>
+        <div class="container">
+            <p>&copy; 2026 Giant Pacific Octopus Husbandry Portfolio</p>
+            <p style="margin-top:0.4rem;opacity:0.9;">Created for professional aquaculture and aquarium management</p>
+            <p style="margin-top:0.8rem;">
+                <a href="index.html">Home</a> | 
+                <a href="feeding.html">Feeding Management</a> | 
+                <a href="health.html">Preventative Health</a>
+            </p>
+        </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">↑</div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // Mobile Navigation Toggle
+        // ===== SUB-NAVIGATION TOGGLE (Mobile) =====
+        const subnavToggle = document.getElementById('subnavToggle');
+        const subnavList = document.getElementById('subnavList');
+        
+        if (subnavToggle) {
+            subnavToggle.addEventListener('click', () => {
+                subnavList.classList.toggle('active');
+                subnavToggle.classList.toggle('active');
+            });
+        }
+
+        // ===== MOBILE MENU FUNCTIONS =====
         const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+                setTimeout(closeMobileMenu, 150);
             });
         });
 
-        // Back to Top Button
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                
+                // Handle external page links
+                if (targetId.includes('.html')) {
+                    window.location.href = targetId;
+                    return;
+                }
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    // Close menus first
+                    closeMobileMenu();
+                    if (subnavList && subnavList.classList.contains('active')) {
+                        subnavList.classList.remove('active');
+                        subnavToggle.classList.remove('active');
+                    }
+                    
+                    // Smooth scroll with header offset (accounts for both navbars)
+                    const headerOffset = 120;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active states
+                    updateActiveSection(targetId);
+                }
+            });
+        });
+
+        // Update active section highlighting
+        function updateActiveSection(sectionId) {
+            // Update subnav links
+            document.querySelectorAll('.subnav-list a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeSubnavLink = document.querySelector(`.subnav-list a[href="${sectionId}"]`);
+            if (activeSubnavLink) activeSubnavLink.classList.add('active');
+            
+            // Update mobile menu links
+            document.querySelectorAll('.mobile-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeMobileLink = document.querySelector(`.mobile-links a[href="${sectionId}"]`);
+            if (activeMobileLink) activeMobileLink.classList.add('active');
+        }
+
+        // Scroll spy: highlight active section as user scrolls
+        const sections = document.querySelectorAll('section[id]');
+        const subnavLinks = document.querySelectorAll('.subnav-list a');
+        const mobileLinks = document.querySelectorAll('.mobile-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 150; // Offset for both navbars
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = `#${section.getAttribute('id')}`;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+            
+            // Update subnav active state
+            subnavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update mobile menu active state
+            mobileLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== BACK TO TOP BUTTON =====
         const backToTop = document.getElementById('backToTop');
 
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+            if (window.pageYOffset > 350) {
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
@@ -1462,32 +1782,11 @@
         });
 
         backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // ===== ANIMATION ON SCROLL =====
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1497,34 +1796,31 @@
             });
         }, observerOptions);
 
-        // Observe all sections
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            section.style.transform = 'translateY(15px)';
+            section.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
             observer.observe(section);
         });
 
-        // Active navigation highlighting based on scroll position
-        const sections = document.querySelectorAll('section[id]');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
+        // ===== CLOSE MOBILE MENU ON RESIZE =====
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+                if (subnavList) {
+                    subnavList.classList.remove('active');
+                    subnavToggle.classList.remove('active');
                 }
-            });
+            }
+        });
 
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', () => {
+            closeMobileMenu();
+            if (subnavList) subnavList.classList.remove('active');
+            if (subnavToggle) subnavToggle.classList.remove('active');
         });
     </script>
 </body>
 </html>
+```

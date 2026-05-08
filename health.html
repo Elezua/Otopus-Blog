@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giant Pacific Octopus - Preventative Health</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary-blue: #1e3a5f;
@@ -22,24 +19,28 @@
             --white: #ffffff;
             --warning: #e74c3c;
             --success: #48bb78;
+            --light-gray: #e0e0e0;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--sand);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
-            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            padding: 1rem 0;
+        /* ===== MAIN NAVIGATION ===== */
+        .navbar {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 0.75rem 0;
         }
 
         .nav-container {
@@ -53,83 +54,317 @@
 
         .logo {
             color: var(--white);
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
             color: var(--white);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.25s ease;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            background-color: var(--teal);
-            transform: translateY(-2px);
+            background: var(--teal);
+            transform: translateY(-1px);
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            gap: 5px;
+            padding: 5px;
         }
 
         .hamburger span {
             width: 25px;
             height: 3px;
-            background-color: var(--white);
-            margin: 3px 0;
-            transition: 0.3s;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+        /* ===== SUB-NAVIGATION (Page Sections) ===== */
+        .subnav {
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--light-gray);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 999;
+            padding: 0.5rem 0;
+        }
+
+        .subnav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .subnav-toggle {
+            display: none;
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: var(--sand);
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subnav-toggle::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .subnav-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        .subnav-list {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.3rem 0;
+            scrollbar-width: thin;
+        }
+
+        .subnav-list::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .subnav-list::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 2px;
+        }
+
+        .subnav-list a {
+            flex-shrink: 0;
+            padding: 0.4rem 0.9rem;
+            background: var(--sand);
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .subnav-list a:hover,
+        .subnav-list a.active {
+            background: var(--light-teal);
+            color: var(--white);
+            border-left-color: var(--ocean-blue);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Menu */
+        .mobile-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.25);
+            transition: right 0.3s ease;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active { right: 0; }
+
+        .mobile-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .mobile-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mobile-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .mobile-close:hover { transform: scale(1.1); }
+
+        .mobile-section {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .mobile-section:last-child { border-bottom: none; }
+
+        .mobile-section h4 {
+            color: var(--primary-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.6rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--teal);
+        }
+
+        .mobile-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-links li { margin-bottom: 0.2rem; }
+
+        .mobile-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.8rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-links a:hover,
+        .mobile-links a.active {
+            background: var(--light-teal);
+            color: var(--white);
+            border-left-color: var(--ocean-blue);
+            transform: translateX(3px);
+        }
+
+        .mobile-links a i {
+            width: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .mobile-main a {
+            background: var(--sand);
+            font-weight: 500;
+        }
+
+        .mobile-main a:hover {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main { margin-top: 110px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 70px;
-            background: linear-gradient(rgba(30, 58, 95, 0.85), rgba(46, 92, 138, 0.85)),
+            background: linear-gradient(rgba(30,58,95,0.9), rgba(46,92,138,0.9)),
                         url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             color: var(--white);
-            padding: 4rem 2rem;
+            padding: 3rem 0 2.5rem;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .hero .species-name {
-            font-size: 1.5rem;
+        .hero .species {
+            font-size: 1.2rem;
             font-style: italic;
-            color: var(--light-teal);
-            margin-bottom: 2rem;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.1rem;
-            max-width: 900px;
-            margin: 0 auto 2rem;
-            opacity: 0.95;
+        .hero .subtitle {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
         .hero-image {
-            max-width: 900px;
-            margin: 2rem auto;
-            border-radius: 10px;
+            max-width: 750px;
+            margin: 1.5rem auto 0;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
         .hero-image img {
@@ -138,65 +373,109 @@
             display: block;
         }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Sections */
+        section {
+            padding: 2.25rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            scroll-margin-top: 120px;
+        }
+
+        section:last-of-type { border-bottom: none; }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 0 0 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 3px solid var(--teal);
+        }
+
+        h2 .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 0.95rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.8rem 0 1rem;
+            color: var(--ocean-blue);
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin: 1.3rem 0 0.7rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        ul, ol { margin: 0.9rem 0 0.9rem 2rem; }
+        li { margin-bottom: 0.45rem; line-height: 1.6; }
+        strong { font-weight: 600; }
+        em { font-style: italic; }
+
+        /* Scope Box */
+        .scope-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
             padding: 2rem;
+            border-radius: 12px;
+            margin: -2.5rem auto 2.5rem;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .scope-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .scope-box p {
+            line-height: 1.8;
+            opacity: 0.98;
+            margin-bottom: 0;
         }
 
         /* Priority Cards */
         .priority-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.3rem;
+            margin: 1.8rem 0;
         }
 
         .priority-card {
-            background: linear-gradient(135deg, var(--teal), var(--light-teal));
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .priority-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .priority-card:hover::before {
-            opacity: 1;
+            background: var(--sand);
+            padding: 1.4rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--teal);
+            transition: all 0.25s ease;
         }
 
         .priority-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .priority-card h3 {
-            color: var(--white);
-            margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .priority-card p {
-            margin: 0;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left-color: var(--ocean-blue);
         }
 
         .priority-card.critical {
@@ -211,121 +490,27 @@
             background: linear-gradient(135deg, #e67e22, #d35400);
         }
 
-        /* Scope Section */
-        .scope-box {
-            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            color: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            margin: -3rem auto 3rem;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .scope-box h2 {
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .scope-box p {
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-
-        /* Section Styling */
-        section {
-            margin: 3rem 0;
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        section h2 {
-            color: var(--primary-blue);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--teal);
+        .priority-card h3 {
+            margin: 0 0 0.6rem;
+            font-size: 1.05rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
-        section h3 {
-            color: var(--ocean-blue);
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
-        }
-
-        section h4 {
-            color: var(--primary-blue);
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.75rem;
-        }
-
-        section p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        .section-with-image {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-            margin: 2rem 0;
-        }
-
-        .section-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .section-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .section-image.full-width {
-            grid-column: 1 / -1;
-            margin: 2rem 0;
-        }
-
-        .section-image.full-width img {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-        }
-
-        /* Image Caption with Vancouver Citation */
-        .image-caption {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            background: var(--sand);
-            border-left: 4px solid var(--teal);
-            border-radius: 0 5px 5px 0;
-            line-height: 1.5;
-        }
-
-        .image-caption sup {
-            color: var(--primary-blue);
-            font-weight: bold;
+        .priority-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Info Boxes */
         .info-box {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-left: 5px solid var(--teal);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.4rem 0;
+            border-radius: 0 6px 6px 0;
         }
 
         .info-box.warning {
@@ -339,133 +524,140 @@
         }
 
         .info-box h4 {
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+            margin: 0 0 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .info-box ul {
+            margin: 0.5rem 0 0 1.3rem;
+            padding: 0;
         }
 
         /* Tables */
-        .data-table {
+        .table-container {
+            overflow-x: auto;
+            margin: 1.3rem 0;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            display: block;
+            background: var(--white);
+            font-size: 0.93rem;
         }
 
-        .data-table table {
-            width: 100%;
-            min-width: 600px;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 1rem;
+        th, td {
+            padding: 0.85rem 1rem;
             text-align: left;
-            border-bottom: 2px solid var(--sand);
+            border-bottom: 1px solid var(--light-gray);
         }
 
-        .data-table th {
+        th {
             background: var(--primary-blue);
             color: var(--white);
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
         }
 
-        .data-table tr:hover {
-            background: var(--sand);
-        }
-
-        .data-table tr:nth-child(even) {
-            background: #fafafa;
-        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: #fafafa; }
+        tr:hover { background: var(--sand); }
 
         /* Parameter Boxes */
         .param-box {
             background: var(--sand);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
+            padding: 1.4rem;
+            border-radius: 8px;
             border-left: 4px solid var(--teal);
+            margin: 1.2rem 0;
         }
 
         .param-box h4 {
-            color: var(--primary-blue);
-            margin-bottom: 0.75rem;
+            margin: 0 0 0.6rem;
+            font-size: 1.05rem;
         }
 
         .param-value {
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--ocean-blue);
-            margin: 0.5rem 0;
+            margin: 0.4rem 0;
         }
 
         .param-range {
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* Schedule Grid */
         .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.3rem;
+            margin: 1.8rem 0;
         }
 
         .schedule-card {
             background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
             color: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            padding: 1.4rem;
+            border-radius: 8px;
+            transition: all 0.25s ease;
         }
 
         .schedule-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
         .schedule-card h4 {
-            color: var(--white);
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            margin: 0 0 0.6rem;
+            font-size: 1.05rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .schedule-card ul {
-            margin: 0.75rem 0 0 1.25rem;
-            font-size: 0.95rem;
+            margin: 0.5rem 0 0 1.2rem;
+            padding: 0;
+            font-size: 0.93rem;
         }
 
         .schedule-card li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         /* Feature Lists */
         .feature-list {
             list-style: none;
-            margin: 1rem 0;
+            margin: 1.2rem 0;
+            padding-left: 0;
         }
 
         .feature-list li {
-            padding: 0.75rem 1rem;
-            padding-left: 2.5rem;
+            padding: 0.8rem 1rem 0.8rem 2.6rem;
             position: relative;
             background: var(--sand);
-            margin: 0.5rem 0;
+            margin: 0.6rem 0;
             border-radius: 5px;
-            transition: all 0.3s ease;
+            border-left: 3px solid var(--teal);
+            transition: all 0.25s ease;
+            line-height: 1.6;
         }
 
         .feature-list li:hover {
             background: var(--light-teal);
             color: var(--white);
-            transform: translateX(5px);
+            transform: translateX(4px);
+            border-left-color: var(--ocean-blue);
         }
 
         .feature-list li::before {
@@ -474,24 +666,320 @@
             left: 1rem;
             color: var(--teal);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            transition: color 0.25s;
         }
 
         .feature-list li:hover::before {
             color: var(--white);
         }
 
-        /* References */
-        .references {
+        .feature-list li strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        .feature-list li:hover strong {
+            color: var(--white);
+        }
+
+        /* Image Captions */
+        .image-caption {
+            font-size: 0.85rem;
+            color: #555;
+            font-style: italic;
+            margin-top: 0.6rem;
+            padding: 0.5rem 0.75rem;
             background: var(--sand);
+            border-left: 3px solid var(--teal);
+            border-radius: 0 4px 4px 0;
+            line-height: 1.5;
+        }
+
+        .image-caption sup {
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .section-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin: 1.5rem 0;
+        }
+
+        .section-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .section-image.full-width {
+            grid-column: 1 / -1;
+            margin: 1.8rem 0;
+        }
+
+        .section-image.full-width img {
+            max-height: 420px;
+            object-fit: cover;
+        }
+
+        .section-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            align-items: start;
+            margin: 1.8rem 0;
+        }
+
+        /* Limitations Section */
+        #limitations {
+            margin: 3rem 0;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        #limitations h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        #limitations h3 {
+            color: var(--ocean-blue);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sand);
+        }
+
+        #limitations h4 {
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            margin: 1rem 0 0.75rem;
+            font-weight: 600;
+        }
+
+        #limitations p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        #limitations .intro-text {
+            margin-bottom: 2rem;
+        }
+
+        .limitation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .limitation-card {
+            background: var(--sand);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--teal);
+            transition: all 0.25s ease;
+        }
+
+        .limitation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left-color: var(--ocean-blue);
+        }
+
+        .limitation-card.critical {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border-left-color: var(--warning);
+        }
+
+        .limitation-card.critical:hover {
+            border-left-color: #c0392b;
+        }
+
+        .limitation-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .limitation-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        .action-list {
+            list-style: none;
+            margin: 1.5rem 0;
+            padding-left: 0;
+        }
+
+        .action-list li {
+            padding: 1rem 1.25rem;
+            padding-left: 2.75rem;
+            position: relative;
+            background: var(--sand);
+            margin: 0.75rem 0;
+            border-radius: 5px;
+            border-left: 3px solid var(--teal);
+            transition: all 0.25s ease;
+            line-height: 1.6;
+        }
+
+        .action-list li:hover {
+            background: var(--light-teal);
+            color: var(--white);
+            transform: translateX(4px);
+            border-left-color: var(--ocean-blue);
+        }
+
+        .action-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 1.1rem;
+            color: var(--teal);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.25s ease;
+        }
+
+        .action-list li:hover::before {
+            color: var(--white);
+        }
+
+        .action-list li strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .action-list li:hover strong {
+            color: var(--white);
+        }
+
+        .research-priorities {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
             padding: 2rem;
             border-radius: 10px;
+            margin: 2.5rem 0;
+        }
+
+        .research-priorities h4 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .priority-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .priority-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.6;
+        }
+
+        .priority-list li:last-child { border-bottom: none; }
+
+        .priority-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .priority-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .priority-text em { font-style: italic; }
+
+        .conclusion-box {
+            background: var(--sand);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--coral);
             margin-top: 2rem;
         }
 
-        .references h3 {
+        .conclusion-box p {
+            margin: 0;
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        .conclusion-box strong {
             color: var(--primary-blue);
-            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .summary-box h2 {
+            color: var(--white);
+            border-bottom-color: var(--light-teal);
+            margin-bottom: 1.3rem;
+            font-size: 1.5rem;
+        }
+
+        /* References */
+        .references {
+            background: var(--sand);
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .references h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1.2rem;
             font-size: 1.5rem;
         }
 
@@ -499,20 +987,21 @@
             list-style: none;
             margin-left: 0;
             counter-reset: ref-counter;
+            padding-left: 0;
         }
 
         .references li {
-            padding: 0.75rem 0;
-            padding-left: 2.5rem;
+            padding: 0.7rem 0;
+            padding-left: 2.4rem;
             position: relative;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
             counter-increment: ref-counter;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            text-align: justify;
         }
 
-        .references li:last-child {
-            border-bottom: none;
-        }
+        .references li:last-child { border-bottom: none; }
 
         .references li::before {
             content: counter(ref-counter) ". ";
@@ -528,45 +1017,33 @@
             color: var(--ocean-blue);
         }
 
-        /* Summary Box */
-        .summary-box {
-            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            color: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            margin: 3rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .summary-box h2 {
-            color: var(--white);
-            border-bottom-color: var(--light-teal);
-            margin-bottom: 1.5rem;
-        }
-
         /* Footer */
         footer {
             background: var(--primary-blue);
             color: var(--white);
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            padding: 1.5rem 0;
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
         }
 
         footer a {
             color: var(--light-teal);
             text-decoration: none;
+            margin: 0 0.4rem;
         }
 
-        /* Back to Top Button */
+        footer a:hover { text-decoration: underline; }
+
+        /* Back to Top */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 25px;
             background: var(--teal);
             color: var(--white);
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -574,1052 +1051,874 @@
             cursor: pointer;
             opacity: 0;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             z-index: 999;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            border: none;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-        }
-
+        .back-to-top.visible { opacity: 1; }
         .back-to-top:hover {
             background: var(--ocean-blue);
             transform: translateY(-3px);
         }
 
-            /* Limitations Section - Preventative Health (Text-Only) */
-    #limitations {
-        margin: 3rem 0;
-        background: var(--white);
-        padding: 2.5rem;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    #limitations h2 {
-        color: var(--primary-blue);
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 3px solid var(--warning);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    #limitations h3 {
-        color: var(--ocean-blue);
-        font-size: 1.5rem;
-        margin: 2.5rem 0 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid var(--sand);
-    }
-
-    #limitations h4 {
-        color: var(--primary-blue);
-        font-size: 1.15rem;
-        margin: 1rem 0 0.75rem;
-        font-weight: 600;
-    }
-
-    #limitations p {
-        margin-bottom: 1rem;
-        text-align: justify;
-        line-height: 1.7;
-        color: var(--dark);
-    }
-
-    #limitations .intro-text {
-        margin-bottom: 2rem;
-    }
-
-    /* Limitation Grid Cards */
-    .limitation-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.25rem;
-        margin: 2rem 0;
-    }
-
-    .limitation-card {
-        background: var(--sand);
-        padding: 1.5rem;
-        border-radius: 10px;
-        border-left: 4px solid var(--teal);
-        transition: all 0.25s ease;
-    }
-
-    .limitation-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        border-left-color: var(--ocean-blue);
-    }
-
-    .limitation-card.critical {
-        background: linear-gradient(135deg, #fff5f5, #fed7d7);
-        border-left-color: var(--warning);
-    }
-
-    .limitation-card.critical:hover {
-        border-left-color: #c0392b;
-    }
-
-    .limitation-card h4 {
-        color: var(--primary-blue);
-        margin-bottom: 0.75rem;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    .limitation-card p {
-        margin: 0;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: var(--dark);
-    }
-
-    /* Action List Styling */
-    .action-list {
-        list-style: none;
-        margin: 1.5rem 0;
-        padding-left: 0;
-    }
-
-    .action-list li {
-        padding: 1rem 1.25rem;
-        padding-left: 2.75rem;
-        position: relative;
-        background: var(--sand);
-        margin: 0.75rem 0;
-        border-radius: 5px;
-        border-left: 3px solid var(--teal);
-        transition: all 0.25s ease;
-        line-height: 1.6;
-    }
-
-    .action-list li:hover {
-        background: var(--light-teal);
-        color: var(--white);
-        transform: translateX(4px);
-        border-left-color: var(--ocean-blue);
-    }
-
-    .action-list li::before {
-        content: '✓';
-        position: absolute;
-        left: 1.1rem;
-        color: var(--teal);
-        font-weight: bold;
-        font-size: 1.1rem;
-        transition: color 0.25s ease;
-    }
-
-    .action-list li:hover::before {
-        color: var(--white);
-    }
-
-    .action-list li strong {
-        color: var(--primary-blue);
-        display: block;
-        margin-bottom: 0.25rem;
-        font-weight: 600;
-    }
-
-    .action-list li:hover strong {
-        color: var(--white);
-    }
-
-    /* Research Priorities Box */
-    .research-priorities {
-        background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-        color: var(--white);
-        padding: 2rem;
-        border-radius: 10px;
-        margin: 2.5rem 0;
-    }
-
-    .research-priorities h4 {
-        color: var(--white);
-        margin-bottom: 1.5rem;
-        font-size: 1.3rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-weight: 600;
-    }
-
-    .priority-list {
-        list-style: none;
-        padding-left: 0;
-        margin: 0;
-    }
-
-    .priority-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        line-height: 1.6;
-    }
-
-    .priority-list li:last-child {
-        border-bottom: none;
-    }
-
-    .priority-number {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        background: var(--teal);
-        color: var(--white);
-        border-radius: 50%;
-        font-weight: bold;
-        font-size: 0.85rem;
-        flex-shrink: 0;
-        margin-top: 0.2rem;
-    }
-
-    .priority-text {
-        flex: 1;
-        font-size: 0.95rem;
-    }
-
-    .priority-text em {
-        font-style: italic;
-    }
-
-    /* Conclusion Box */
-    .conclusion-box {
-        background: var(--sand);
-        padding: 1.5rem;
-        border-radius: 10px;
-        border-left: 4px solid var(--coral);
-        margin-top: 2rem;
-    }
-
-    .conclusion-box p {
-        margin: 0;
-        line-height: 1.7;
-        color: var(--dark);
-    }
-
-    .conclusion-box strong {
-        color: var(--primary-blue);
-        font-weight: 600;
-    }
-
-    /* Info Box Styles (ensure consistency) */
-    .info-box {
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        border-left: 5px solid var(--teal);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        border-radius: 0 10px 10px 0;
-    }
-
-    .info-box.warning {
-        border-left-color: var(--warning);
-        background: linear-gradient(135deg, #fff5f5, #fed7d7);
-    }
-
-    .info-box.success {
-        border-left-color: var(--success);
-        background: linear-gradient(135deg, #f0fff4, #c6f6d5);
-    }
-
-    .info-box h4 {
-        color: var(--primary-blue);
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 1.1rem;
-    }
-
-    /* Icon styling for section header */
-    #limitations .icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        background: var(--warning);
-        color: var(--white);
-        border-radius: 50%;
-        font-size: 1.1rem;
-        flex-shrink: 0;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        #limitations {
-            padding: 1.5rem;
-            margin: 2rem 1rem;
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
         }
-        
-        #limitations h2 {
-            font-size: 1.5rem;
-        }
-        
-        #limitations h3 {
-            font-size: 1.3rem;
-        }
-        
-        #limitations h4 {
-            font-size: 1.05rem;
-        }
-        
-        .limitation-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .action-list li {
-            padding: 0.875rem 1rem;
-            padding-left: 2.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .priority-list li {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .priority-number {
-            align-self: flex-start;
-        }
-        
-        .research-priorities {
-            padding: 1.5rem;
-        }
-    }
 
-    /* Print-friendly adjustments */
-    @media print {
-        #limitations {
-            box-shadow: none;
-            border: 1px solid #ccc;
-        }
-        
-        .limitation-card,
-        .action-list li,
-        .conclusion-box {
-            break-inside: avoid;
-        }
-    }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (min-width: 769px) and (max-width: 900px) {
             .nav-links {
+                display: flex;
+                gap: 0.8rem;
+            }
+            .nav-links a {
+                font-size: 0.82rem;
+                padding: 0.35rem 0.7rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .subnav-toggle { display: flex; }
+            .subnav-list {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--ocean-blue);
-                flex-direction: column;
-                padding: 1rem;
-                gap: 0.5rem;
+                flex-wrap: wrap;
+                padding: 0.5rem 0;
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero .species-name {
-                font-size: 1.2rem;
-            }
-
+            .subnav-list.active { display: flex; }
+            
+            .hero h1 { font-size: 1.6rem; }
+            .hero .species { font-size: 1.05rem; }
+            .hero .subtitle { font-size: 0.95rem; }
+            
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; }
+            
+            .container { padding: 0 1.2rem; }
+            section { padding: 1.8rem 0; }
+            
             .section-with-image {
                 grid-template-columns: 1fr;
             }
-
+            
             .priority-grid,
-            .schedule-grid {
+            .schedule-grid,
+            .limitation-grid {
                 grid-template-columns: 1fr;
             }
-
-            section {
-                padding: 1.5rem;
-            }
-
-            section h2 {
-                font-size: 1.5rem;
-            }
-
-            section h3 {
-                font-size: 1.3rem;
-            }
-
+            
             .scope-box,
             .summary-box {
                 margin: -2rem 1rem 2rem;
                 padding: 1.5rem;
             }
+            
+            .mobile-menu { width: 90%; }
+            main { margin-top: 105px; }
+            .navbar { padding: 0.6rem 0; }
+            .subnav { top: 52px; }
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        @media (max-width: 480px) {
+            .hero { padding: 2rem 0 1.5rem; }
+            .hero h1 { font-size: 1.4rem; }
+            h2 { font-size: 1.3rem; }
+            .info-box, .conclusion-box { padding: 1rem 1.2rem; }
         }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 2rem; }
+        .text-muted { color: #666; font-size: 0.9rem; }
 
         /* Animation */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         section {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        /* Icon styling */
-        .icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background: var(--teal);
-            color: var(--white);
-            border-radius: 50%;
-            font-size: 1.1rem;
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
+    <!-- ===== MAIN NAVIGATION (Links to other pages) ===== -->
+    <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">🐙 GPO Husbandry</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Feeding Management</a></li>
-                <li><a href="health.html" class="active">Preventative Health</a></li>
+            
+            <!-- Desktop Main Nav -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="feeding.html">Feeding Management</a></li>
                 <li><a href="enclosure.html">Enclosure Design</a></li>
             </ul>
+            
+            <!-- Hamburger -->
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Preventative Health Management</h1>
-        <p class="species-name">Enteroctopus dofleini</p>
-        <p class="hero-subtitle">Evidence-based prevention priorities, monitoring protocols, and early-warning systems for optimal GPO health</p>
-        <div class="hero-image">
-            <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG?auth=c8ead275f713da93ded4d153daf5c805ded9cac5369eef786d5a824e24384381&width=1572" alt="Giant Pacific Octopus in controlled aquarium environment">
-            <div class="image-caption">
-                Figure 1. Preventative health management requires stable environmental conditions, structured monitoring, and early recognition of decline indicators.<sup>10</sup>
-            </div>
+    <!-- ===== SUB-NAVIGATION (Page Sections - Dropdown on mobile) ===== -->
+    <div class="subnav">
+        <div class="subnav-container">
+            <button class="subnav-toggle" id="subnavToggle">📋 Page Sections</button>
+            <ul class="subnav-list" id="subnavList">
+                <li><a href="#priorities">🥇 1. Prevention Priorities</a></li>
+                <li><a href="#water-quality">💧 2. Water Quality</a></li>
+                <li><a href="#feeding">🦀 3. Feeding Controls</a></li>
+                <li><a href="#external-condition">📋 4. Health Scoring</a></li>
+                <li><a href="#health-risks">⚠️ 5. Health Risks</a></li>
+                <li><a href="#senescence">⏱️ 6. Senescence</a></li>
+                <li><a href="#quarantine">🔒 7. Quarantine</a></li>
+                <li><a href="#veterinary">🏥 8. Vet Oversight</a></li>
+                <li><a href="#limitations">⚠️ 9. Limitations</a></li>
+            </ul>
         </div>
-    </section>
+    </div>
 
-    <div class="container">
-        <!-- Section 1: Priorities -->
-        <section id="priorities">
-            <h2><span class="icon">1</span> Priorities for Prevention (Ranked)</h2>
-            
-            <div class="priority-grid">
-                <div class="priority-card rank-1">
-                    <h3>🥇 1. Water Quality + Temperature Stability</h3>
-                    <p>Highest impact. Facilities report clear operating ranges; gill disease (branchitis) is common in captive mortalities, reinforcing stable water conditions as central to prevention.<sup>1,2</sup></p>
-                </div>
-                <div class="priority-card rank-2">
-                    <h3>🥈 2. Early, Measurable Decline</h3>
-                    <p>Species-specific welfare scoring shows feeding/response trends upward ~4 weeks before death, enabling evidence-based escalation.<sup>3</sup></p>
-                </div>
-                <div class="priority-card">
-                    <h3>🥉 3. Feed Hygiene + Consistent Rations</h3>
-                    <p>3–5 feeds/week most common; frozen seafood handling affects hygiene. Storage &lt;−18°C and slow refrigerator thawing essential.<sup>1,4</sup></p>
-                </div>
-                <div class="priority-card">
-                    <h3>4️⃣ 4. Injury/Skin Integrity</h3>
-                    <p>Abrasion and arm damage increase risk; structured scoring and photo documentation reduce missed deterioration.<sup>2,3</sup></p>
-                </div>
-                <div class="priority-card critical">
-                    <h3>5️⃣ 5. Senescence & End-of-Life Planning</h3>
-                    <p>Rapid growth, short exhibit lifespan (~10 kg ≈ ~1 year); senescence irreversible once optic-gland cascade begins.<sup>5,6</sup></p>
-                </div>
-            </div>
-        </section>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
 
-        <!-- Section 2: Water Quality -->
-        <section id="water-quality">
-            <h2><span class="icon">2</span> Water Quality: Numeric Targets and Staff Actions</h2>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-header">
+            <h3>🐙 GPO Preventative Health</h3>
+            <button class="mobile-close" id="mobileClose">&times;</button>
+        </div>
+        
+        <!-- Main Pages -->
+        <div class="mobile-section">
+            <h4>Main Pages</h4>
+            <ul class="mobile-links mobile-main">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="feeding.html">🍽️ Feeding Management</a></li>
+                <li><a href="enclosure.html">🏠 Enclosure Design</a></li>
+            </ul>
+        </div>
+        
+        <!-- Health Subsections -->
+        <div class="mobile-section">
+            <h4>Preventative Health Sections</h4>
+            <ul class="mobile-links">
+                <li><a href="#priorities">🥇 1. Prevention Priorities</a></li>
+                <li><a href="#water-quality">💧 2. Water Quality</a></li>
+                <li><a href="#feeding">🦀 3. Feeding Controls</a></li>
+                <li><a href="#external-condition">📋 4. Health Scoring</a></li>
+                <li><a href="#health-risks">⚠️ 5. Health Risks</a></li>
+                <li><a href="#senescence">⏱️ 6. Senescence</a></li>
+                <li><a href="#quarantine">🔒 7. Quarantine</a></li>
+                <li><a href="#veterinary">🏥 8. Vet Oversight</a></li>
+                <li><a href="#limitations">⚠️ 9. Limitations</a></li>
+            </ul>
+        </div>
+    </div>
 
-            <h3>2.1 Evidence-Based Operating Bands (Survey)</h3>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Reported ranges and "ideal" bands:<sup>1</sup></p>
-                    <div class="data-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Reported Range</th>
-                                    <th>Ideal Range</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Temperature</strong></td>
-                                    <td>5.0–14.4 °C</td>
-                                    <td>6.0–12.0 °C</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>pH</strong></td>
-                                    <td>7.4–8.3</td>
-                                    <td>8.0–8.3</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Salinity</strong></td>
-                                    <td>29–36 ppt</td>
-                                    <td>28–33 ppt</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Dissolved Oxygen</strong></td>
-                                    <td>90–109% sat</td>
-                                    <td>85–95% sat</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Nitrate</strong></td>
-                                    <td>0–29 mg/dL</td>
-                                    <td>0–19 mg/L*</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p style="font-size: 0.85rem; color: #666;">*Verify units locally; inconsistency in survey tables<sup>1</sup></p>
-                </div>
-                <div class="section-image">
-                    <img src="https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg" alt="Water quality monitoring equipment and parameter dashboard">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Preventative Health Management</h1>
+                <div class="species">Enteroctopus dofleini</div>
+                <p class="subtitle">Evidence-based prevention priorities, monitoring protocols, and early-warning systems for optimal GPO health</p>
+                
+                <div class="hero-image">
+                    <img src="https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSINI5F4TFD2F6CWRSVWZM.JPG?auth=c8ead275f713da93ded4d153daf5c805ded9cac5369eef786d5a824e24384381&width=1572" alt="Giant Pacific Octopus in controlled aquarium environment">
                     <div class="image-caption">
-                        Figure 2. Continuous monitoring of temperature, pH, salinity, DO, and nitrogen compounds with real-time alerts for parameter excursions.<sup>11</sup>
+                        <strong>Figure 1.</strong> Preventative health management requires stable environmental conditions, structured monitoring, and early recognition of decline indicators<sup>10</sup>.
                     </div>
-                </div>
-            </div>
-
-            <div class="info-box warning">
-                <h4>🌡️ Species-Specific Cold-Water Constraint</h4>
-                <p>BIAZA recommends 33–36 ppt and 6–11 °C; 12–13 °C is harmful if sustained. Longevity reported at 5–8 °C in one facility.<sup>7</sup></p>
-            </div>
-
-            <h3>2.2 Nitrogen "Red-Flag" Thresholds (System-Control Limits)</h3>
-            
-            <div class="param-box">
-                <h4>🚨 RAS Operating Targets as Escalation Triggers<sup>8</sup></h4>
-                <div class="param-value">Ammonia-N &lt; 0.05 mg/L</div>
-                <div class="param-value">Nitrite-N &lt; 0.5 mg/L</div>
-                <div class="param-value">Total N &lt; 15 mg/L</div>
-            </div>
-
-            <h3>2.3 Instructional Monitoring Schedule</h3>
-
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <h4>👨‍🔬 Keepers/Aquarists — Twice Daily</h4>
-                    <ul>
-                        <li>Record temperature + DO from controller; flag sustained drift toward 12–13 °C<sup>7,1</sup></li>
-                        <li>Measure pH + salinity; log against ideal bands<sup>1</sup></li>
-                        <li>If breach: check probe placement, inspect chiller flow, check mechanical filtration, notify lead aquarist<sup>8</sup></li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>👔 Lead Aquarist/Curator — Weekly</h4>
-                    <ul>
-                        <li>Review 7-day temperature/DO trace for stability; investigate excursions<sup>1,7</sup></li>
-                        <li>Confirm high-value LSS tasks completed (skimmer/UV/mechanical pre-filters)<sup>1</sup></li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>🏥 Veterinarian — Monthly</h4>
-                    <ul>
-                        <li>Review water-quality logs alongside welfare score trends<sup>3</sup></li>
-                        <li>Identify preventable drivers of decline</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Feeding and Nutrition -->
-        <section id="feeding">
-            <h2><span class="icon">3</span> Feeding and Nutrition: Measurable Controls</h2>
-
-            <h3>3.1 Evidence-Based Feeding Practice (Survey)</h3>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Feeding ranges from twice daily to twice weekly; 3–5 feeds/week is most common (10/18; 56%).<sup>1</sup> Some institutions report 1–5% body weight guidance and commonly feed clams, shrimp, squid, capelin and crab.<sup>1</sup></p>
-                    
-                    <div class="info-box success">
-                        <h4>📊 Most Common Practice</h4>
-                        <p><strong>Frequency:</strong> 3–5 feeds/week (56% of facilities)<br>
-                        <strong>Ration:</strong> 1–5% body weight<br>
-                        <strong>Common prey:</strong> Clams, shrimp, squid, capelin, crab<sup>1</sup></p>
+        <div class="container">
+            <!-- Section 1: Priorities -->
+            <section id="priorities">
+                <h2><span class="icon">1</span> Priorities for Prevention (Ranked)</h2>
+                
+                <div class="priority-grid">
+                    <div class="priority-card rank-1">
+                        <h3>🥇 1. Water Quality + Temperature Stability</h3>
+                        <p>Highest impact. Facilities report clear operating ranges; gill disease (branchitis) is common in captive mortalities, reinforcing stable water conditions as central to prevention<sup>1,2</sup>.</p>
+                    </div>
+                    <div class="priority-card rank-2">
+                        <h3>🥈 2. Early, Measurable Decline</h3>
+                        <p>Species-specific welfare scoring shows feeding/response trends upward ~4 weeks before death, enabling evidence-based escalation<sup>3</sup>.</p>
+                    </div>
+                    <div class="priority-card">
+                        <h3>🥉 3. Feed Hygiene + Consistent Rations</h3>
+                        <p>3–5 feeds/week most common; frozen seafood handling affects hygiene. Storage &lt;−18°C and slow refrigerator thawing essential<sup>1,4</sup>.</p>
+                    </div>
+                    <div class="priority-card">
+                        <h3>4️⃣ 4. Injury/Skin Integrity</h3>
+                        <p>Abrasion and arm damage increase risk; structured scoring and photo documentation reduce missed deterioration<sup>2,3</sup>.</p>
+                    </div>
+                    <div class="priority-card critical">
+                        <h3>5️⃣ 5. Senescence & End-of-Life Planning</h3>
+                        <p>Rapid growth, short exhibit lifespan (~10 kg ≈ ~1 year); senescence irreversible once optic-gland cascade begins<sup>5,6</sup>.</p>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg?w=1422&ssl=1" alt="Frozen seafood preparation for octopus feeding">
-                    <div class="image-caption">
-                        Figure 3. Frozen seafood (crab, shrimp, squid, clams) prepared with strict hygiene protocols; storage &lt;−18°C and slow refrigerator thawing essential.<sup>12</sup>
+            </section>
+
+            <!-- Section 2: Water Quality -->
+            <section id="water-quality">
+                <h2><span class="icon">2</span> Water Quality: Numeric Targets and Staff Actions</h2>
+
+                <h3>2.1 Evidence-Based Operating Bands (Survey)</h3>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>Reported ranges and "ideal" bands:<sup>1</sup></p>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Reported Range</th>
+                                        <th>Ideal Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Temperature</strong></td>
+                                        <td>5.0–14.4 °C</td>
+                                        <td>6.0–12.0 °C</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>pH</strong></td>
+                                        <td>7.4–8.3</td>
+                                        <td>8.0–8.3</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Salinity</strong></td>
+                                        <td>29–36 ppt</td>
+                                        <td>28–33 ppt</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dissolved Oxygen</strong></td>
+                                        <td>90–109% sat</td>
+                                        <td>85–95% sat</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nitrate</strong></td>
+                                        <td>0–29 mg/dL</td>
+                                        <td>0–19 mg/L*</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-muted">*Verify units locally; inconsistency in survey tables<sup>1</sup></p>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg" alt="Water quality monitoring equipment and parameter dashboard">
+                        <div class="image-caption">
+                            <strong>Figure 2.</strong> Continuous monitoring of temperature, pH, salinity, DO, and nitrogen compounds with real-time alerts for parameter excursions<sup>11</sup>.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <h3>3.2 Preventative Feed Handling (Instructional)</h3>
-            
-            <div class="info-box">
-                <h4>❄️ Taught Guidance<sup>4</sup></h4>
-                <ul style="margin: 0.75rem 0 0 1.25rem;">
-                    <li>Store foods &lt; −18 °C</li>
-                    <li>Thaw slowly in refrigerator</li>
-                    <li>Inspect before feeding</li>
-                    <li>Maintain strict hygiene</li>
-                </ul>
-            </div>
+                <div class="info-box warning">
+                    <h4>🌡️ Species-Specific Cold-Water Constraint</h4>
+                    <p>BIAZA recommends 33–36 ppt and 6–11 °C; 12–13 °C is harmful if sustained. Longevity reported at 5–8 °C in one facility<sup>7</sup>.</p>
+                </div>
 
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <h4>👨‍🔬 Keepers/Aquarists — Every Feed</h4>
-                    <ul>
-                        <li>Record item list + mass offered and refused (weigh leftovers)<sup>1</sup></li>
-                        <li>Record time-to-feed and handling duration; note regurgitation or prolonged refusal<sup>3</sup></li>
-                        <li>Remove uneaten food promptly; log to protect water quality<sup>4</sup></li>
+                <h3>2.2 Nitrogen "Red-Flag" Thresholds (System-Control Limits)</h3>
+                
+                <div class="param-box">
+                    <h4>🚨 RAS Operating Targets as Escalation Triggers<sup>8</sup></h4>
+                    <div class="param-value">Ammonia-N &lt; 0.05 mg/L</div>
+                    <div class="param-value">Nitrite-N &lt; 0.5 mg/L</div>
+                    <div class="param-value">Total N &lt; 15 mg/L</div>
+                </div>
+
+                <h3>2.3 Instructional Monitoring Schedule</h3>
+
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h4>👨‍🔬 Keepers/Aquarists — Twice Daily</h4>
+                        <ul>
+                            <li>Record temperature + DO from controller; flag sustained drift toward 12–13 °C<sup>7,1</sup></li>
+                            <li>Measure pH + salinity; log against ideal bands<sup>1</sup></li>
+                            <li>If breach: check probe placement, inspect chiller flow, check mechanical filtration, notify lead aquarist<sup>8</sup></li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>👔 Lead Aquarist/Curator — Weekly</h4>
+                        <ul>
+                            <li>Review 7-day temperature/DO trace for stability; investigate excursions<sup>1,7</sup></li>
+                            <li>Confirm high-value LSS tasks completed (skimmer/UV/mechanical pre-filters)<sup>1</sup></li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>🏥 Veterinarian — Monthly</h4>
+                        <ul>
+                            <li>Review water-quality logs alongside welfare score trends<sup>3</sup></li>
+                            <li>Identify preventable drivers of decline</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Feeding and Nutrition -->
+            <section id="feeding">
+                <h2><span class="icon">3</span> Feeding and Nutrition: Measurable Controls</h2>
+
+                <h3>3.1 Evidence-Based Feeding Practice (Survey)</h3>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>Feeding ranges from twice daily to twice weekly; 3–5 feeds/week is most common (10/18; 56%)<sup>1</sup>. Some institutions report 1–5% body weight guidance and commonly feed clams, shrimp, squid, capelin and crab<sup>1</sup>.</p>
+                        
+                        <div class="info-box success">
+                            <h4>📊 Most Common Practice</h4>
+                            <p><strong>Frequency:</strong> 3–5 feeds/week (56% of facilities)<br>
+                            <strong>Ration:</strong> 1–5% body weight<br>
+                            <strong>Common prey:</strong> Clams, shrimp, squid, capelin, crab<sup>1</sup></p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg?w=1422&ssl=1" alt="Frozen seafood preparation for octopus feeding">
+                        <div class="image-caption">
+                            <strong>Figure 3.</strong> Frozen seafood (crab, shrimp, squid, clams) prepared with strict hygiene protocols; storage &lt;−18°C and slow refrigerator thawing essential<sup>12</sup>.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>3.2 Preventative Feed Handling (Instructional)</h3>
+                
+                <div class="info-box">
+                    <h4>❄️ Taught Guidance<sup>4</sup></h4>
+                    <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                        <li>Store foods &lt; −18 °C</li>
+                        <li>Thaw slowly in refrigerator</li>
+                        <li>Inspect before feeding</li>
+                        <li>Maintain strict hygiene</li>
                     </ul>
                 </div>
-                <div class="schedule-card">
-                    <h4>👔 Lead Aquarist/Curator — Weekly</h4>
-                    <ul>
-                        <li>Audit for dietary drift (ingredient substitutions/portion inflation/inconsistent thawing)<sup>4</sup></li>
-                        <li>Review intake trends</li>
-                    </ul>
+
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h4>👨‍🔬 Keepers/Aquarists — Every Feed</h4>
+                        <ul>
+                            <li>Record item list + mass offered and refused (weigh leftovers)<sup>1</sup></li>
+                            <li>Record time-to-feed and handling duration; note regurgitation or prolonged refusal<sup>3</sup></li>
+                            <li>Remove uneaten food promptly; log to protect water quality<sup>4</sup></li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>👔 Lead Aquarist/Curator — Weekly</h4>
+                        <ul>
+                            <li>Audit for dietary drift (ingredient substitutions/portion inflation/inconsistent thawing)<sup>4</sup></li>
+                            <li>Review intake trends</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Section 4: External Condition -->
-        <section id="external-condition">
-            <h2><span class="icon">4</span> External Condition + Behavioural Health (Scoring and Escalation)</h2>
+            <!-- Section 4: External Condition -->
+            <section id="external-condition">
+                <h2><span class="icon">4</span> External Condition + Behavioural Health (Scoring and Escalation)</h2>
 
-            <h3>4.1 Structured Scoring (1–4 Severity)</h3>
-            
-            <div class="section-with-image">
+                <h3>4.1 Structured Scoring (1–4 Severity)</h3>
+                
                 <div class="section-image full-width">
                     <img src="images/health monitoring.png" alt="Octopus health assessment showing external condition scoring">
                     <div class="image-caption">
-                        Figure 4. Structured welfare scoring (external appearance, feeding behaviour, response to stimulus) generates trendable data for early detection of decline.<sup>13</sup>
+                        <strong>Figure 4.</strong> Structured welfare scoring (external appearance, feeding behaviour, response to stimulus) generates trendable data for early detection of decline<sup>13</sup>.
                     </div>
                 </div>
-            </div>
 
-            <p>Use the <em>E. dofleini</em> welfare/health scoring approach (external appearance, feeding behaviour, response to stimulus) to generate trendable data rather than narrative notes.<sup>3</sup></p>
+                <p>Use the <em>E. dofleini</em> welfare/health scoring approach (external appearance, feeding behaviour, response to stimulus) to generate trendable data rather than narrative notes<sup>3</sup>.</p>
 
-            <div class="info-box success">
-                <h4>📋 Keepers/Aquarists — Daily<sup>3</sup></h4>
-                <ul style="margin: 0.75rem 0 0 1.25rem;">
-                    <li>Score external appearance (arms/suckers/mantle abrasions)</li>
-                    <li>Score feeding/response categories</li>
-                    <li>Photograph lesions weekly in consistent format</li>
+                <div class="info-box success">
+                    <h4>📋 Keepers/Aquarists — Daily<sup>3</sup></h4>
+                    <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                        <li>Score external appearance (arms/suckers/mantle abrasions)</li>
+                        <li>Score feeding/response categories</li>
+                        <li>Photograph lesions weekly in consistent format</li>
+                    </ul>
+                </div>
+
+                <h3>4.2 Evidence-Based Triggers</h3>
+                
+                <div class="param-box">
+                    <h4>⚠️ Watch Criteria<sup>3</sup></h4>
+                    <p class="param-value">Feeding OR response score worsens on 2 consecutive scoring events</p>
+                </div>
+
+                <div class="info-box warning">
+                    <h4>🚨 Escalation Protocol<sup>3,1,7</sup></h4>
+                    <p><strong>Upward trend persists ≥1 week</strong> → keeper + curator + vet review<br>
+                    Confirm water stability, check intake logs, and reduce disturbance</p>
+                </div>
+            </section>
+
+            <!-- Section 5: Health Risks -->
+            <section id="health-risks">
+                <h2><span class="icon">5</span> Infectious and Non-Infectious Health Risks (What to Prevent)</h2>
+
+                <h3>5.1 Gill Disease (Priority Infectious/Parasitic Risk)</h3>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>A mortality review reported branchitis in 14/19 captive GPOs, protozoa consistent with <em>Ichthyobodo</em> in 10, and moderate-to-severe branchitis associated in 9<sup>2</sup>.</p>
+                        
+                        <div class="info-box warning">
+                            <h4>⚠️ Critical Finding</h4>
+                            <p>A separate case report documents gill infection consistent with <em>Aggregata</em> spp. and DO at 99% prior to death, supporting that disease can occur despite acceptable DO<sup>9</sup>.</p>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg" alt="Octopus respiratory behavior and gill health monitoring">
+                        <div class="image-caption">
+                            <strong>Figure 5.</strong> Gill disease (branchitis) is the leading infectious cause of mortality; monitor ventilation effort and link to feeding/response scores<sup>14</sup>.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>5.2 Non-Infectious Risk Factors in Aquarium Environments</h3>
+                
+                <ul class="feature-list">
+                    <li><strong>Water-quality excursions</strong> (temperature drift, low oxygen, nitrogenous waste accumulation) are preventable system failures; facility limits and RAS nitrogen thresholds should trigger immediate checks of chiller flow, mechanical filtration, and aeration/oxygenation<sup>7,8</sup></li>
+                    <li><strong>Metal exposure</strong> is an additional preventable hazard; cephalopods are sensitive to metals (e.g., copper/tin); avoid exposed metal fittings on wet side and investigate unexplained deterioration following plumbing/equipment changes<sup>7</sup></li>
                 </ul>
-            </div>
 
-            <h3>4.2 Evidence-Based Triggers</h3>
-            
-            <div class="param-box">
-                <h4>⚠️ Watch Criteria<sup>3</sup></h4>
-                <p class="param-value">Feeding OR response score worsens on 2 consecutive scoring events</p>
-            </div>
-
-            <div class="info-box warning">
-                <h4>🚨 Escalation Protocol<sup>3,1,7</sup></h4>
-                <p><strong>Upward trend persists ≥1 week</strong> → keeper + curator + vet review<br>
-                Confirm water stability, check intake logs, and reduce disturbance</p>
-            </div>
-        </section>
-
-        <!-- Section 5: Health Risks -->
-        <section id="health-risks">
-            <h2><span class="icon">5</span> Infectious and Non-Infectious Health Risks (What to Prevent)</h2>
-
-            <h3>5.1 Gill Disease (Priority Infectious/Parasitic Risk)</h3>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>A mortality review reported branchitis in 14/19 captive GPOs, protozoa consistent with <em>Ichthyobodo</em> in 10, and moderate-to-severe branchitis associated in 9.<sup>2</sup></p>
-                    
-                    <div class="info-box warning">
-                        <h4>⚠️ Critical Finding</h4>
-                        <p>A separate case report documents gill infection consistent with <em>Aggregata</em> spp. and DO at 99% prior to death, supporting that disease can occur despite acceptable DO.<sup>9</sup></p>
+                <h3>5.3 Prevention and Monitoring (Non-Therapeutic)</h3>
+                
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h4>👨‍ Keepers/Aquarists — Daily<sup>2,3</sup></h4>
+                        <ul>
+                            <li>Record ventilation effort</li>
+                            <li>Link to feeding/response scores</li>
+                            <li>Flag sudden respiratory change with feeding decline</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="section-image">
-                    <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg" alt="Octopus respiratory behavior and gill health monitoring">
-                    <div class="image-caption">
-                        Figure 5. Gill disease (branchitis) is the leading infectious cause of mortality; monitor ventilation effort and link to feeding/response scores.<sup>14</sup>
-                    </div>
-                </div>
-            </div>
-
-            <h3>5.2 Non-Infectious Risk Factors in Aquarium Environments</h3>
-            
-            <ul class="feature-list">
-                <li><strong>Water-quality excursions</strong> (temperature drift, low oxygen, nitrogenous waste accumulation) are preventable system failures; facility limits and RAS nitrogen thresholds should trigger immediate checks of chiller flow, mechanical filtration, and aeration/oxygenation<sup>7,8</sup></li>
-                <li><strong>Metal exposure</strong> is an additional preventable hazard; cephalopods are sensitive to metals (e.g., copper/tin); avoid exposed metal fittings on wet side and investigate unexplained deterioration following plumbing/equipment changes<sup>7</sup></li>
-            </ul>
-
-            <h3>5.3 Prevention and Monitoring (Non-Therapeutic)</h3>
-            
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <h4>👨‍ Keepers/Aquarists — Daily<sup>2,3</sup></h4>
-                    <ul>
-                        <li>Record ventilation effort</li>
-                        <li>Link to feeding/response scores</li>
-                        <li>Flag sudden respiratory change with feeding decline</li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>🏥 Veterinarian — When Trends Indicate<sup>2</sup></h4>
-                    <ul>
-                        <li>Consider gill evaluation (including biopsy) when non-invasive indicators worsen</li>
-                        <li>Consistent with mortality review's emphasis on gill pathology</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: Senescence -->
-        <section id="senescence">
-            <h2><span class="icon">6</span> Senescence and End-of-Life (Preventative Planning)</h2>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Given expected short exhibit lifespan and irreversible endocrine senescence, prevention focuses on recognition and planning.<sup>5,6</sup></p>
-                    
-                    <div class="info-box">
-                        <h4>📅 Evidence-Supported Decline Window</h4>
-                        <p>Use sustained feeding decline + reduced response + progressive external deterioration scores to identify likely terminal decline.<sup>3,6</sup></p>
-                        <p style="margin-top: 0.75rem;"><strong>Actions:</strong></p>
-                        <ul style="margin: 0.5rem 0 0 1.25rem;">
-                            <li>Reduce avoidable stressors</li>
-                            <li>Plan staffing/welfare oversight</li>
-                            <li>3–4 week decline window<sup>3</sup></li>
+                    <div class="schedule-card">
+                        <h4>🏥 Veterinarian — When Trends Indicate<sup>2</sup></h4>
+                        <ul>
+                            <li>Consider gill evaluation (including biopsy) when non-invasive indicators worsen</li>
+                            <li>Consistent with mortality review's emphasis on gill pathology</li>
                         </ul>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg" alt="Octopus showing natural behavior and coloration changes">
-                    <div class="image-caption">
-                        Figure 6. Senescence is irreversible once optic-gland endocrine cascade begins; plan welfare oversight during 3–4 week decline window.<sup>15</sup>
+            </section>
+
+            <!-- Section 6: Senescence -->
+            <section id="senescence">
+                <h2><span class="icon">6</span> Senescence and End-of-Life (Preventative Planning)</h2>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>Given expected short exhibit lifespan and irreversible endocrine senescence, prevention focuses on recognition and planning<sup>5,6</sup>.</p>
+                        
+                        <div class="info-box">
+                            <h4>📅 Evidence-Supported Decline Window</h4>
+                            <p>Use sustained feeding decline + reduced response + progressive external deterioration scores to identify likely terminal decline<sup>3,6</sup>.</p>
+                            <p style="margin-top:0.6rem;"><strong>Actions:</strong></p>
+                            <ul style="margin:0.4rem 0 0 1.3rem;padding:0;">
+                                <li>Reduce avoidable stressors</li>
+                                <li>Plan staffing/welfare oversight</li>
+                                <li>3–4 week decline window<sup>3</sup></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg" alt="Octopus showing natural behavior and coloration changes">
+                        <div class="image-caption">
+                            <strong>Figure 6.</strong> Senescence is irreversible once optic-gland endocrine cascade begins; plan welfare oversight during 3–4 week decline window<sup>15</sup>.
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Section 7: Quarantine -->
-        <section id="quarantine">
-            <h2><span class="icon">7</span> Quarantine (Species-Specific): Duration, Protocol, Release Criteria</h2>
+            <!-- Section 7: Quarantine -->
+            <section id="quarantine">
+                <h2><span class="icon">7</span> Quarantine (Species-Specific): Duration, Protocol, Release Criteria</h2>
 
-            <h3>7.1 Duration (Facility Evidence)</h3>
-            
-            <div class="param-box">
-                <h4>📅 Survey Findings<sup>1</sup></h4>
-                <p><strong>Most common:</strong> 30 days (6 respondents)<br>
-                <strong>Also reported:</strong> 14–28 days and 45–60+ days<br>
-                <strong>Recommendation:</strong> Adopt ≥30 days as baseline; extend when intake concerns exist</p>
-            </div>
+                <h3>7.1 Duration (Facility Evidence)</h3>
+                
+                <div class="param-box">
+                    <h4>📅 Survey Findings<sup>1</sup></h4>
+                    <p><strong>Most common:</strong> 30 days (6 respondents)<br>
+                    <strong>Also reported:</strong> 14–28 days and 45–60+ days<br>
+                    <strong>Recommendation:</strong> Adopt ≥30 days as baseline; extend when intake concerns exist</p>
+                </div>
 
-            <h3>7.2 Protocol and Release Criteria (Instructional)</h3>
-            
-            <div class="section-with-image">
+                <h3>7.2 Protocol and Release Criteria (Instructional)</h3>
+                
                 <div class="section-image full-width">
                     <img src="https://assets.newsweek.com/wp-content/uploads/2025/08/860308-03-26-giant-pacific-octopus.jpg?w=1600&quality=80&webp=1" alt="Quarantine tank setup with monitoring equipment">
                     <div class="image-caption">
-                        Figure 7. Quarantine protocol: daily parameter logging, welfare scoring, intake quantification, and structured veterinary assessment at arrival and pre-release.<sup>16</sup>
+                        <strong>Figure 7.</strong> Quarantine protocol: daily parameter logging, welfare scoring, intake quantification, and structured veterinary assessment at arrival and pre-release<sup>16</sup>.
                     </div>
                 </div>
-            </div>
 
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <h4>👨‍ Keepers/Aquarists — Daily in Quarantine<sup>1,3,7,8</sup></h4>
-                    <ul>
-                        <li>Log temperature/salinity/pH/DO and nitrogen compounds (apply thresholds)</li>
-                        <li>Score welfare categories</li>
-                        <li>Quantify intake (offered/consumed)</li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>🏥 Veterinarian — Arrival + Pre-Release<sup>1</sup></h4>
-                    <ul>
-                        <li>Structured visual assessment at arrival</li>
-                        <li>Structured visual assessment before release</li>
-                        <li>Entrance exams common practice (71%)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="info-box success">
-                <h4>✅ Release Criteria (Minimum)<sup>3,7</sup></h4>
-                <ul style="margin: 0.75rem 0 0 1.25rem;">
-                    <li>No worsening trend in feeding score over ≥2 weeks</li>
-                    <li>No increase in external appearance score over ≥2 weeks</li>
-                    <li>Stable cold-water parameters (avoid sustained 12–13 °C)</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Section 8: Veterinary Oversight -->
-        <section id="veterinary">
-            <h2><span class="icon">8</span> Veterinary Oversight as a Preventative Factor</h2>
-            
-            <div class="section-with-image">
-                <div>
-                    <p>Because preventative vet exams are less common than reactive exams (preventative 48% vs entrance 71% in survey), implement a prevention model where:<sup>1,3</sup></p>
-                    
-                    <div class="info-box success">
-                        <h4>🔄 Prevention Model</h4>
-                        <ul style="margin: 0.75rem 0 0 1.25rem;">
-                            <li><strong>Keepers:</strong> Collect daily quantified data</li>
-                            <li><strong>Curators:</strong> Audit weekly system stability</li>
-                            <li><strong>Veterinarians:</strong> Review monthly trends and intervene when validated early-warning patterns emerge</li>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h4>👨‍ Keepers/Aquarists — Daily in Quarantine<sup>1,3,7,8</sup></h4>
+                        <ul>
+                            <li>Log temperature/salinity/pH/DO and nitrogen compounds (apply thresholds)</li>
+                            <li>Score welfare categories</li>
+                            <li>Quantify intake (offered/consumed)</li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>🏥 Veterinarian — Arrival + Pre-Release<sup>1</sup></h4>
+                        <ul>
+                            <li>Structured visual assessment at arrival</li>
+                            <li>Structured visual assessment before release</li>
+                            <li>Entrance exams common practice (71%)</li>
                         </ul>
                     </div>
                 </div>
-                <div class="section-image">
-                    <img src="https://cdn.animalchannel.co/wp-content/uploads/2024/06/28154829/GiantOcto.jpg" alt="Veterinary health assessment and data review">
-                    <div class="image-caption">
-                        Figure 8. Integrated prevention model: daily keeper data collection, weekly curator audits, and monthly veterinary trend review for early intervention.<sup>17</sup>
+
+                <div class="info-box success">
+                    <h4>✅ Release Criteria (Minimum)<sup>3,7</sup></h4>
+                    <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                        <li>No worsening trend in feeding score over ≥2 weeks</li>
+                        <li>No increase in external appearance score over ≥2 weeks</li>
+                        <li>Stable cold-water parameters (avoid sustained 12–13 °C)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 8: Veterinary Oversight -->
+            <section id="veterinary">
+                <h2><span class="icon">8</span> Veterinary Oversight as a Preventative Factor</h2>
+                
+                <div class="section-with-image">
+                    <div>
+                        <p>Because preventative vet exams are less common than reactive exams (preventative 48% vs entrance 71% in survey), implement a prevention model where:<sup>1,3</sup></p>
+                        
+                        <div class="info-box success">
+                            <h4>🔄 Prevention Model</h4>
+                            <ul style="margin:0.5rem 0 0 1.3rem;padding:0;">
+                                <li><strong>Keepers:</strong> Collect daily quantified data</li>
+                                <li><strong>Curators:</strong> Audit weekly system stability</li>
+                                <li><strong>Veterinarians:</strong> Review monthly trends and intervene when validated early-warning patterns emerge</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="section-image">
+                        <img src="https://cdn.animalchannel.co/wp-content/uploads/2024/06/28154829/GiantOcto.jpg" alt="Veterinary health assessment and data review">
+                        <div class="image-caption">
+                            <strong>Figure 8.</strong> Integrated prevention model: daily keeper data collection, weekly curator audits, and monthly veterinary trend review for early intervention<sup>17</sup>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Limitations Section (Text-Only) -->
+            <section id="limitations">
+                <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
+                
+                <div class="intro-text">
+                    <p>Preventative health strategies for <em>Enteroctopus dofleini</em> are constrained by limited species‑specific clinical data and a reliance on extrapolation from general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup>. Current thresholds for water quality and disease prevention are largely derived from system‑level management principles, meaning they prioritise stability rather than defined physiological limits<sup>1</sup>. This reduces precision in identifying subclinical stress or early pathology.</p>
+                    
+                    <div class="info-box warning">
+                        <h4>🔬 Core Constraint</h4>
+                        <p>No controlled clinical trials have established species-specific diagnostic thresholds for <em>E. dofleini</em>; current protocols rely on extrapolation from teleost models and general aquatic animal health frameworks.</p>
+                    </div>
+                </div>
+
+                <h3>Major Limitations Affecting Preventative Health Protocols</h3>
+                
+                <div class="limitation-grid">
+                    <div class="limitation-card">
+                        <h4>📊 Extrapolated Health Frameworks</h4>
+                        <p>Limited species‑specific clinical data; reliance on general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup></p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>🎯 System‑Level vs. Physiological Thresholds</h4>
+                        <p>Water quality and disease prevention thresholds derived from system‑level management principles, prioritising stability over defined physiological limits<sup>1</sup></p>
+                    </div>
+                    <div class="limitation-card critical">
+                        <h4>🔍 Predictive vs. Diagnostic Indicators</h4>
+                        <p>Many health indicators (behavioural change, feeding decline) are predictive rather than diagnostic, making it difficult to distinguish reversible conditions from irreversible senescence</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>⏱️ Lifespan Constraints on Monitoring</h4>
+                        <p>Short lifespan and rapid post‑maturation decline characteristic of octopuses limit opportunities for longitudinal monitoring or intervention<sup>9</sup></p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>🏥 Reactive vs. Preventative Veterinary Bias</h4>
+                        <p>Low frequency of routine veterinary examination in practice introduces bias toward reactive rather than preventative health management, reducing early detection capacity<sup>9</sup></p>
+                    </div>
+                </div>
+
+                <h3>Implications for Practice</h3>
+                
+                <div class="info-box success">
+                    <h4>✅ Adaptive, Observation‑Based Management</h4>
+                    <p>Given these limitations, preventative health protocols must prioritise continuous observation, trend analysis, and conservative intervention thresholds rather than rigid diagnostic criteria.</p>
+                </div>
+
+                <ul class="action-list">
+                    <li>
+                        <strong>Establish baseline behaviour:</strong> Document individual normal patterns for feeding, activity, and coloration to enable detection of subtle deviations
+                    </li>
+                    <li>
+                        <strong>Use multi‑parameter assessment:</strong> Combine water quality data, behavioural scores, and external condition checks to reduce false positives from single indicators
+                    </li>
+                    <li>
+                        <strong>Apply conservative escalation:</strong> When indicators are predictive rather than diagnostic, intervene earlier with low‑risk measures (e.g., reduce disturbance, verify water stability)
+                    </li>
+                    <li>
+                        <strong>Document decision rationale:</strong> Record why interventions were initiated to build institutional knowledge and support future evidence synthesis
+                    </li>
+                    <li>
+                        <strong>Contribute to collaborative databases:</strong> Share anonymised health and outcome data to strengthen the species‑specific evidence base over time<sup>1,9</sup>
+                    </li>
+                </ul>
+
+                <div class="research-priorities">
+                    <h4>🎯 Research Priorities to Address Limitations</h4>
+                    <ul class="priority-list">
+                        <li>
+                            <span class="priority-number">1</span>
+                            <span class="priority-text">Controlled studies to define species‑specific physiological thresholds for temperature, dissolved oxygen, and nitrogenous waste in <em>E. dofleini</em></span>
+                        </li>
+                        <li>
+                            <span class="priority-number">2</span>
+                            <span class="priority-text">Validation of behavioural and external‑appearance scoring tools against histopathological or biochemical markers of stress</span>
+                        </li>
+                        <li>
+                            <span class="priority-number">3</span>
+                            <span class="priority-text">Longitudinal multi‑institution studies to distinguish normal senescence patterns from preventable pathology</span>
+                        </li>
+                        <li>
+                            <span class="priority-number">4</span>
+                            <span class="priority-text">Development of standardised protocols for routine veterinary assessment of cephalopods in aquarium settings</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="conclusion-box">
+                    <p><strong>Summary:</strong> While current preventative health protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in diagnostic precision, threshold definition, and early‑warning interpretation. A conservative, observation‑driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species-specific knowledge<sup>1,9</sup>.</p>
+                </div>
+            </section>
+
+            <!-- Summary Box -->
+            <div class="summary-box">
+                <h2>✓ Summary: Key Preventative Health Actions</h2>
+                <div class="priority-grid">
+                    <div class="priority-card rank-1">
+                        <h3>🌡️ Water Quality</h3>
+                        <p>Maintain 6–11°C; avoid 12–13°C; monitor ammonia-N &lt;0.05, nitrite-N &lt;0.5 mg/L<sup>1,7,8</sup></p>
+                    </div>
+                    <div class="priority-card rank-2">
+                        <h3>📊 Welfare Scoring</h3>
+                        <p>Daily 1–4 severity scoring; escalate if trend persists ≥1 week<sup>3</sup></p>
+                    </div>
+                    <div class="priority-card">
+                        <h3>🦀 Feed Hygiene</h3>
+                        <p>Store &lt;−18°C; thaw in refrigerator; 3–5 feeds/week; weigh offered/refused<sup>1,4</sup></p>
+                    </div>
+                    <div class="priority-card critical">
+                        <h3>🫁 Gill Disease</h3>
+                        <p>Monitor ventilation effort; branchitis in 14/19 mortalities<sup>2</sup></p>
+                    </div>
+                    <div class="priority-card">
+                        <h3>⏱️ Quarantine</h3>
+                        <p>≥30 days baseline; stable parameters + no worsening trends for release<sup>1,3,7</sup></p>
+                    </div>
+                    <div class="priority-card">
+                        <h3>🏥 Vet Oversight</h3>
+                        <p>Monthly trend review; intervene on early-warning patterns<sup>1,3</sup></p>
                     </div>
                 </div>
             </div>
-        </section>
 
-                <!-- Limitations of Study Section - Preventative Health Page (Text-Only) -->
-        <section id="limitations">
-            <h2><span class="icon">⚠️</span> Limitations of Current Evidence Base</h2>
-            
-            <div class="intro-text">
-                <p>Preventative health strategies for <em>Enteroctopus dofleini</em> are constrained by limited species‑specific clinical data and a reliance on extrapolation from general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup>. Current thresholds for water quality and disease prevention are largely derived from system‑level management principles, meaning they prioritise stability rather than defined physiological limits<sup>1</sup>. This reduces precision in identifying subclinical stress or early pathology.</p>
-                
-                <div class="info-box warning">
-                    <h4>🔬 Core Constraint</h4>
-                    <p>No controlled clinical trials have established species-specific diagnostic thresholds for <em>E. dofleini</em>; current protocols rely on extrapolation from teleost models and general aquatic animal health frameworks.</p>
-                </div>
-            </div>
-
-            <h3>Major Limitations Affecting Preventative Health Protocols</h3>
-            
-            <div class="limitation-grid">
-                <div class="limitation-card">
-                    <h4>📊 Extrapolated Health Frameworks</h4>
-                    <p>Limited species‑specific clinical data; reliance on general aquatic health frameworks rather than controlled cephalopod studies<sup>1</sup></p>
-                </div>
-                <div class="limitation-card">
-                    <h4>🎯 System‑Level vs. Physiological Thresholds</h4>
-                    <p>Water quality and disease prevention thresholds derived from system‑level management principles, prioritising stability over defined physiological limits<sup>1</sup></p>
-                </div>
-                <div class="limitation-card critical">
-                    <h4>🔍 Predictive vs. Diagnostic Indicators</h4>
-                    <p>Many health indicators (behavioural change, feeding decline) are predictive rather than diagnostic, making it difficult to distinguish reversible conditions from irreversible senescence</p>
-                </div>
-                <div class="limitation-card">
-                    <h4>⏱️ Lifespan Constraints on Monitoring</h4>
-                    <p>Short lifespan and rapid post‑maturation decline characteristic of octopuses limit opportunities for longitudinal monitoring or intervention<sup>9</sup></p>
-                </div>
-                <div class="limitation-card">
-                    <h4>🏥 Reactive vs. Preventative Veterinary Bias</h4>
-                    <p>Low frequency of routine veterinary examination in practice introduces bias toward reactive rather than preventative health management, reducing early detection capacity<sup>9</sup></p>
-                </div>
-            </div>
-
-            <h3>Implications for Practice</h3>
-            
-            <div class="info-box success">
-                <h4>✅ Adaptive, Observation‑Based Management</h4>
-                <p>Given these limitations, preventative health protocols must prioritise continuous observation, trend analysis, and conservative intervention thresholds rather than rigid diagnostic criteria.</p>
-            </div>
-
-            <ul class="action-list">
-                <li>
-                    <strong>Establish baseline behaviour:</strong> Document individual normal patterns for feeding, activity, and coloration to enable detection of subtle deviations
-                </li>
-                <li>
-                    <strong>Use multi‑parameter assessment:</strong> Combine water quality data, behavioural scores, and external condition checks to reduce false positives from single indicators
-                </li>
-                <li>
-                    <strong>Apply conservative escalation:</strong> When indicators are predictive rather than diagnostic, intervene earlier with low‑risk measures (e.g., reduce disturbance, verify water stability)
-                </li>
-                <li>
-                    <strong>Document decision rationale:</strong> Record why interventions were initiated to build institutional knowledge and support future evidence synthesis
-                </li>
-                <li>
-                    <strong>Contribute to collaborative databases:</strong> Share anonymised health and outcome data to strengthen the species‑specific evidence base over time<sup>1,9</sup>
-                </li>
-            </ul>
-
-            <div class="research-priorities">
-                <h4 style="color: white;">🎯 Research Priorities to Address Limitations</h4>
-                <ul class="priority-list">
-                    <li>
-                        <span class="priority-number">1</span>
-                        <span class="priority-text">Controlled studies to define species‑specific physiological thresholds for temperature, dissolved oxygen, and nitrogenous waste in <em>E. dofleini</em></span>
-                    </li>
-                    <li>
-                        <span class="priority-number">2</span>
-                        <span class="priority-text">Validation of behavioural and external‑appearance scoring tools against histopathological or biochemical markers of stress</span>
-                    </li>
-                    <li>
-                        <span class="priority-number">3</span>
-                        <span class="priority-text">Longitudinal multi‑institution studies to distinguish normal senescence patterns from preventable pathology</span>
-                    </li>
-                    <li>
-                        <span class="priority-number">4</span>
-                        <span class="priority-text">Development of standardised protocols for routine veterinary assessment of cephalopods in aquarium settings</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="conclusion-box">
-                <p><strong>Summary:</strong> While current preventative health protocols for <em>Enteroctopus dofleini</em> represent the best available guidance, practitioners must acknowledge inherent uncertainties in diagnostic precision, threshold definition, and early‑warning interpretation. A conservative, observation‑driven approach—combined with systematic documentation and collaborative data sharing—is essential for safeguarding welfare while advancing species‑specific knowledge<sup>1,9</sup>.</p>
-            </div>
-        </section>
-
-        <!-- Summary Section -->
-        <div class="summary-box">
-            <h2>✓ Summary: Key Preventative Health Actions</h2>
-            <div class="priority-grid">
-                <div class="priority-card rank-1">
-                    <h3>🌡️ Water Quality</h3>
-                    <p>Maintain 6–11°C; avoid 12–13°C; monitor ammonia-N &lt;0.05, nitrite-N &lt;0.5 mg/L<sup>1,7,8</sup></p>
-                </div>
-                <div class="priority-card rank-2">
-                    <h3>📊 Welfare Scoring</h3>
-                    <p>Daily 1–4 severity scoring; escalate if trend persists ≥1 week<sup>3</sup></p>
-                </div>
-                <div class="priority-card">
-                    <h3>🦀 Feed Hygiene</h3>
-                    <p>Store &lt;−18°C; thaw in refrigerator; 3–5 feeds/week; weigh offered/refused<sup>1,4</sup></p>
-                </div>
-                <div class="priority-card critical">
-                    <h3>🫁 Gill Disease</h3>
-                    <p>Monitor ventilation effort; branchitis in 14/19 mortalities<sup>2</sup></p>
-                </div>
-                <div class="priority-card">
-                    <h3>⏱️ Quarantine</h3>
-                    <p>≥30 days baseline; stable parameters + no worsening trends for release<sup>1,3,7</sup></p>
-                </div>
-                <div class="priority-card">
-                    <h3>🏥 Vet Oversight</h3>
-                    <p>Monthly trend review; intervene on early-warning patterns<sup>1,3</sup></p>
-                </div>
-            </div>
+            <!-- References -->
+            <section class="references" id="references">
+                <h2>📚 References (Vancouver Style)</h2>
+                <ol>
+                    <li>Kirby AJ, Balko JA, Goertz CEC, Lewbart GA. Characterization of current husbandry and veterinary care practices of the giant Pacific octopus (<em>Enteroctopus dofleini</em>) using an online survey. <em>Vet Sci</em>. 2023;10(7):448. doi:10.3390/vetsci10070448.</li>
+                    <li>Seeley KE, Clayton LA, Hadfield CA, Muth D, Mankowski JL, Kelly KM. Retrospective review of mortality in giant Pacific octopus (<em>Enteroctopus dofleini</em>). <em>J Zoo Wildl Med</em>. 2016;47(1):271–4. doi:10.1638/2015-0032.1.</li>
+                    <li>Holst MM, Miller-Morgan T. The use of a species-specific health and welfare assessment tool for the giant Pacific octopus, <em>Enteroctopus dofleini</em>. <em>J Appl Anim Welf Sci</em>. 2020;23(3):256–70. doi:10.1080/10888705.2019.1672613.</li>
+                    <li>Plowman A. Applied nutrition and diet formulation [lecture material]. ANIM5012 Aquarium Health and Nutrition. Plymouth: University of Plymouth; 2026.</li>
+                    <li>Association of Zoos and Aquariums Aquatic Invertebrate Taxon Advisory Group (AITAG). Giant Pacific octopus (<em>Enteroctopus dofleini</em>) care manual. Silver Spring (MD): Association of Zoos and Aquariums; 2014.</li>
+                    <li>Wang ZY, Pergande MR, Ragsdale CW, Cologna SM. Steroid hormones of the octopus self-destruct system. <em>Curr Biol</em>. 2022;32(11):2572–9.e4. doi:10.1016/j.cub.2022.04.014.</li>
+                    <li>Slater M, Buttling O. Management guidelines for the welfare of zoo animals: the giant Pacific octopus (<em>Enteroctopus dofleini</em>). London: British and Irish Association of Zoos and Aquariums (BIAZA); 2011.</li>
+                    <li>Rawling M. ANIM5009: life support systems and aquatic animal health [lecture presentation]. Plymouth: University of Plymouth; 2026.</li>
+                    <li>Lewbart GA, Mankowski JL. Case report: gill infection consistent with <em>Aggregata</em> spp. in an adult female giant Pacific octopus (<em>Enteroctopus dofleini</em>). In: Conference on Aquatic Animal Health; 2022.</li>
+                    <li>Oregon Public Broadcasting (OPB). Giant Pacific octopus [Internet]. Portland (OR): OPB; c2024 [cited 2026 Apr 4]. Available from: https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSIMI5F4TFD2F6CWRSVWZM.JPG</li>
+                    <li>Desun-Uniwill. Water quality monitoring system for aquaculture [Internet]. Shenzhen: Desun Sensor; 2023 [cited 2026 Apr 4]. Available from: https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg</li>
+                    <li>Shutterstock. Aquaculture water quality monitoring equipment [Internet]. New York (NY): Shutterstock; 2020 [cited 2026 Apr 4]. Available from: https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg</li>
+                    <li>Holst MM, Miller-Morgan T. Species-specific health and welfare assessment tool for the giant Pacific octopus [screenshot] [Internet]. Oregon Sea Grant; 2020 [cited 2026 Apr 4]. Available from: https://seagrant.oregonstate.edu/sites/seagrant.oregonstate.edu/files/r-20-011_the_use_of_a_species_specific_health_and_welfare_assessment_tool_for_the_giant_pacific_octopus_enteroctopus_dofleini.pdf</li>
+                    <li>OctoNation. Octopus on rocky substrate (octopus mollusk) [Internet]. OctoNation; 2023 [cited 2026 Apr 4]. Available from: https://octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg</li>
+                    <li>New England Aquarium. Giant Pacific octopus (<em>Enteroctopus dofleini</em>) [Internet]. Boston (MA): New England Aquarium; 2023 [cited 2026 Apr 4]. Available from: https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg</li>
+                    <li>Newsweek. Giant Pacific octopus underwater [Internet]. New York (NY): Newsweek; 2025 [cited 2026 Apr 4]. Available from: https://assets.newsweek.com/wp-content/uploads/2025/08/860308-03-26-giant-pacific-octopus.jpg</li>
+                    <li>Animal Channel. Giant Pacific octopus in aquarium setting [Internet]. Animal Channel; c2023 [cited 2026 Apr 4]. Available from: https://animalchannel.co/aquarium-giant-pacific-octopus/</li>
+                </ol>
+            </section>
         </div>
-
-        <!-- References -->
-        <section id="references">
-            <h2>📚 References (Vancouver Style)</h2>
-            <div class="references">
-                <<ol>
-            <li>Kirby AJ, Balko JA, Goertz CEC, Lewbart GA. Characterization of current husbandry and veterinary care practices of the giant Pacific octopus (<em>Enteroctopus dofleini</em>) using an online survey. <em>Vet Sci</em>. 2023;10(7):448. doi:10.3390/vetsci10070448.</li>
-            
-            <li>Seeley KE, Clayton LA, Hadfield CA, Muth D, Mankowski JL, Kelly KM. Retrospective review of mortality in giant Pacific octopus (<em>Enteroctopus dofleini</em>). <em>J Zoo Wildl Med</em>. 2016;47(1):271–4. doi:10.1638/2015-0032.1.</li>
-            
-            <li>Holst MM, Miller-Morgan T. The use of a species-specific health and welfare assessment tool for the giant Pacific octopus, <em>Enteroctopus dofleini</em>. <em>J Appl Anim Welf Sci</em>. 2020;23(3):256–70. doi:10.1080/10888705.2019.1672613.</li>
-            
-            <li>Plowman A. Applied nutrition and diet formulation [lecture material]. ANIM5012 Aquarium Health and Nutrition. Plymouth: University of Plymouth; 2026.</li>
-            
-            <li>Association of Zoos and Aquariums Aquatic Invertebrate Taxon Advisory Group (AITAG). Giant Pacific octopus (<em>Enteroctopus dofleini</em>) care manual. Silver Spring (MD): Association of Zoos and Aquariums; 2014.</li>
-            
-            <li>Wang ZY, Pergande MR, Ragsdale CW, Cologna SM. Steroid hormones of the octopus self-destruct system. <em>Curr Biol</em>. 2022;32(11):2572–9.e4. doi:10.1016/j.cub.2022.04.014.</li>
-            
-            <li>Slater M, Buttling O. Management guidelines for the welfare of zoo animals: the giant Pacific octopus (<em>Enteroctopus dofleini</em>). London: British and Irish Association of Zoos and Aquariums (BIAZA); 2011.</li>
-            
-            <li>Rawling M. ANIM5009: life support systems and aquatic animal health [lecture presentation]. Plymouth: University of Plymouth; 2026.</li>
-            
-            <li>Lewbart GA, Mankowski JL. Case report: gill infection consistent with <em>Aggregata</em> spp. in an adult female giant Pacific octopus (<em>Enteroctopus dofleini</em>). In: Conference on Aquatic Animal Health; 2022.</li>
-            
-            <li>Oregon Public Broadcasting (OPB). Giant Pacific octopus [Internet]. Portland (OR): OPB; c2024 [cited 2026 Apr 4]. Available from: https://opb-opb-prod.cdn.arcpublishing.com/resizer/v2/MWM2BSIMI5F4TFD2F6CWRSVWZM.JPG</li>
-            
-            <li>Desun-Uniwill. Water quality monitoring system for aquaculture [Internet]. Shenzhen: Desun Sensor; 2023 [cited 2026 Apr 4]. Available from: https://disen-sensor.com/wp-content/uploads/2023/10/Water-quality-monitoring-in-aquaculture-Desun-Uniwill.jpg</li>
-            
-            <li>Shutterstock. Aquaculture water quality monitoring equipment [Internet]. New York (NY): Shutterstock; 2020 [cited 2026 Apr 4]. Available from: https://i0.wp.com/www.globaltrademag.com/wp-content/uploads/2020/05/shutterstock_image-2-4.jpg</li>
-            
-            <li>Holst MM, Miller-Morgan T. Species-specific health and welfare assessment tool for the giant Pacific octopus [screenshot] [Internet]. Oregon Sea Grant; 2020 [cited 2026 Apr 4]. Available from: https://seagrant.oregonstate.edu/sites/seagrant.oregonstate.edu/files/r-20-011_the_use_of_a_species_specific_health_and_welfare_assessment_tool_for_the_giant_pacific_octopus_enteroctopus_dofleini.pdf</li>
-            
-            <li>OctoNation. Octopus on rocky substrate (octopus mollusk) [Internet]. OctoNation; 2023 [cited 2026 Apr 4]. Available from: https://octonation.com/wp-content/uploads/2023/03/Octopus-vulgaris-mollusk-Mediterranean-sea-deposit-photos.jpg</li>
-            
-            <li>New England Aquarium. Giant Pacific octopus (<em>Enteroctopus dofleini</em>) [Internet]. Boston (MA): New England Aquarium; 2023 [cited 2026 Apr 4]. Available from: https://www.neaq.org/wp-content/uploads/2023/03/giant-pacific-octopus-header-1260x678-1.jpg</li>
-            
-            <li>Newsweek. Giant Pacific octopus underwater [Internet]. New York (NY): Newsweek; 2025 [cited 2026 Apr 4]. Available from: https://assets.newsweek.com/wp-content/uploads/2025/08/860308-03-26-giant-pacific-octopus.jpg</li>
-            
-            <li>Animal Channel. Giant Pacific octopus in aquarium setting [Internet]. Animal Channel; c2023 [cited 2026 Apr 4]. Available from: https://animalchannel.co/aquarium-giant-pacific-octopus/</li>
-        </ol>
-            </div>
-        </section>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Giant Pacific Octopus Husbandry Portfolio</p>
-        <p>Created for professional aquaculture and aquarium management</p>
-        <p style="margin-top: 1rem;">
-            <a href="diet.html">Diet & Nutrition</a> | 
-            <a href="health.html">Preventative Health</a> | 
-            <a href="enclosure.html">Enclosure Design</a> | 
-            <a href="feeding.html">Feeding Management</a>
-        </p>
+        <div class="container">
+            <p>&copy; 2026 Giant Pacific Octopus Husbandry Portfolio</p>
+            <p style="margin-top:0.4rem;opacity:0.9;">Created for professional aquaculture and aquarium management</p>
+            <p style="margin-top:0.8rem;">
+                <a href="index.html">Home</a> | 
+                <a href="feeding.html">Feeding Management</a> | 
+                <a href="enclosure.html">Enclosure Design</a>
+            </p>
+        </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">↑</div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // Mobile Navigation Toggle
+        // ===== SUB-NAVIGATION TOGGLE (Mobile) =====
+        const subnavToggle = document.getElementById('subnavToggle');
+        const subnavList = document.getElementById('subnavList');
+        
+        if (subnavToggle) {
+            subnavToggle.addEventListener('click', () => {
+                subnavList.classList.toggle('active');
+                subnavToggle.classList.toggle('active');
+            });
+        }
+
+        // ===== MOBILE MENU FUNCTIONS =====
         const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+                setTimeout(closeMobileMenu, 150);
             });
         });
 
-        // Back to Top Button
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                
+                // Handle external page links
+                if (targetId.includes('.html')) {
+                    window.location.href = targetId;
+                    return;
+                }
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    // Close menus first
+                    closeMobileMenu();
+                    if (subnavList && subnavList.classList.contains('active')) {
+                        subnavList.classList.remove('active');
+                        subnavToggle.classList.remove('active');
+                    }
+                    
+                    // Smooth scroll with header offset (accounts for both navbars)
+                    const headerOffset = 120;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active states
+                    updateActiveSection(targetId);
+                }
+            });
+        });
+
+        // Update active section highlighting
+        function updateActiveSection(sectionId) {
+            // Update subnav links
+            document.querySelectorAll('.subnav-list a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeSubnavLink = document.querySelector(`.subnav-list a[href="${sectionId}"]`);
+            if (activeSubnavLink) activeSubnavLink.classList.add('active');
+            
+            // Update mobile menu links
+            document.querySelectorAll('.mobile-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeMobileLink = document.querySelector(`.mobile-links a[href="${sectionId}"]`);
+            if (activeMobileLink) activeMobileLink.classList.add('active');
+        }
+
+        // Scroll spy: highlight active section as user scrolls
+        const sections = document.querySelectorAll('section[id]');
+        const subnavLinks = document.querySelectorAll('.subnav-list a');
+        const mobileLinks = document.querySelectorAll('.mobile-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 150; // Offset for both navbars
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = `#${section.getAttribute('id')}`;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+            
+            // Update subnav active state
+            subnavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update mobile menu active state
+            mobileLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== BACK TO TOP BUTTON =====
         const backToTop = document.getElementById('backToTop');
 
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+            if (window.pageYOffset > 350) {
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
@@ -1627,32 +1926,11 @@
         });
 
         backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // ===== ANIMATION ON SCROLL =====
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1662,34 +1940,31 @@
             });
         }, observerOptions);
 
-        // Observe all sections
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            section.style.transform = 'translateY(15px)';
+            section.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
             observer.observe(section);
         });
 
-        // Active navigation highlighting based on scroll position
-        const sections = document.querySelectorAll('section[id]');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
+        // ===== CLOSE MOBILE MENU ON RESIZE =====
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+                if (subnavList) {
+                    subnavList.classList.remove('active');
+                    subnavToggle.classList.remove('active');
                 }
-            });
+            }
+        });
 
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', () => {
+            closeMobileMenu();
+            if (subnavList) subnavList.classList.remove('active');
+            if (subnavToggle) subnavToggle.classList.remove('active');
         });
     </script>
 </body>
 </html>
+```
